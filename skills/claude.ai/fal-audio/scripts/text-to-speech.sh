@@ -9,7 +9,7 @@ set -e
 FAL_API_ENDPOINT="https://fal.run"
 
 # Default values
-MODEL="fal-ai/minimax/speech-2.6-turbo"
+MODEL="fal-ai/minimax/speech-2.8-turbo"
 TEXT=""
 VOICE=""
 
@@ -63,7 +63,7 @@ while [[ $# -gt 0 ]]; do
             echo "" >&2
             echo "Options:" >&2
             echo "  --text          Text to convert (required)" >&2
-            echo "  --model         Model ID (default: fal-ai/maya-tts)" >&2
+            echo "  --model         Model ID (default: fal-ai/minimax/speech-2.8-turbo)" >&2
             echo "  --voice         Voice ID (model-specific)" >&2
             echo "  --add-fal-key   Setup FAL_KEY in .env" >&2
             exit 0

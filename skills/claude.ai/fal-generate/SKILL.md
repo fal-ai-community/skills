@@ -89,7 +89,7 @@ bash generate.sh --cancel "request_id" --model "fal-ai/veo3.1"
 ### Show Logs During Generation
 
 ```bash
-bash generate.sh --prompt "A sunset" --model "fal-ai/flux/dev" --logs
+bash generate.sh --prompt "A sunset" --model "fal-ai/nano-banana-pro" --logs
 # Status: IN_QUEUE (position: 2)
 # Status: IN_PROGRESS
 #   > Loading model...
@@ -149,7 +149,7 @@ bash generate.sh --image-url "https://example.com/image.jpg" ...
 | Argument | Description | Default |
 |----------|-------------|---------|
 | `--prompt`, `-p` | Text description | (required) |
-| `--model`, `-m` | Model ID | `fal-ai/flux/dev` |
+| `--model`, `-m` | Model ID | `fal-ai/nano-banana-pro` |
 | `--image-url` | Input image URL for I2V | - |
 | `--file`, `--image` | Local file (auto-uploads) | - |
 | `--size` | `square`, `portrait`, `landscape` | `landscape_4_3` |
@@ -178,47 +178,22 @@ bash generate.sh --image-url "https://example.com/image.jpg" ...
 | `--lifecycle N` | Object expiration in seconds | - |
 | `--schema [MODEL]` | Get OpenAPI schema | - |
 
-## Recommended Models
+## Finding Models
 
-### Text-to-Image
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/nano-banana-pro` | **Best overall** - T2I and editing |
-| `fal-ai/flux-2-turbo` | Open source, high quality |
-| `fal-ai/flux-2-klein-9b` | Open source, fast |
-| `fal-ai/flux/dev` | Good balance (default) |
-| `fal-ai/flux/schnell` | ~1 second |
-| `fal-ai/ideogram/v3` | Best for text rendering |
-
-### Text-to-Video
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/veo3.1` | High quality |
-| `fal-ai/bytedance/seedance/v1/pro` | Fast, good quality |
-| `fal-ai/sora-2/pro` | OpenAI Sora |
-| `fal-ai/kling-video/v2.5-turbo/pro` | Fast, reliable |
-| `fal-ai/minimax/hailuo-02/pro` | Good for characters |
-
-### Image-to-Video
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/kling-video/v2.6/pro/image-to-video` | **Best overall** |
-| `fal-ai/veo3/fast` | Fast, high quality |
-| `fal-ai/bytedance/seedance/v1.5/pro/image-to-video` | Smooth motion |
-| `fal-ai/minimax/hailuo-02/standard/image-to-video` | Good balance |
-
-## Search Models
+To discover the best and latest models, use the search API:
 
 ```bash
+# Search by category
+bash search-models.sh --category "text-to-image"
+bash search-models.sh --category "text-to-video"
+bash search-models.sh --category "image-to-video"
+
 # Search by keyword
 bash search-models.sh --query "flux"
-
-# Filter by category
-bash search-models.sh --category "text-to-video"
+bash search-models.sh --query "kling video"
 ```
+
+Or use the `search_models` MCP tool with relevant keywords.
 
 **Categories:** `text-to-image`, `image-to-image`, `text-to-video`, `image-to-video`, `text-to-speech`, `speech-to-text`
 

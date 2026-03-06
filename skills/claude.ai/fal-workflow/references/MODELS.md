@@ -166,7 +166,7 @@ Detailed configuration and usage for all supported models in fal.ai workflows.
 ### MMAudio (Video to Audio)
 ```json
 {
-  "app": "fal-ai/mmaudio",
+  "app": "fal-ai/mmaudio-v2",
   "input": {
     "video_url": "$node-video.video.url",
     "prompt": "Ambient nature sounds"
@@ -275,7 +275,7 @@ Clone a voice from audio sample, then use the cloned voice ID in MiniMax Speech.
 | Model | App ID | Notes |
 |-------|--------|-------|
 | MiniMax Speech 2.6 Turbo | `fal-ai/minimax/speech-2.6-turbo` | Fast |
-| Chatterbox | `fal-ai/chatterbox/multilingual` | Multi-language |
+| Chatterbox | `fal-ai/chatterbox/text-to-speech/multilingual` | Multi-language |
 
 ---
 

@@ -17,25 +17,22 @@ Upscale and enhance image resolution using state-of-the-art AI models.
 3. Sends request to fal.ai API
 4. Returns upscaled image URL
 
-## Image Upscale Models
+## Finding Models
 
-| Model | Scale | Best For |
-|-------|-------|----------|
-| `fal-ai/aura-sr` | 4x | General upscaling, fast |
-| `fal-ai/clarity-upscaler` | 2-4x | Detail preservation |
-| `fal-ai/creative-upscaler` | 2-4x | Creative enhancement |
+To discover the best and latest upscaling models, use the search API:
 
-## Video Upscale Models
+```bash
+# Search for image upscale models
+bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "upscale image"
 
-| Model | Notes |
-|-------|-------|
-| `fal-ai/video-upscaler` | General purpose |
-| `fal-ai/topaz/upscale/video` | **Premium quality** |
-| `fal-ai/bria/video/increase-resolution` | Fast |
-| `fal-ai/flashvsr` | Real-time |
-| `fal-ai/seedvr/upscale/video` | High fidelity |
-| `fal-ai/bytedance-upscaler` | Good balance |
-| `fal-ai/simalabs/sima-video-upscaler-lite` | Lightweight |
+# Search for video upscale models
+bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "upscale video"
+
+# Search for super-resolution models
+bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "super resolution"
+```
+
+Or use the `search_models` MCP tool with keywords like "upscale", "super resolution", "enhance".
 
 ## Usage
 
@@ -74,15 +71,7 @@ bash /mnt/skills/user/fal-upscale/scripts/upscale.sh \
 
 ## MCP Tool Alternative
 
-If MCP tools are available, prefer using:
-```
-mcp__fal-ai__generate({
-  modelId: "fal-ai/aura-sr",
-  input: {
-    image_url: "https://example.com/image.jpg"
-  }
-})
-```
+Use `search_models` MCP tool or `search-models.sh` to find the best current upscaling model, then call `mcp__fal-ai__generate` with the discovered `modelId`.
 
 ## Output
 
@@ -116,22 +105,11 @@ Here's your upscaled image:
 • 512×512 → 2048×2048 (4x)
 ```
 
-## Model Selection Guide
+## Model Selection Tips
 
-**AuraSR** (`fal-ai/aura-sr`)
-- Best for: Quick upscaling, general images
-- Speed: ~2 seconds
-- Fixed 4x scale
-
-**Clarity Upscaler** (`fal-ai/clarity-upscaler`)
-- Best for: Preserving fine details
-- Speed: ~5 seconds
-- Configurable scale (2x or 4x)
-
-**Creative Upscaler** (`fal-ai/creative-upscaler`)
-- Best for: Adding artistic detail
-- Speed: ~10 seconds
-- Enhances while upscaling
+- **Image upscaling**: Search for "upscale image" or "super resolution". Consider speed vs quality tradeoffs.
+- **Video upscaling**: Search for "upscale video". Premium models offer better quality but cost more.
+- Scale factors typically range from 2x to 4x depending on the model.
 
 ## Troubleshooting
 

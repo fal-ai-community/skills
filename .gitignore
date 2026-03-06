@@ -1,5 +1,4 @@
+node_modules/
 .DS_Store
-
-# API Keys
+*.zip
 .env
-*.env

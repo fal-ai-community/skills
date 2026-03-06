@@ -46,7 +46,7 @@ Get pricing for any model:
 bash /mnt/skills/user/fal-platform/scripts/pricing.sh --model "fal-ai/flux/dev"
 
 # Multiple models
-bash /mnt/skills/user/fal-platform/scripts/pricing.sh --model "fal-ai/flux/dev,fal-ai/kling-video/v2.1/pro"
+bash /mnt/skills/user/fal-platform/scripts/pricing.sh --model "fal-ai/flux/dev,fal-ai/kling-video/v2/master/text-to-video"
 
 # All pricing for a category
 bash /mnt/skills/user/fal-platform/scripts/pricing.sh --category "text-to-image"
@@ -58,7 +58,7 @@ fal-ai/flux/dev
   Price: $0.025 per image
   Unit: image
 
-fal-ai/kling-video/v2.1/pro
+fal-ai/kling-video/v2/master/text-to-video
   Price: $0.50 per second
   Unit: video_second
 ```
@@ -95,7 +95,7 @@ bash /mnt/skills/user/fal-platform/scripts/estimate-cost.sh \
 
 # Estimate by units
 bash /mnt/skills/user/fal-platform/scripts/estimate-cost.sh \
-  --model "fal-ai/kling-video/v2.1/pro" \
+  --model "fal-ai/kling-video/v2/master/text-to-video" \
   --units 60 \
   --type "unit_price"
 ```

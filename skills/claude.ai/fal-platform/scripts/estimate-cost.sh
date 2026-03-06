@@ -57,7 +57,7 @@ while [[ $# -gt 0 ]]; do
             echo "" >&2
             echo "Examples:" >&2
             echo "  ./estimate-cost.sh --model \"fal-ai/flux/dev\" --calls 100" >&2
-            echo "  ./estimate-cost.sh --model \"fal-ai/kling-video/v2.1/pro\" --units 60" >&2
+            echo "  ./estimate-cost.sh --model \"fal-ai/kling-video/v2/master/text-to-video\" --units 60" >&2
             exit 0
             ;;
         *)

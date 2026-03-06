@@ -171,23 +171,6 @@ Generate **100% working, production-ready fal.ai workflow JSON files**. Workflow
 
 ---
 
-## Default Models
-
-| Task | Default Model |
-|------|---------------|
-| Image generation | `fal-ai/nano-banana-pro` |
-| Image editing | `fal-ai/nano-banana-pro/edit` |
-| Video (I2V) | `fal-ai/bytedance/seedance/v1.5/pro/image-to-video` |
-| Text LLM | `openrouter/router` with `google/gemini-2.5-flash` |
-| Vision LLM | `openrouter/router/vision` with `google/gemini-3-pro-preview` |
-| Music | `fal-ai/elevenlabs/music` |
-| Upscale | `fal-ai/seedvr/upscale/image` |
-| Text concat (2 texts) | `fal-ai/text-concat` |
-| Text merge (array) | `fal-ai/workflow-utilities/merge-text` |
-| Video merge | `fal-ai/ffmpeg-api/merge-videos` |
-| Audio+Video merge | `fal-ai/ffmpeg-api/merge-audio-video` |
-| Frame extract | `fal-ai/ffmpeg-api/extract-frame` |
-
 ---
 
 ## Quick Reference Card
@@ -205,24 +188,7 @@ Generate **100% working, production-ready fal.ai workflow JSON files**. Workflow
 | Music | `$node.audio_file.url` |
 | Frame Extract | `$node.frame.url` |
 
-### Common App IDs
-
-```
-fal-ai/nano-banana-pro
-fal-ai/nano-banana-pro/edit
-fal-ai/text-concat
-fal-ai/workflow-utilities/merge-text
-fal-ai/bytedance/seedance/v1.5/pro/image-to-video
-fal-ai/kling-video/o1/image-to-video
-fal-ai/kling-video/v2.6/pro/image-to-video
-fal-ai/elevenlabs/music
-fal-ai/ffmpeg-api/merge-videos
-fal-ai/ffmpeg-api/merge-audio-video
-fal-ai/ffmpeg-api/extract-frame
-fal-ai/seedvr/upscale/image
-openrouter/router
-openrouter/router/vision
-```
+Use `search-models.sh` or `search_models` MCP tool to discover current models. See `references/MODELS.md` for workflow code templates.
 
 ---
 

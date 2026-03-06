@@ -70,7 +70,7 @@ while [[ $# -gt 0 ]]; do
             echo "" >&2
             echo "Examples:" >&2
             echo "  ./get-schema.sh --model \"fal-ai/flux-pro/v1.1-ultra\"" >&2
-            echo "  ./get-schema.sh --model \"fal-ai/kling-video/v2.1/pro/image-to-video\" --input" >&2
+            echo "  ./get-schema.sh --model \"fal-ai/kling-video/v2.6/pro/image-to-video\" --input" >&2
             exit 0
             ;;
         *)

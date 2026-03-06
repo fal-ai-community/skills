@@ -17,34 +17,22 @@ Text-to-speech and speech-to-text using state-of-the-art audio models on fal.ai.
 3. Sends request to fal.ai API
 4. Returns audio URL (TTS) or transcription text (STT)
 
-## Text-to-Speech Models
+## Finding Models
 
-| Model | Notes |
-|-------|-------|
-| `fal-ai/minimax/speech-2.6-hd` | **Best quality** |
-| `fal-ai/minimax/speech-2.6-turbo` | Fast, good quality |
-| `fal-ai/elevenlabs/eleven-v3` | Natural voices |
-| `fal-ai/chatterbox/multilingual` | Multi-language, fast |
-| `fal-ai/kling-video/v1/tts` | For video sync |
+To discover the best and latest audio models, use the search API:
 
-## Text-to-Music Models
+```bash
+# Search for text-to-speech models
+bash /mnt/skills/user/fal-generate/scripts/search-models.sh --category "text-to-speech"
 
-| Model | Notes |
-|-------|-------|
-| `fal-ai/minimax-music/v2` | **Best quality** |
-| `fal-ai/minimax-music/v1.5` | Fast |
-| `fal-ai/lyria2` | Google's model |
-| `fal-ai/elevenlabs/music` | Song generation |
-| `fal-ai/sonauto/v2` | Instrumental |
-| `fal-ai/ace-step` | Short clips |
-| `fal-ai/beatoven` | Background music |
+# Search for speech-to-text models
+bash /mnt/skills/user/fal-generate/scripts/search-models.sh --category "speech-to-text"
 
-## Speech-to-Text Models
+# Search for music generation models
+bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "music generation"
+```
 
-| Model | Features | Speed |
-|-------|----------|-------|
-| `fal-ai/whisper` | Multi-language, timestamps | Fast |
-| `fal-ai/elevenlabs/scribe` | Speaker diarization | Medium |
+Or use the `search_models` MCP tool with relevant keywords like "tts", "speech", "music".
 
 ## Usage
 
@@ -56,7 +44,7 @@ bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh [options]
 
 **Arguments:**
 - `--text` - Text to convert to speech (required)
-- `--model` - TTS model (defaults to `fal-ai/minimax/speech-2.6-turbo`)
+- `--model` - TTS model (defaults to `fal-ai/minimax/speech-2.8-turbo`)
 - `--voice` - Voice ID or name (model-specific)
 
 **Examples:**
@@ -69,17 +57,17 @@ bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
 # High quality with MiniMax HD
 bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
   --text "This is premium quality speech." \
-  --model "fal-ai/minimax/speech-2.6-hd"
+  --model "fal-ai/minimax/speech-2.8-hd"
 
 # Natural voices with ElevenLabs
 bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
   --text "Natural sounding voice generation" \
-  --model "fal-ai/elevenlabs/eleven-v3"
+  --model "fal-ai/elevenlabs/tts/eleven-v3"
 
 # Multi-language TTS
 bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
   --text "Bonjour, bienvenue dans le futur." \
-  --model "fal-ai/chatterbox/multilingual"
+  --model "fal-ai/chatterbox/text-to-speech/multilingual"
 ```
 
 ### Speech-to-Text
@@ -103,7 +91,7 @@ bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh \
 # Transcribe with speaker diarization
 bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh \
   --audio-url "https://example.com/meeting.mp3" \
-  --model "fal-ai/elevenlabs/scribe"
+  --model "fal-ai/elevenlabs/speech-to-text/scribe-v2"
 
 # Transcribe specific language
 bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh \
@@ -113,32 +101,14 @@ bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh \
 
 ## MCP Tool Alternative
 
-### Text-to-Speech
-```javascript
-mcp__fal-ai__generate({
-  modelId: "fal-ai/minimax/speech-2.6-turbo",
-  input: {
-    text: "Hello, welcome to the future of AI."
-  }
-})
-```
-
-### Speech-to-Text
-```javascript
-mcp__fal-ai__generate({
-  modelId: "fal-ai/whisper",
-  input: {
-    audio_url: "https://example.com/audio.mp3"
-  }
-})
-```
+Use `search_models` MCP tool or `search-models.sh` to find the best current model, then call `mcp__fal-ai__generate` with the discovered `modelId`.
 
 ## Output
 
 ### Text-to-Speech Output
 ```
 Generating speech...
-Model: fal-ai/minimax/speech-2.6-turbo
+Model: fal-ai/minimax/speech-2.8-turbo
 
 Speech generated!
 
@@ -178,51 +148,11 @@ Here's the transcription:
 • Duration: 12.5s | Language: English
 ```
 
-## Model Selection Guide
+## Model Selection Tips
 
-### Text-to-Speech
-
-**MiniMax Speech 2.6 HD** (`fal-ai/minimax/speech-2.6-hd`)
-- Best for: Premium quality requirements
-- Quality: **Highest**
-- Speed: Medium
-
-**MiniMax Speech 2.6 Turbo** (`fal-ai/minimax/speech-2.6-turbo`)
-- Best for: General use with good quality
-- Quality: High
-- Speed: Fast
-
-**ElevenLabs v3** (`fal-ai/elevenlabs/eleven-v3`)
-- Best for: Natural, realistic voices
-- Quality: High
-- Features: Many voice options
-
-**Chatterbox Multilingual** (`fal-ai/chatterbox/multilingual`)
-- Best for: Multi-language support
-- Quality: Good
-- Speed: Fast
-
-### Text-to-Music
-
-**MiniMax Music v2** (`fal-ai/minimax-music/v2`)
-- Best for: High quality music generation
-- Quality: **Highest**
-
-**Lyria2** (`fal-ai/lyria2`)
-- Best for: Google's music model
-- Quality: High
-
-### Speech-to-Text
-
-**Whisper** (`fal-ai/whisper`)
-- Best for: General transcription, timestamps
-- Languages: 99+ languages
-- Features: Word-level timestamps
-
-**ElevenLabs Scribe** (`fal-ai/elevenlabs/scribe`)
-- Best for: Multi-speaker recordings
-- Features: Speaker diarization
-- Quality: Professional-grade
+- **Text-to-Speech**: Search for `text-to-speech` category. Consider quality vs speed tradeoffs.
+- **Text-to-Music**: Search for `music generation`. Some models specialize in vocals, others in instrumental.
+- **Speech-to-Text**: Search for `speech-to-text` category. Consider whether you need speaker diarization or multi-language support.
 
 ## Troubleshooting
 

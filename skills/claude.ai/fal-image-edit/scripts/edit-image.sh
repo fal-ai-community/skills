@@ -111,13 +111,13 @@ case $OPERATION in
         MODEL="fal-ai/flux/dev/image-to-image"
         ;;
     remove)
-        MODEL="bria/fibo-edit"
+        MODEL="bria/eraser"
         ;;
     background)
-        MODEL="fal-ai/flux-kontext"
+        MODEL="fal-ai/flux-pro/kontext"
         ;;
     inpaint)
-        MODEL="fal-ai/flux/dev/inpainting"
+        MODEL="fal-ai/flux-lora-fill"
         if [ -z "$MASK_URL" ]; then
             echo "Error: --mask-url is required for inpainting" >&2
             exit 1

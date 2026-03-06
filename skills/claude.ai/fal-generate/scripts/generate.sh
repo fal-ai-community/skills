@@ -15,7 +15,7 @@ FAL_SYNC_ENDPOINT="https://fal.run"
 FAL_TOKEN_ENDPOINT="https://rest.alpha.fal.ai/storage/auth/token?storage_type=fal-cdn-v3"
 
 # Default values
-MODEL="fal-ai/flux/dev"
+MODEL="fal-ai/nano-banana-pro"
 PROMPT=""
 IMAGE_URL=""
 IMAGE_FILE=""
@@ -147,7 +147,7 @@ while [[ $# -gt 0 ]]; do
             echo "" >&2
             echo "Generation Options:" >&2
             echo "  --prompt, -p    Text description (required for generate)" >&2
-            echo "  --model, -m     Model ID (default: fal-ai/flux/dev)" >&2
+            echo "  --model, -m     Model ID (default: fal-ai/nano-banana-pro)" >&2
             echo "  --image-url     Input image URL for I2V models" >&2
             echo "  --file, --image Local file (auto-uploads to fal CDN)" >&2
             echo "  --size          square, portrait, landscape" >&2
@@ -173,7 +173,7 @@ while [[ $# -gt 0 ]]; do
             echo "" >&2
             echo "Examples:" >&2
             echo "  # Generate image (waits for completion)" >&2
-            echo "  ./generate.sh --prompt \"a sunset\" --model \"fal-ai/flux/dev\"" >&2
+            echo "  ./generate.sh --prompt \"a sunset\" --model \"fal-ai/nano-banana-pro\"" >&2
             echo "" >&2
             echo "  # Generate video async (returns immediately)" >&2
             echo "  ./generate.sh --prompt \"ocean waves\" --model \"fal-ai/veo3\" --async" >&2

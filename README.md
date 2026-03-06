@@ -1,271 +1,120 @@
-# Agent Skills
+# fal.ai Skills
 
-A collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities.
+Agent skills for [fal.ai](https://fal.ai) — ready-to-use bash scripts that let AI agents generate images, videos, audio, 3D models, and more.
 
-Skills follow the [Agent Skills](https://agentskills.io/) format.
+Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://claude.ai/claude-code), and any agent platform that supports the community skills format.
 
-## Installation
+## Skills
 
-```bash
-npx skills add fal-ai-community/skills
-```
+### Core
 
-## Available Skills
+| Skill | Description | Scripts |
+|-------|-------------|---------|
+| **[fal-generate](skills/claude.ai/fal-generate)** | Generate images and videos with queue support | `generate.sh`, `upload.sh`, `search-models.sh`, `get-schema.sh` |
+| **[fal-image-edit](skills/claude.ai/fal-image-edit)** | Edit images — style transfer, object removal, background change, inpainting | `edit-image.sh` |
+| **[fal-audio](skills/claude.ai/fal-audio)** | Text-to-speech and speech-to-text | `text-to-speech.sh`, `speech-to-text.sh` |
+| **[fal-upscale](skills/claude.ai/fal-upscale)** | Upscale and enhance image resolution | `upscale.sh` |
 
-### fal-generate
+### Specialized Models
 
-Generate images and videos using fal.ai's AI models with full queue support.
+| Skill | Description | Scripts |
+|-------|-------------|---------|
+| **[fal-kling-o3](skills/claude.ai/fal-kling-o3)** | Kling O3 — highest quality photorealistic images and video editing | `kling-generate.sh`, `kling-video.sh` |
+| **[fal-realtime](skills/claude.ai/fal-realtime)** | Real-time/streaming generation (~0.3s per image) | `realtime.sh` |
 
-**Use when:**
-- "Generate an image of..."
-- "Create a video"
-- "Search for models"
-- "Check generation status"
+### Video & Animation
 
-**Scripts:**
-- `generate.sh` - Generate images/videos (queue-based by default)
-- `upload.sh` - Upload local files to fal CDN
-- `search-models.sh` - Search and discover models
-- `get-schema.sh` - Get OpenAPI schema for any model
+| Skill | Description | Scripts |
+|-------|-------------|---------|
+| **[fal-video-edit](skills/claude.ai/fal-video-edit)** | Edit videos — remix, upscale, remove background, add audio | `edit-video.sh`, `video-audio.sh` |
+| **[fal-lip-sync](skills/claude.ai/fal-lip-sync)** | Talking head, lip sync, live portrait | `talking-head.sh`, `lip-sync.sh` |
 
-**Key Features:**
-- Queue mode (default) - reliable for long-running tasks
-- `--file` - Auto-upload local files to CDN
-- `--async` - Submit and return immediately with request_id
-- `--status/--result/--cancel` - Queue operations
+### Creative & Production
 
-### fal-platform
+| Skill | Description | Scripts |
+|-------|-------------|---------|
+| **[fal-3d](skills/claude.ai/fal-3d)** | Text/image to 3D model generation | `generate-3d.sh` |
+| **[fal-vision](skills/claude.ai/fal-vision)** | Image analysis — segment, detect, OCR, describe | `analyze.sh` |
+| **[fal-restore](skills/claude.ai/fal-restore)** | Restore image quality — deblur, denoise, fix faces | `restore.sh` |
+| **[fal-tryon](skills/claude.ai/fal-tryon)** | Virtual clothing try-on | `tryon.sh` |
+| **[fal-train](skills/claude.ai/fal-train)** | Train custom LoRA models | `train.sh` |
 
-Platform management: pricing, usage, cost estimation.
+### Platform & Utilities
 
-**Use when:**
-- "Show pricing"
-- "Check usage"
-- "Estimate cost"
-- "Setup fal key"
+| Skill | Description | Scripts |
+|-------|-------------|---------|
+| **[fal-platform](skills/claude.ai/fal-platform)** | Pricing, usage tracking, cost estimation, API key setup | `pricing.sh`, `usage.sh`, `estimate-cost.sh`, `setup.sh`, `requests.sh` |
+| **[fal-workflow](skills/claude.ai/fal-workflow)** | Create multi-step model pipelines | `create-workflow.sh` |
 
-**Scripts:**
-- `setup.sh` - Configure FAL_KEY (`--add-fal-key`)
-- `pricing.sh` - Get model pricing
-- `usage.sh` - Check usage and billing
-- `estimate-cost.sh` - Cost estimation
-- `requests.sh` - List/manage requests
+## Setup
 
-### fal-upscale
+### 1. Get your API key
 
-Upscale and enhance image resolution.
+Sign up at [fal.ai/dashboard/keys](https://fal.ai/dashboard/keys).
 
-**Use when:**
-- "Upscale this image"
-- "Enhance resolution"
-
-**Models:** AuraSR, Clarity Upscaler, SeedVR
-
-### fal-workflow
-
-Generate production-ready fal.ai workflow JSON files.
-
-**Use when:**
-- "Create a workflow"
-- "Chain models"
-- "Multi-step pipeline"
-
-**Features:** Node-based pipelines, LLM + Image + Video + Audio chaining
-
-### fal-audio
-
-Text-to-speech and speech-to-text.
-
-**Use when:**
-- "Convert text to speech"
-- "Transcribe audio"
-
-**Scripts:** `text-to-speech.sh`, `speech-to-text.sh`
-
-### fal-image-edit
-
-Image editing: style transfer, object removal, backgrounds.
-
-**Use when:**
-- "Edit this image"
-- "Remove object"
-- "Change background"
-
-## Getting Your API Key
-
-1. Go to [fal.ai/dashboard/keys](https://fal.ai/dashboard/keys)
-2. Create a new API key
-
-**Key Types:**
-| Key Type | Use For |
-|----------|---------|
-| **Normal API Key** | Image/video generation, model inference |
-| **Admin API Key** | Usage tracking, pricing info, billing data |
-
-> **Note:** For `pricing.sh`, `usage.sh`, and `estimate-cost.sh`, you need an **Admin API Key**. Generation scripts work with any key type.
-
-## Recommended Models
-
-### Text-to-Image & Image Editing
-
-| Model | Best For |
-|-------|----------|
-| `fal-ai/nano-banana-pro` | **Best overall** - T2I and image editing |
-| `fal-ai/flux-2-turbo` | Open source, high quality |
-| `fal-ai/flux-2-klein-9b` | Open source, fast |
-
-### Text-to-Video
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/veo3.1` | High quality |
-| `fal-ai/bytedance/seedance/v1/pro` | Fast, good quality |
-| `fal-ai/sora-2/pro` | OpenAI Sora |
-| `fal-ai/kling-video/v2.5-turbo/pro` | Fast, reliable |
-| `fal-ai/minimax/hailuo-02/pro` | Good for characters |
-| `fal-ai/pixverse/v5` | Creative styles |
-
-### Image-to-Video
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/kling-video/v2.6/pro` | **Best overall** |
-| `fal-ai/veo3/fast` | Fast, high quality |
-| `fal-ai/minimax/hailuo-02/standard` | Good balance |
-| `fal-ai/bytedance/seedance/v1.5/pro` | Smooth motion |
-| `fal-ai/wan-25-preview` | Experimental |
-
-### Start + End Frame I2V
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/veo3.1/first-last-frame` | Best quality |
-| `fal-ai/kling-video/v2.6/pro` | Reliable |
-| `fal-ai/bytedance/seedance/v1.5/pro` | Good transitions |
-| `fal-ai/minimax/hailuo-02/pro` | Fast |
-| `fal-ai/pixverse/v5/transition` | Creative |
-
-### Video Upscale
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/video-upscaler` | General purpose |
-| `fal-ai/topaz/upscale/video` | Premium quality |
-| `fal-ai/bria/video/increase-resolution` | Fast |
-| `fal-ai/flashvsr` | Real-time |
-| `fal-ai/seedvr/upscale/video` | High fidelity |
-
-### Video Background Removal
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/bria/video/background-removal` | Best quality |
-| `fal-ai/birefnet/v2/video` | Fast |
-
-### Text-to-Speech
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/minimax/speech-2.6-hd` | **Best quality** |
-| `fal-ai/minimax/speech-2.6-turbo` | Fast, good quality |
-| `fal-ai/elevenlabs/eleven-v3` | Natural voices |
-| `fal-ai/chatterbox/multilingual` | Multi-language |
-| `fal-ai/kling-video/v1/tts` | Video sync |
-
-### Text-to-Music
-
-| Model | Notes |
-|-------|-------|
-| `fal-ai/minimax-music/v2` | Best quality |
-| `fal-ai/minimax-music/v1.5` | Fast |
-| `fal-ai/lyria2` | Google's model |
-| `fal-ai/elevenlabs/music` | Song generation |
-| `fal-ai/sonauto/v2` | Instrumental |
-| `fal-ai/ace-step` | Short clips |
-| `fal-ai/beatoven` | Background music |
-
-## Quick Start
-
-### 1. Setup API Key
+### 2. Set the key
 
 ```bash
-# Any script supports --add-fal-key
-bash generate.sh --add-fal-key "your_key_here"
-
-# Or use dedicated setup
-bash setup.sh --add-fal-key
+export FAL_KEY=your_key_here
 ```
 
-### 2. Generate Content
+Or use the built-in setup:
 
 ```bash
-# Image (queue mode - waits for completion)
-bash generate.sh --prompt "a sunset over mountains" --model "fal-ai/nano-banana-pro"
-
-# Image-to-Video with local file (auto-uploads)
-bash generate.sh --file "photo.jpg" --model "fal-ai/kling-video/v2.6/pro/image-to-video" --prompt "zoom in"
-
-# Video async (returns immediately with request_id)
-bash generate.sh --prompt "ocean waves" --model "fal-ai/veo3.1" --async
-
-# Check status / get result
-bash generate.sh --status "request_id" --model "fal-ai/veo3.1"
-bash generate.sh --result "request_id" --model "fal-ai/veo3.1"
+bash scripts/generate.sh --add-fal-key
 ```
 
-### 3. Get Model Schema (OpenAPI)
+### 3. Use with Claude.ai
+
+Upload skills to a Claude.ai Project:
+1. Go to your project settings
+2. Add skills from the `claude.ai/` directory
+3. Make sure `*.fal.ai` is in your allowed domains under `claude.ai/settings/capabilities`
+
+### 4. Use with any agent
+
+Every skill is a standalone bash script. Call them directly:
 
 ```bash
-# Get model parameters before generating
-bash get-schema.sh --model "fal-ai/nano-banana-pro"
+# Generate an image
+bash skills/claude.ai/fal-generate/scripts/generate.sh \
+  --prompt "A serene mountain landscape" \
+  --model "fal-ai/nano-banana-pro"
 
-# Or via generate.sh
-bash generate.sh --schema "fal-ai/kling-video/v2.6/pro/image-to-video"
+# Generate a video
+bash skills/claude.ai/fal-generate/scripts/generate.sh \
+  --prompt "Ocean waves crashing on rocks" \
+  --model "fal-ai/veo3.1" \
+  --async
 
-# API endpoint
-curl "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai/nano-banana-pro"
+# Edit an image
+bash skills/claude.ai/fal-image-edit/scripts/edit-image.sh \
+  --image-url "https://example.com/photo.jpg" \
+  --prompt "Convert to anime style" \
+  --operation style
+
+# Text to speech
+bash skills/claude.ai/fal-audio/scripts/text-to-speech.sh \
+  --text "Hello world"
+
+# Search for models
+bash skills/claude.ai/fal-generate/scripts/search-models.sh \
+  --query "text to video"
 ```
 
-### 4. Check Pricing & Usage
+## Skill Format
 
-> **Note:** Requires Admin API Key
+Each skill follows the community skills standard:
 
-```bash
-# Pricing
-bash pricing.sh --model "fal-ai/nano-banana-pro"
-
-# Usage
-bash usage.sh
-
-# Estimate cost
-bash estimate-cost.sh --model "fal-ai/nano-banana-pro" --calls 100
+```
+claude.ai/
+└── skill-name/
+    ├── SKILL.md          # Metadata + documentation (YAML frontmatter)
+    └── scripts/
+        └── script.sh     # Executable bash script
 ```
 
-## Common Flags
-
-All fal.ai scripts support:
-
-| Flag | Description |
-|------|-------------|
-| `--add-fal-key [KEY]` | Setup FAL_KEY in .env |
-| `--help`, `-h` | Show help |
-| `--json` | Raw JSON output |
-| `--schema [MODEL]` | Get OpenAPI schema (generate.sh) |
-
-## Environment Setup
-
-```bash
-# Option 1: Export directly
-export FAL_KEY=your_api_key_here
-
-# Option 2: Use .env file
-echo "FAL_KEY=your_key" >> .env
-
-# Option 3: Use --add-fal-key flag
-bash generate.sh --add-fal-key
-```
-
-For claude.ai, add `*.fal.ai` to allowed domains at `claude.ai/settings/capabilities`.
+The `SKILL.md` contains a YAML frontmatter with `name`, `description`, and `metadata`, followed by usage documentation that the agent reads to understand how to use the skill.
 
 ## License
 
