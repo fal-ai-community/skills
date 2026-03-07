@@ -23,13 +23,13 @@ To discover the best and latest image editing models, use the search API:
 
 ```bash
 # Search for image editing models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --category "image-to-image"
+bash <skills-root>/fal-generate/scripts/search-models.sh --category "image-to-image"
 
 # Search for specific editing capabilities
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "image editing"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "inpainting"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "object removal"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "background removal"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "image editing"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "inpainting"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "object removal"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "background removal"
 ```
 
 Or use the `search_models` MCP tool with relevant keywords.
@@ -47,7 +47,7 @@ Or use the `search_models` MCP tool with relevant keywords.
 ## Usage
 
 ```bash
-bash /mnt/skills/user/fal-image-edit/scripts/edit-image.sh [options]
+bash <skills-root>/fal-image-edit/scripts/edit-image.sh [options]
 ```
 
 **Arguments:**
@@ -61,25 +61,25 @@ bash /mnt/skills/user/fal-image-edit/scripts/edit-image.sh [options]
 
 ```bash
 # Style transfer
-bash /mnt/skills/user/fal-image-edit/scripts/edit-image.sh \
+bash <skills-root>/fal-image-edit/scripts/edit-image.sh \
   --image-url "https://example.com/photo.jpg" \
   --prompt "Convert to anime style" \
   --operation style
 
 # Remove object
-bash /mnt/skills/user/fal-image-edit/scripts/edit-image.sh \
+bash <skills-root>/fal-image-edit/scripts/edit-image.sh \
   --image-url "https://example.com/photo.jpg" \
   --prompt "Remove the person on the left" \
   --operation remove
 
 # Change background
-bash /mnt/skills/user/fal-image-edit/scripts/edit-image.sh \
+bash <skills-root>/fal-image-edit/scripts/edit-image.sh \
   --image-url "https://example.com/portrait.jpg" \
   --prompt "Place in a tropical beach setting" \
   --operation background
 
 # Inpainting with mask
-bash /mnt/skills/user/fal-image-edit/scripts/edit-image.sh \
+bash <skills-root>/fal-image-edit/scripts/edit-image.sh \
   --image-url "https://example.com/photo.jpg" \
   --mask-url "https://example.com/mask.png" \
   --prompt "Fill with flowers" \

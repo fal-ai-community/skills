@@ -43,10 +43,10 @@ To discover the best and latest 3D generation models, use the search API:
 
 ```bash
 # Search for image-to-3D models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --category "image-to-3d"
+bash <skills-root>/fal-generate/scripts/search-models.sh --category "image-to-3d"
 
 # Search for text-to-3D models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "text to 3d"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "text to 3d"
 ```
 
 Or use the `search_models` MCP tool with relevant keywords like "3d", "mesh", "image-to-3d".

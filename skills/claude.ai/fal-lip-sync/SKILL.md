@@ -60,13 +60,13 @@ To discover the best and latest lip sync and talking head models, use the search
 
 ```bash
 # Search for talking head models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "talking head"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "talking head"
 
 # Search for lip sync models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "lip sync"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "lip sync"
 
 # Search for live portrait / expression transfer
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "live portrait"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "live portrait"
 ```
 
 Or use the `search_models` MCP tool with relevant keywords like "lip sync", "talking head", "avatar".

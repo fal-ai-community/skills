@@ -23,13 +23,13 @@ To discover the best and latest audio models, use the search API:
 
 ```bash
 # Search for text-to-speech models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --category "text-to-speech"
+bash <skills-root>/fal-generate/scripts/search-models.sh --category "text-to-speech"
 
 # Search for speech-to-text models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --category "speech-to-text"
+bash <skills-root>/fal-generate/scripts/search-models.sh --category "speech-to-text"
 
 # Search for music generation models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "music generation"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "music generation"
 ```
 
 Or use the `search_models` MCP tool with relevant keywords like "tts", "speech", "music".
@@ -39,7 +39,7 @@ Or use the `search_models` MCP tool with relevant keywords like "tts", "speech",
 ### Text-to-Speech
 
 ```bash
-bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh [options]
+bash <skills-root>/fal-audio/scripts/text-to-speech.sh [options]
 ```
 
 **Arguments:**
@@ -51,21 +51,21 @@ bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh [options]
 
 ```bash
 # Basic TTS (fast, good quality)
-bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
+bash <skills-root>/fal-audio/scripts/text-to-speech.sh \
   --text "Hello, welcome to the future of AI."
 
 # High quality with MiniMax HD
-bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
+bash <skills-root>/fal-audio/scripts/text-to-speech.sh \
   --text "This is premium quality speech." \
   --model "fal-ai/minimax/speech-2.8-hd"
 
 # Natural voices with ElevenLabs
-bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
+bash <skills-root>/fal-audio/scripts/text-to-speech.sh \
   --text "Natural sounding voice generation" \
   --model "fal-ai/elevenlabs/tts/eleven-v3"
 
 # Multi-language TTS
-bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
+bash <skills-root>/fal-audio/scripts/text-to-speech.sh \
   --text "Bonjour, bienvenue dans le futur." \
   --model "fal-ai/chatterbox/text-to-speech/multilingual"
 ```
@@ -73,7 +73,7 @@ bash /mnt/skills/user/fal-audio/scripts/text-to-speech.sh \
 ### Speech-to-Text
 
 ```bash
-bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh [options]
+bash <skills-root>/fal-audio/scripts/speech-to-text.sh [options]
 ```
 
 **Arguments:**
@@ -85,16 +85,16 @@ bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh [options]
 
 ```bash
 # Transcribe with Whisper
-bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh \
+bash <skills-root>/fal-audio/scripts/speech-to-text.sh \
   --audio-url "https://example.com/audio.mp3"
 
 # Transcribe with speaker diarization
-bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh \
+bash <skills-root>/fal-audio/scripts/speech-to-text.sh \
   --audio-url "https://example.com/meeting.mp3" \
   --model "fal-ai/elevenlabs/speech-to-text/scribe-v2"
 
 # Transcribe specific language
-bash /mnt/skills/user/fal-audio/scripts/speech-to-text.sh \
+bash <skills-root>/fal-audio/scripts/speech-to-text.sh \
   --audio-url "https://example.com/spanish.mp3" \
   --language "es"
 ```

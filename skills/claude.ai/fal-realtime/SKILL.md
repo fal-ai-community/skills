@@ -53,9 +53,9 @@ To discover the best and latest real-time generation models, use the search API:
 
 ```bash
 # Search for real-time / fast image generation models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "realtime"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "fast image"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --category "text-to-image"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "realtime"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "fast image"
+bash <skills-root>/fal-generate/scripts/search-models.sh --category "text-to-image"
 ```
 
 Or use the `search_models` MCP tool with keywords like "realtime", "fast", "schnell", "turbo".

@@ -236,7 +236,7 @@ Before outputting any workflow, verify:
 ### Using Script
 
 ```bash
-bash /mnt/skills/user/fal-workflow/scripts/create-workflow.sh \
+bash <skills-root>/fal-workflow/scripts/create-workflow.sh \
   --name "my-workflow" \
   --title "My Workflow Title" \
   --nodes '[...]' \

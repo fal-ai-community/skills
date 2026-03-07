@@ -48,6 +48,9 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 
 ## Setup
 
+> **Path note:** In skill docs, commands may use `<skills-root>/...` as a portable placeholder.
+> Replace it with your local skills directory (for example, `skills/claude.ai` in this repo).
+
 ### 1. Get your API key
 
 Sign up at [fal.ai/dashboard/keys](https://fal.ai/dashboard/keys).

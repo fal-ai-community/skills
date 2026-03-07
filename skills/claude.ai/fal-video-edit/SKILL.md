@@ -67,17 +67,17 @@ To discover the best and latest video editing models, use the search API:
 
 ```bash
 # Search for video editing models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "video editing"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "video-to-video"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "video editing"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "video-to-video"
 
 # Search for video upscaling
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "upscale video"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "upscale video"
 
 # Search for video background removal
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "video background removal"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "video background removal"
 
 # Search for video audio generation
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "video to audio"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "video to audio"
 ```
 
 Or use the `search_models` MCP tool with keywords like "video edit", "video remix", "video upscale", "video audio".

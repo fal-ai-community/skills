@@ -52,9 +52,9 @@ To discover the best and latest training/LoRA models, use the search API:
 
 ```bash
 # Search for LoRA training models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "lora training"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "trainer"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "fine-tune"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "lora training"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "trainer"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "fine-tune"
 ```
 
 Or use the `search_models` MCP tool with keywords like "lora", "training", "trainer", "fine-tune".

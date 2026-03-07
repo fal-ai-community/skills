@@ -58,17 +58,17 @@ To discover the best and latest vision/analysis models, use the search API:
 
 ```bash
 # Search for segmentation models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "segmentation"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "segmentation"
 
 # Search for object detection models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "object detection"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "object detection"
 
 # Search for OCR models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "ocr"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "ocr"
 
 # Search for image captioning / visual QA models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "caption"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "visual question"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "caption"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "visual question"
 ```
 
 Or use the `search_models` MCP tool with keywords like "segmentation", "detection", "ocr", "caption", "vision".

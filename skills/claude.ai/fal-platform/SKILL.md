@@ -26,13 +26,13 @@ Platform APIs for model management, pricing, usage tracking, and cost estimation
 
 ```bash
 # Interactive setup
-bash /mnt/skills/user/fal-platform/scripts/setup.sh --add-fal-key
+bash <skills-root>/fal-platform/scripts/setup.sh --add-fal-key
 
 # Set key directly
-bash /mnt/skills/user/fal-platform/scripts/setup.sh --add-fal-key "your_key_here"
+bash <skills-root>/fal-platform/scripts/setup.sh --add-fal-key "your_key_here"
 
 # Show current config
-bash /mnt/skills/user/fal-platform/scripts/setup.sh --show-config
+bash <skills-root>/fal-platform/scripts/setup.sh --show-config
 ```
 
 This adds FAL_KEY to your `.env` file for persistent use.
@@ -43,13 +43,13 @@ Get pricing for any model:
 
 ```bash
 # Single model pricing
-bash /mnt/skills/user/fal-platform/scripts/pricing.sh --model "fal-ai/flux/dev"
+bash <skills-root>/fal-platform/scripts/pricing.sh --model "fal-ai/flux/dev"
 
 # Multiple models
-bash /mnt/skills/user/fal-platform/scripts/pricing.sh --model "fal-ai/flux/dev,fal-ai/kling-video/v2/master/text-to-video"
+bash <skills-root>/fal-platform/scripts/pricing.sh --model "fal-ai/flux/dev,fal-ai/kling-video/v2/master/text-to-video"
 
 # All pricing for a category
-bash /mnt/skills/user/fal-platform/scripts/pricing.sh --category "text-to-image"
+bash <skills-root>/fal-platform/scripts/pricing.sh --category "text-to-image"
 ```
 
 **Output:**
@@ -69,16 +69,16 @@ Check your usage and spending:
 
 ```bash
 # Current period usage
-bash /mnt/skills/user/fal-platform/scripts/usage.sh
+bash <skills-root>/fal-platform/scripts/usage.sh
 
 # Filter by model
-bash /mnt/skills/user/fal-platform/scripts/usage.sh --model "fal-ai/flux/dev"
+bash <skills-root>/fal-platform/scripts/usage.sh --model "fal-ai/flux/dev"
 
 # Date range
-bash /mnt/skills/user/fal-platform/scripts/usage.sh --start "2024-01-01" --end "2024-01-31"
+bash <skills-root>/fal-platform/scripts/usage.sh --start "2024-01-01" --end "2024-01-31"
 
 # Specific timeframe
-bash /mnt/skills/user/fal-platform/scripts/usage.sh --timeframe "day"
+bash <skills-root>/fal-platform/scripts/usage.sh --timeframe "day"
 ```
 
 **Timeframes:** `minute`, `hour`, `day`, `week`, `month`
@@ -89,12 +89,12 @@ Estimate costs before running:
 
 ```bash
 # Estimate by API calls (historical pricing)
-bash /mnt/skills/user/fal-platform/scripts/estimate-cost.sh \
+bash <skills-root>/fal-platform/scripts/estimate-cost.sh \
   --model "fal-ai/flux/dev" \
   --calls 100
 
 # Estimate by units
-bash /mnt/skills/user/fal-platform/scripts/estimate-cost.sh \
+bash <skills-root>/fal-platform/scripts/estimate-cost.sh \
   --model "fal-ai/kling-video/v2/master/text-to-video" \
   --units 60 \
   --type "unit_price"
@@ -113,10 +113,10 @@ List and manage requests:
 
 ```bash
 # List recent requests
-bash /mnt/skills/user/fal-platform/scripts/requests.sh --model "fal-ai/flux/dev" --limit 10
+bash <skills-root>/fal-platform/scripts/requests.sh --model "fal-ai/flux/dev" --limit 10
 
 # Delete request payloads (cleanup)
-bash /mnt/skills/user/fal-platform/scripts/requests.sh --delete "request_id_here"
+bash <skills-root>/fal-platform/scripts/requests.sh --delete "request_id_here"
 ```
 
 ## API Endpoints Reference
@@ -148,7 +148,7 @@ All scripts support these common flags:
 ```
 Error: FAL_KEY required for this operation
 
-Run: bash /mnt/skills/user/fal-platform/scripts/setup.sh --add-fal-key
+Run: bash <skills-root>/fal-platform/scripts/setup.sh --add-fal-key
 ```
 
 ### Permission Denied

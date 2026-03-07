@@ -44,9 +44,9 @@ To discover the best and latest virtual try-on models, use the search API:
 
 ```bash
 # Search for try-on models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "try-on"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "virtual tryon"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "garment"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "try-on"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "virtual tryon"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "garment"
 ```
 
 Or use the `search_models` MCP tool with keywords like "try-on", "tryon", "garment", "fashion".

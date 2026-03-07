@@ -23,13 +23,13 @@ To discover the best and latest upscaling models, use the search API:
 
 ```bash
 # Search for image upscale models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "upscale image"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "upscale image"
 
 # Search for video upscale models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "upscale video"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "upscale video"
 
 # Search for super-resolution models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "super resolution"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "super resolution"
 ```
 
 Or use the `search_models` MCP tool with keywords like "upscale", "super resolution", "enhance".
@@ -37,7 +37,7 @@ Or use the `search_models` MCP tool with keywords like "upscale", "super resolut
 ## Usage
 
 ```bash
-bash /mnt/skills/user/fal-upscale/scripts/upscale.sh [options]
+bash <skills-root>/fal-upscale/scripts/upscale.sh [options]
 ```
 
 **Arguments:**
@@ -49,22 +49,22 @@ bash /mnt/skills/user/fal-upscale/scripts/upscale.sh [options]
 
 ```bash
 # Image upscale with AuraSR (4x, fast)
-bash /mnt/skills/user/fal-upscale/scripts/upscale.sh \
+bash <skills-root>/fal-upscale/scripts/upscale.sh \
   --image-url "https://example.com/image.jpg"
 
 # Image upscale with Clarity (detail preservation)
-bash /mnt/skills/user/fal-upscale/scripts/upscale.sh \
+bash <skills-root>/fal-upscale/scripts/upscale.sh \
   --image-url "https://example.com/image.jpg" \
   --model "fal-ai/clarity-upscaler" \
   --scale 2
 
 # Video upscale (general purpose)
-bash /mnt/skills/user/fal-upscale/scripts/upscale.sh \
+bash <skills-root>/fal-upscale/scripts/upscale.sh \
   --video-url "https://example.com/video.mp4" \
   --model "fal-ai/video-upscaler"
 
 # Video upscale (premium quality)
-bash /mnt/skills/user/fal-upscale/scripts/upscale.sh \
+bash <skills-root>/fal-upscale/scripts/upscale.sh \
   --video-url "https://example.com/video.mp4" \
   --model "fal-ai/topaz/upscale/video"
 ```

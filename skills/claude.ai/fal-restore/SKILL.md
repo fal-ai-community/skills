@@ -53,11 +53,11 @@ To discover the best and latest image restoration models, use the search API:
 
 ```bash
 # Search for restoration models
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "restore"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "deblur"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "denoise"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "face restoration"
-bash /mnt/skills/user/fal-generate/scripts/search-models.sh --query "document"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "restore"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "deblur"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "denoise"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "face restoration"
+bash <skills-root>/fal-generate/scripts/search-models.sh --query "document"
 ```
 
 Or use the `search_models` MCP tool with keywords like "restore", "deblur", "denoise", "face fix", "document".

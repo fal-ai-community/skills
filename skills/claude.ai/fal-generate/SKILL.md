@@ -38,7 +38,7 @@ User Request → Queue Submit → Poll Status → Get Result
 ## Generate Content
 
 ```bash
-bash /mnt/skills/user/fal-generate/scripts/generate.sh [options]
+bash <skills-root>/fal-generate/scripts/generate.sh [options]
 ```
 
 ### Basic Usage (Queue Mode)
