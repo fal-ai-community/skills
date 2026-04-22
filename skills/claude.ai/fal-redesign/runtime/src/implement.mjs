@@ -52,6 +52,13 @@ function cleanupHtml(text) {
   let t = text.trim().replace(/^```(?:html)?\s*/i, "").replace(/```\s*$/, "").trim();
   const i = t.search(/<!doctype html>/i);
   if (i > 0) t = t.slice(i);
+  // Strip anything after the closing </html> — opus sometimes appends a
+  // leaked ```tiles code fence (or other commentary) past the document end,
+  // which then renders as visible text in the browser. Truncate at </html>.
+  const endMatch = t.match(/<\/html\s*>/i);
+  if (endMatch && endMatch.index !== undefined) {
+    t = t.slice(0, endMatch.index + endMatch[0].length);
+  }
   if (!/<!doctype html>/i.test(t)) {
     throw new Error(`implementer did not return a full HTML document: ${t.slice(0, 200)}`);
   }
