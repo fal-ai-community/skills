@@ -33,6 +33,7 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 
 | Skill | Description | Scripts |
 |-------|-------------|---------|
+| **[fal-redesign](skills/claude.ai/fal-redesign)** | Redesign a coded website end-to-end — screenshot, mockup, build-spec, HTML implementation, demo video | `upgrade.sh`, `describe.sh`, `iterate.sh`, `generate.sh` |
 | **[fal-3d](skills/claude.ai/fal-3d)** | Text/image to 3D model generation | `generate-3d.sh` |
 | **[fal-vision](skills/claude.ai/fal-vision)** | Image analysis — segment, detect, OCR, describe | `analyze.sh` |
 | **[fal-restore](skills/claude.ai/fal-restore)** | Restore image quality — deblur, denoise, fix faces | `restore.sh` |

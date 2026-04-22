@@ -1,0 +1,4 @@
+node_modules/
+fal-site-out/
+.fal-site-upgrade/
+.DS_Store
