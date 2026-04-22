@@ -1,0 +1,33 @@
+{
+  "name": "fal-site",
+  "version": "0.1.0",
+  "description": "Generate N Awwwards/FWA-tier single-file HTML site variations from any context, powered by fal.ai LLMs + gpt-image-2.",
+  "type": "module",
+  "bin": {
+    "fal-site": "bin/fal-site.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node bin/fal-site.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "keywords": [
+    "fal",
+    "ai",
+    "design",
+    "awwwards",
+    "site-generator"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@fal-ai/client": "^1.9.5",
+    "puppeteer": "^24.42.0",
+    "sharp": "^0.34.5"
+  }
+}
