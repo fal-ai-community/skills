@@ -1,4 +1,4 @@
-# fal-redesign
+# fal redesign
 
 **Turn any coded website into award-tier editorial design — in one command.**
 
