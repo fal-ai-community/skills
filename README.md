@@ -10,6 +10,7 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 
 | Skill | Description | Scripts |
 |-------|-------------|---------|
+| **[fal-redesign](skills/claude.ai/fal-redesign)** | Redesign a coded website end-to-end — screenshot, mockup, build-spec, HTML implementation, demo video | `upgrade.sh`, `describe.sh`, `iterate.sh`, `generate.sh` |
 | **[fal-generate](skills/claude.ai/fal-generate)** | Generate images and videos with queue support | `generate.sh`, `upload.sh`, `search-models.sh`, `get-schema.sh` |
 | **[fal-image-edit](skills/claude.ai/fal-image-edit)** | Edit images — style transfer, object removal, background change, inpainting | `edit-image.sh` |
 | **[fal-audio](skills/claude.ai/fal-audio)** | Text-to-speech and speech-to-text | `text-to-speech.sh`, `speech-to-text.sh` |
@@ -33,7 +34,6 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 
 | Skill | Description | Scripts |
 |-------|-------------|---------|
-| **[fal-redesign](skills/claude.ai/fal-redesign)** | Redesign a coded website end-to-end — screenshot, mockup, build-spec, HTML implementation, demo video | `upgrade.sh`, `describe.sh`, `iterate.sh`, `generate.sh` |
 | **[fal-3d](skills/claude.ai/fal-3d)** | Text/image to 3D model generation | `generate-3d.sh` |
 | **[fal-vision](skills/claude.ai/fal-vision)** | Image analysis — segment, detect, OCR, describe | `analyze.sh` |
 | **[fal-restore](skills/claude.ai/fal-restore)** | Restore image quality — deblur, denoise, fix faces | `restore.sh` |
