@@ -67,36 +67,45 @@ async function uploadLocal(path) {
   return await fal.storage.upload(file);
 }
 
-const EDIT_PROMPT_SYSTEM = `You are a senior web art director. You are writing ONE prompt for the gpt-image-2 image-editing model that will transform the attached screenshot into a considered, production-quality redesign of the same website.
+const EDIT_PROMPT_SYSTEM = `You are a senior web art director. You are writing ONE prompt for the gpt-image-2 image-editing model that will transform the attached screenshot into a production-quality redesign of the same website. The redesign must be better than the original; everything else is open.
 
-Before you write one word of the prompt, do this silent four-step brand analysis:
+Before you write one word of the prompt, do this silent brand analysis. Let the BRAND and its CONTENT decide every visual choice — do not default to any one style (editorial, minimal, brutalist, illustrated, photographic). The goal is the right move for this specific product, not your signature move.
 
-STEP 1 — Who is this for?
-Identify the product category (e.g. B2B SaaS inventory tool, editorial photography portfolio, DTC specialty food, consumer wellness app, developer infra, indie newsletter, volunteer community org). Identify the audience (technical buyer, creative professional, casual consumer, hobbyist, researcher). Identify the emotional posture the brand needs (trust, energy, calm, credibility, wonder, irreverence, warmth, precision).
+STEP 1 — Read the content.
+What product is this? Who buys it? What is the emotional register it needs (trust, energy, calm, credibility, wonder, irreverence, warmth, precision, playfulness, craft, hacker, family)? Is the page a utility, a portfolio, a shopfront, a tool, a manifesto, a subscription, a game, a gadget? Write an internal one-sentence brand summary.
 
-STEP 2 — What palette fits this brand?
-Pick a palette because the BRAND calls for it, not because it's "different from the original" and not because it's a currently-trendy art direction. Fintech-adjacent tools usually want trust + clarity (ink-on-bone, cool steel + precise accent). Editorial / photography wants refined neutral anchors (deep ink, warm paper, single punchy accent). Specialty food / crafts wants earth tones + a product-matching accent. Developer tools want either monochromatic precision (charcoal + single mono accent) or dark-terminal energy (obsidian + one vivid neon). Wellness wants soft, low-saturation, calming. Community / volunteer projects want warm, human, tactile. A good palette makes the reader feel what the brand is about within a second. Produce 4–6 hex values and, in one sentence each, state why they serve the brand.
+STEP 2 — Decide the primary visual carrier.
+This is the big choice. Pick ONE of the following based on the brand, not on fashion:
+  (a) The PRODUCT as a hero image — a large rendered or illustrated object that IS the page's visual focal point (physical goods, instruments, gadgets, wearables, apps-as-objects).
+  (b) PHOTOGRAPHY — a single well-framed still or a rhythmic pair, documentary or product-shot or moody, depending on the brand.
+  (c) ILLUSTRATION / CHARACTERS / MASCOTS — playful, cel-shaded, retro-game, childlike, hand-drawn, or mascot-led when the brand is playful, collectible, character-driven, consumer-social, or explicitly whimsical.
+  (d) TYPOGRAPHY — oversized display type as the visual — only when the brand is text-first (a slow-media product, a manifesto, a newsletter, a literary object, an editorial/serif-leaning product).
+  (e) DIAGRAM / INFORMATION GRAPHIC — when the product is technical and the information itself is the story.
+  (f) GRAPHIC SYSTEM — flat abstract marks, color blocks, grid tiles — when the brand wants calm, modern, pattern-led.
+Name the choice and justify in one sentence. Do NOT default to (d) typography. Do NOT default to (a) product-hero. The brand decides.
 
-STEP 3 — What typography pairing fits?
-Pick exactly ONE display voice and ONE body voice. The pairing must match the palette and brand: e.g. serious fintech → crisp neo-grotesk display + humanist sans body; editorial photography → high-contrast didone display + serif body; developer tool → bold mono-style sans display + geometric sans body; wellness → soft rounded display + calm humanist body. Do NOT default to Instrument-Serif-plus-Inter. Name a specific font family (or a recognizable family-style, e.g. "a didone like GT Super", "a neo-grotesk like Söhne").
+STEP 3 — Palette.
+Pick 3–6 hex values. The palette must fit the brand's register (bright primaries for a playful game, deep ink for a slow-media tool, earthy naturals for a craft product, neon on black for a hacker tool, warm pastels for wellness, etc.). Avoid palettes that ignore the brand (e.g. austere-ink-on-white for a playful children's game is wrong; bright cartoon colors for a premium precision instrument is wrong). No palette is banned, no palette is defaulted.
 
-STEP 4 — What layout rhythm fits?
-Decide between: tight editorial magazine spread / confident asymmetric grid / full-bleed image-led / dense dashboard-style / rhythmic single-column / bauhaus-primary blocks. Pick whichever most honors the brand's temperature.
+STEP 4 — Typography.
+Pick ONE display and ONE body. The pairing must match the brand register — rounded chunky sans for playful, serif with voice for considered/literary, neo-grotesk for precision tools, pixel/mono for retro or technical, hand-lettered for tactile/crafty. Typography in the redesign must be in service of the primary visual carrier chosen in Step 2 — if imagery or illustration is carrying the page, keep typography tighter and quieter; if typography is the carrier, make it oversized and confident.
 
-Only NOW write the single gpt-image-2 edit prompt. It must be a concrete edit-instruction to the image model — not a critique and not generic advice. Every sentence describes a specific, visible change to apply while preserving:
+STEP 5 — Layout rhythm.
+Choose the layout that serves the hero: a full-bleed image page, a tight editorial single-column, an asymmetric magazine spread, a centered-object product page, a gridded catalogue, a comic-strip sequence, a data-dense dashboard, a playful non-grid playground. Pick, do not default.
+
+Only NOW write the single gpt-image-2 edit prompt. It must be a concrete edit-instruction to the image model — not a critique, not generic advice. Every sentence describes a specific, visible change to apply while preserving:
 - the brand name and all copy visible in the screenshot (verbatim — do not drop text, do not invent text),
 - the information architecture (nav items, section order, CTA semantics).
 
 Specify, in flowing art-director sentences:
-1. The palette: 4–6 hex values and where each is used (bg, surface, display text, body text, muted, primary accent, line).
-2. The typography: exact family/family-style names for display and body, plus size/case/tracking notes for the hero.
-3. The layout move: how the grid rebalances, how sections are paced vertically, any structural shift.
-4. Component detail: buttons, chips, badges, dividers, counters, avatars — what they should look like.
-5. Imagery treatment: how photography, illustration, or texture appears. If the site has images, describe how they feel (documentary, product-shot, abstract, 3D, grainy, etc.).
+1. The primary visual carrier (from Step 2) — describe the hero image, illustration, photograph, diagram, or typographic move in concrete visual detail so the image model can render it.
+2. The palette: 3–6 hex values and where each is used.
+3. The typography: display + body family names, size/case/tracking for the hero.
+4. The layout move: how the grid rebalances, how sections are paced, any structural shift.
+5. Component detail: buttons, chips, badges, dividers, illustrated accents — how they look in the chosen register.
+6. Any supporting imagery or graphical elements beyond the hero (secondary illustrations, textures, diagrammatic icons, pattern tiles).
 
-HARD BAN (unless the brand-analysis above explicitly argues for it): do NOT pick a cream/ivory/bone/beige/taupe/oat/sand/parchment background. These palettes are a default the model falls into; they bore everyone. Pick a background that is actively hued (deep ink, charcoal, near-black, cobalt, terracotta, forest, plum, obsidian, steel, slate, saturated white-not-cream) — something with a visible temperature. If the brand is a fintech/B2B tool, deep ink or steel beats cream. If it's a developer product, charcoal or obsidian beats cream. If it's wellness, pale-blue or sage beats cream. Only specialty-food, editorial-print-heritage, or deliberately "artisanal" brands earn cream — and even then, the accent must be vivid.
-
-Output ONLY the prompt text. 350–700 words. No preamble, no markdown, no bullet lists — write it as flowing art-director copy. Open by naming the chosen palette with hexes and the typography pairing. End with: "Render as a tall desktop web page screenshot, 1920x2880 portrait (showing hero + below-the-fold sections), no browser chrome, no device frame, no watermark, razor-sharp text, no broken glyphs, no duplicated words. DO NOT use cream, ivory, beige, oat, taupe, bone, parchment or sand backgrounds. The palette named above is the absolute law."`;
+Output ONLY the prompt text. 350–700 words. No preamble, no markdown, no bullet lists — write it as flowing art-director copy. Open by naming the primary visual carrier choice + the palette hexes + the typography pairing. End with: "Render as a tall desktop web page screenshot, 1920x2880 portrait (showing hero + below-the-fold sections), no browser chrome, no device frame, no watermark, razor-sharp text, no broken glyphs, no duplicated words."`;
 
 export async function writeEditPrompt({ screenshotUrl, context, direction }) {
   const userMsg = [
@@ -413,10 +422,10 @@ export async function upgradeSite({ target, outDir, context, variants = 1 }) {
   mkdirSync(outDir, { recursive: true });
 
   const beforePath = join(outDir, "before.png");
-  console.error(`[fal-redesign upgrade] 1/${variants > 1 ? "3" : "4"} screenshotting ${target} → ${beforePath}`);
+  console.error(`[fal-design upgrade] 1/${variants > 1 ? "3" : "4"} screenshotting ${target} → ${beforePath}`);
   await screenshotHtml(target, beforePath);
 
-  console.error(`[fal-redesign upgrade] 2/${variants > 1 ? "3" : "4"} uploading screenshot`);
+  console.error(`[fal-design upgrade] 2/${variants > 1 ? "3" : "4"} uploading screenshot`);
   const beforeUrl = await uploadLocal(beforePath);
 
   if (variants > 1) {
@@ -432,17 +441,17 @@ export async function upgradeSite({ target, outDir, context, variants = 1 }) {
   // If FAL_SITE_DIRECTION is set, pickDirections returns [match]; otherwise we leave
   // direction undefined so the prompt defaults to freeform brand-analysis.
   const forced = process.env.FAL_SITE_DIRECTION ? pickDirections(1)[0] : undefined;
-  console.error(`[fal-redesign upgrade] 3/4 VLM#1 (opus-4.7) → edit prompt${forced ? ` (direction: ${forced.slug})` : ""}`);
+  console.error(`[fal-design upgrade] 3/4 VLM#1 (opus-4.7) → edit prompt${forced ? ` (direction: ${forced.slug})` : ""}`);
   const editPrompt = await writeEditPrompt({ screenshotUrl: beforeUrl, context, direction: forced });
   writeFileSync(editPromptPath, editPrompt);
 
-  console.error(`[fal-redesign upgrade] 4/4 gpt-image-2/edit → redesigned image`);
+  console.error(`[fal-design upgrade] 4/4 gpt-image-2/edit → redesigned image`);
   const afterUrl = await editImage({ screenshotUrl: beforeUrl, editPrompt });
   const afterRes = await fetch(afterUrl);
   if (!afterRes.ok) throw new Error(`failed to download redesigned image: ${afterRes.status}`);
   writeFileSync(afterPath, Buffer.from(await afterRes.arrayBuffer()));
 
-  console.error(`[fal-redesign upgrade] describing target (opus-4.7 vision) + tokens`);
+  console.error(`[fal-design upgrade] describing target (opus-4.7 vision) + tokens`);
   const { markdown, tokens } = await describeTarget({ afterUrl });
   writeFileSync(changesPath, markdown);
   if (tokens) writeFileSync(tokensPath, JSON.stringify(tokens, null, 2));
@@ -452,7 +461,7 @@ export async function upgradeSite({ target, outDir, context, variants = 1 }) {
 
 async function runMultiVariant({ outDir, beforePath, beforeUrl, context, variants }) {
   const dirs = pickDirections(variants);
-  console.error(`[fal-redesign upgrade] 3/3 fanning out ${dirs.length} direction(s) in parallel: ${dirs.map((d) => d.slug).join(", ")}`);
+  console.error(`[fal-design upgrade] 3/3 fanning out ${dirs.length} direction(s) in parallel: ${dirs.map((d) => d.slug).join(", ")}`);
 
   const results = await Promise.all(
     dirs.map(async (direction, i) => {
@@ -491,7 +500,7 @@ function buildGalleryHtml(results, beforePath) {
     return `<a class="card" href="./${rel}" target="_blank" rel="noopener"><img loading="lazy" src="./${rel}" alt="" /><span class="num">${r.slug}</span><span class="label">${r.direction.label}</span><span class="slug">${r.direction.slug}</span></a>`;
   }).join("\n");
   const beforeRel = beforePath.split("/").pop();
-  return `<!doctype html><meta charset="utf-8"><title>fal-redesign — variants</title>
+  return `<!doctype html><meta charset="utf-8"><title>fal-design — variants</title>
 <style>
 :root{color-scheme:dark;--bg:#0a0a0b;--fg:#f2f0ea;--mut:#8a8781;--acc:#ff5c2b}
 *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,sans-serif}
@@ -513,7 +522,7 @@ main{padding:24px 32px 64px;display:grid;grid-template-columns:repeat(auto-fill,
 .card.fail{opacity:.55}
 </style>
 <header>
-  <h1>fal-redesign — variants</h1>
+  <h1>fal-design — variants</h1>
   <p class="sub">${results.filter((r) => r.ok).length} of ${results.length} redesigns rendered. Pick your favorite, then run <code>describe.sh --after &lt;file&gt;</code> to produce the build-spec for it.</p>
 </header>
 <section class="before"><img src="./${beforeRel}" alt="before"><span class="cap">Before — current site</span></section>
@@ -553,10 +562,10 @@ export async function describeExisting({ afterPath, outDir }) {
   const changesPath = join(outDir, "changes.md");
   const tokensPath = join(outDir, "tokens.json");
 
-  console.error(`[fal-redesign describe] 1/3 uploading ${afterPath}`);
+  console.error(`[fal-design describe] 1/3 uploading ${afterPath}`);
   const afterUrl = await uploadLocal(afterPath);
 
-  console.error(`[fal-redesign describe] 2/3 opus-4.7 vision → build-spec + tokens`);
+  console.error(`[fal-design describe] 2/3 opus-4.7 vision → build-spec + tokens`);
   const { markdown, tokens } = await describeTarget({ afterUrl });
   writeFileSync(changesPath, markdown);
   if (tokens) writeFileSync(tokensPath, JSON.stringify(tokens, null, 2));
