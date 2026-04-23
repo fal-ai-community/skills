@@ -29,6 +29,18 @@ MAX_POLL_TIME=600
 LIFECYCLE=""
 SHOW_LOGS=false
 
+normalize_request_model() {
+    local raw_model="$1"
+    local part1=""
+    local part2=""
+    IFS='/' read -r part1 part2 _ <<< "$raw_model"
+    if [ -n "$part1" ] && [ -n "$part2" ]; then
+        echo "$part1/$part2"
+    else
+        echo "$raw_model"
+    fi
+}
+
 # Check for --add-fal-key first
 for arg in "$@"; do
     if [ "$arg" = "--add-fal-key" ]; then
@@ -273,6 +285,7 @@ if [ -n "$LIFECYCLE" ]; then
 fi
 
 # Handle queue operations
+REQUEST_MODEL=$(normalize_request_model "$MODEL")
 case $ACTION in
     status)
         if [ -z "$REQUEST_ID" ]; then
@@ -284,7 +297,7 @@ case $ACTION in
             LOGS_PARAM="?logs=1"
         fi
         echo "Checking status for $REQUEST_ID..." >&2
-        RESPONSE=$(curl -s -X GET "$FAL_QUEUE_ENDPOINT/$MODEL/requests/$REQUEST_ID/status$LOGS_PARAM" "${HEADERS[@]}")
+        RESPONSE=$(curl -s -X GET "$FAL_QUEUE_ENDPOINT/$REQUEST_MODEL/requests/$REQUEST_ID/status$LOGS_PARAM" "${HEADERS[@]}")
 
         # Parse and display status
         STATUS=$(echo "$RESPONSE" | grep -oE '"status"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*: *"//' | sed 's/"$//')
@@ -304,7 +317,7 @@ case $ACTION in
             exit 1
         fi
         echo "Getting result for $REQUEST_ID..." >&2
-        RESPONSE=$(curl -s -X GET "$FAL_QUEUE_ENDPOINT/$MODEL/requests/$REQUEST_ID" "${HEADERS[@]}")
+        RESPONSE=$(curl -s -X GET "$FAL_QUEUE_ENDPOINT/$REQUEST_MODEL/requests/$REQUEST_ID" "${HEADERS[@]}")
 
         # Check for error
         if echo "$RESPONSE" | grep -q '"error"'; then
@@ -331,7 +344,7 @@ case $ACTION in
             exit 1
         fi
         echo "Cancelling request $REQUEST_ID..." >&2
-        RESPONSE=$(curl -s -X PUT "$FAL_QUEUE_ENDPOINT/$MODEL/requests/$REQUEST_ID/cancel" "${HEADERS[@]}")
+        RESPONSE=$(curl -s -X PUT "$FAL_QUEUE_ENDPOINT/$REQUEST_MODEL/requests/$REQUEST_ID/cancel" "${HEADERS[@]}")
         echo "$RESPONSE"
         exit 0
         ;;
