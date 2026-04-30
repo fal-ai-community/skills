@@ -39,6 +39,7 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 | **[fal-restore](skills/claude.ai/fal-restore)** | Restore image quality — deblur, denoise, fix faces | `restore.sh` |
 | **[fal-tryon](skills/claude.ai/fal-tryon)** | Virtual clothing try-on | `tryon.sh` |
 | **[fal-train](skills/claude.ai/fal-train)** | Train custom LoRA models | `train.sh` |
+| **[fal-gamedev](skills/claude.ai/fal-gamedev)** | 2D pixel art game assets — characters, sprite sheets, background removal, parallax + isometric backgrounds | — |
 
 ### Platform & Utilities
 
