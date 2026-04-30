@@ -35,6 +35,7 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 | Skill | Description | Scripts |
 |-------|-------------|---------|
 | **[fal-3d](skills/claude.ai/fal-3d)** | Text/image to 3D model generation | `generate-3d.sh` |
+| **[fal-regenerate-3d](skills/claude.ai/fal-regenerate-3d)** | Recipe to build a 3D character-selector experience — characters + companions + per-character PATINA floors + Seedance backgrounds + Three.js scene. Powers [fal-roster.vercel.app](https://fal-roster.vercel.app). | `SKILL.md` |
 | **[fal-vision](skills/claude.ai/fal-vision)** | Image analysis — segment, detect, OCR, describe | `analyze.sh` |
 | **[fal-restore](skills/claude.ai/fal-restore)** | Restore image quality — deblur, denoise, fix faces | `restore.sh` |
 | **[fal-tryon](skills/claude.ai/fal-tryon)** | Virtual clothing try-on | `tryon.sh` |
