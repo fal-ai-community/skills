@@ -96,7 +96,7 @@ Curated dance / idle action IDs (full list at https://docs.meshy.ai/en/api/anima
 
 - **Live**: https://fal-roster.vercel.app
 - **Source**: https://github.com/lovisdotio/fal-roster
-- **Skill repo**: https://github.com/lovisdotio/skills-fal-ai
+- **Skill**: https://github.com/fal-ai-community/skills/blob/main/skills/claude.ai/fal-regenerate-3d/SKILL.md
 
 ## Cost reference (curated build)
 
