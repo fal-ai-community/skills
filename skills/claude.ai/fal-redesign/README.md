@@ -74,25 +74,25 @@ You say "yes" and your HTML updates. Optionally run `iterate` for a residual pix
 
 ### `upgrade`, you already coded something
 ```bash
-bash scripts/upgrade.sh --target ./index.html --context "your brand in one line"
+node runtime/bin/fal-site.mjs upgrade --target ./index.html --context "your brand in one line"
 ```
 Outputs: `before.png`, `after.png`, `edit-prompt.txt`, `changes.md`, `tokens.json`.
 
 ### `describe`, re-run the spec on an existing `after.png`
 Useful when the first spec was noisy or you want to iterate on the spec without regenerating the image.
 ```bash
-bash scripts/describe.sh --after .fal-site-upgrade/after.png
+node runtime/bin/fal-site.mjs describe --after .fal-site-upgrade/after.png
 ```
 
 ### `iterate`, residual pixel-fix pass after implementation
 ```bash
-bash scripts/iterate.sh --target ./index.html --reference .fal-site-upgrade/after.png
+node runtime/bin/fal-site.mjs iterate --target ./index.html --reference .fal-site-upgrade/after.png
 ```
 Outputs `current.png` + `delta.md` (only the remaining fixes).
 
 ### `generate`, greenfield
 ```bash
-bash scripts/generate.sh --context "a volunteer bouldering gym in a Lyon church" --variants 4
+node runtime/bin/fal-site.mjs generate --context "a volunteer bouldering gym in a Lyon church" --variants 4
 ```
 Outputs N standalone single-file HTML variations (Tailwind CDN + inline base64 hero), each in a different design direction.
 

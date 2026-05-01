@@ -18,7 +18,7 @@ cd ~/mon-projet-web
 ## 1. Single redesign (the core money shot)
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/upgrade.sh \
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs upgrade \
  --target ./index.html \
  --context "PixelFind, a royalty-free image search and in-browser editor"
 ```
@@ -48,7 +48,7 @@ Refresh the browser. Split-screen the old vs. new. That's the delivery.
 ## 3. Residual pixel-fix pass (optional)
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/iterate.sh \
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs iterate \
  --target ./index.html \
  --reference ./.fal-site-upgrade/after.png
 ```
@@ -58,7 +58,7 @@ Produces `current.png` + `delta.md`. Hand `delta.md` back to Claude Code; refres
 ## 4. Multi-direction teaser (outro shot)
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/upgrade.sh \
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs upgrade \
  --target ./index.html \
  --context "PixelFind, a royalty-free image search and in-browser editor" \
  --variants 4 \
@@ -76,7 +76,7 @@ open ./.fal-redesign-variants/gallery.html
 ## 5. Greenfield (bonus for a future video)
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/generate.sh \
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs generate \
  --context "a volunteer-run bouldering gym inside a deconsecrated 19th-century church in Lyon, key-fob 24/7, weekly route-voting assemblies, Sunday brioche breakfast in the old sacristy" \
  --variants 3 \
  --out ./.fal-redesign-greenfield
@@ -99,5 +99,5 @@ Produces N standalone single-file HTML pages in different directions.
 ## One-liner you can pin to your Raycast / Alfred
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/upgrade.sh --target ./index.html --context "<brand>"
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs upgrade --target ./index.html --context "<brand>"
 ```

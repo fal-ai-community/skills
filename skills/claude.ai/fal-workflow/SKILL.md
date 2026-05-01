@@ -215,7 +215,7 @@ For default endpoint choices in Mode B, consult `fal-models-catalog`. Always run
 | Music | `$node.audio_file.url` |
 | Frame Extract | `$node.frame.url` |
 
-Use `search-models.sh` or `search_models` MCP tool to discover current models. See `references/MODELS.md` for workflow code templates.
+Use `genmedia models "<query>" --json` or `genmedia models --category <cat> --json` to discover current models. See `references/MODELS.md` for workflow code templates.
 
 ---
 
@@ -258,26 +258,23 @@ Before outputting any workflow, verify:
 
 ---
 
-## Usage
+## Authoring a workflow JSON
 
-### Using Script
+Author the JSON file by hand following the structure shown above. There is no script wrapper; the agent writes the file directly. Validate before delivery:
+
+1. Every node id matches its object key.
+2. Every `$node.xxx` reference appears in `depends`.
+3. No string interpolation; variables are entire values.
+4. Schema input has `modelId` for each field.
+5. Output node `depends` includes every node it references.
+
+For each model used, inspect the schema first:
 
 ```bash
-bash /mnt/skills/user/fal-workflow/scripts/create-workflow.sh \
- --name "my-workflow" \
- --title "My Workflow Title" \
- --nodes '[...]' \
- --outputs '{...}'
+genmedia schema <endpoint_id> --json
 ```
 
-### Using MCP Tool
-
-```javascript
-mcp__fal-ai__create-workflow({
- smartMode: true,
- intent: "Generate a story with LLM, create an illustration, then animate it"
-})
-```
+Then write the corresponding `input` block in the workflow JSON.
 
 ---
 

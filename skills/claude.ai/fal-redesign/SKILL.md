@@ -8,7 +8,7 @@ metadata:
 
 # fal-redesign
 
-> **Runtime:** Self-contained Node runtime under `runtime/` (`runtime/bin/fal-site.mjs`). Calls the fal.ai API directly via the `@fal-ai/client` package, does **not** use the `genmedia` CLI. Install with `bash install.sh`.
+> **Runtime:** Self-contained Node runtime under `runtime/` (`runtime/bin/fal-site.mjs`). Does things genmedia CLI cannot (puppeteer screenshotting, multi-vision pipeline, file orchestration). First-time setup: `cd runtime && npm install`. Override the runtime path with `FAL_SITE_RUNTIME=/abs/path`.
 
 `fal-redesign` turns "I coded a site, make it look amazing" into a concrete, implementable design pass.
 
@@ -31,14 +31,17 @@ Do NOT invoke for:
 - Copy-only edits (the skill is visual-design focused).
 - Backend, build config, or infra tasks.
 
-## Scripts
+## Commands
 
-### `scripts/upgrade.sh`, redesign a coded site
+All four modes are subcommands of the Node runtime. Invoke directly:
+
+### `upgrade`: redesign a coded site
 ```bash
-bash scripts/upgrade.sh --target <path-or-url> [--context "..."] [--variants N] [--out <dir>]
+node runtime/bin/fal-site.mjs upgrade --target <path-or-url> [--context "..."] [--variants N] [--out <dir>]
 ```
 
-Pass `--variants N` (2–8) to fan out into N distinct design directions in parallel. You get `after-01-<slug>.png`, `after-02-<slug>.png`, … plus a `gallery.html` to compare them side-by-side. Pick one, then run `scripts/describe.sh` on the chosen PNG to produce its build-spec.
+Pass `--variants N` (2-8) to fan out into N distinct design directions in parallel. You get `after-01-<slug>.png`, `after-02-<slug>.png`, plus a `gallery.html` to compare them side-by-side. Pick one, then run `describe` on the chosen PNG to produce its build-spec.
+
 Outputs in `<out>/`:
 - `before.png`: current-site screenshot.
 - `after.png`: redesigned reference image.
@@ -46,22 +49,22 @@ Outputs in `<out>/`:
 - `changes.md`: Markdown build-spec with a leading "Hard constraints" section (also echoed to stdout).
 - `tokens.json`: design tokens (colors, typography clamps, grid, buttons).
 
-### `scripts/describe.sh`, re-run the build-spec on an existing `after.png`
+### `describe`: re-run the build-spec on an existing `after.png`
 Useful if the first spec was noisy or if you want to iterate on the spec without regenerating the image.
 ```bash
-bash scripts/describe.sh --after <path/to/after.png> [--out <dir>]
+node runtime/bin/fal-site.mjs describe --after <path/to/after.png> [--out <dir>]
 ```
 
-### `scripts/iterate.sh`, residual pixel-fix pass
+### `iterate`: residual pixel-fix pass
 After the agent has implemented the spec, screenshot the live site and emit a delta-spec vs the reference.
 ```bash
-bash scripts/iterate.sh --target <path-or-url> --reference <path/to/after.png> [--out <dir>]
+node runtime/bin/fal-site.mjs iterate --target <path-or-url> --reference <path/to/after.png> [--out <dir>]
 ```
 Outputs `current.png` + `delta.md`.
 
-### `scripts/generate.sh`, greenfield (brief → site)
+### `generate`: greenfield (brief → site)
 ```bash
-bash scripts/generate.sh --context "<freeform context>" [--variants 4] [--out <dir>]
+node runtime/bin/fal-site.mjs generate --context "<freeform context>" [--variants 4] [--out <dir>]
 ```
 
 ## Required environment
@@ -79,21 +82,21 @@ Models used:
 
 1. **Check `FAL_KEY`.** If unset, ask the user to export it and stop.
 2. **Pick the mode.**
- - If the user references a file path that exists or a URL (`http://localhost:...`) → `scripts/upgrade.sh`.
- - Otherwise → `scripts/generate.sh`.
+ - If the user references a file path that exists or a URL (`http://localhost:...`) → `node runtime/bin/fal-site.mjs upgrade`.
+ - Otherwise → `node runtime/bin/fal-site.mjs generate`.
 3. **Run the script.** Each `upgrade` pass takes 60–180s (1 screenshot + 2 vision calls + 1 image-edit). Emit a brief status to the user before calling.
 4. **Surface the result.**
  - Open `after.png` (Read tool) so the user sees the new design.
  - Paste `changes.md` in the chat (or the highlights).
  - Ask: "Want me to implement these changes in `<file>` now?"
 5. **If yes, implement.** Read the current file. Apply the spec section by section, obeying the `Hard constraints` verbatim and pulling exact values from `tokens.json`. For imagery in the result grid, look at `after.png` directly and either use `<img>` placeholders at the matching aspect ratio or source stock that matches the mood.
-6. **Optional iterate.** After implementation, offer `scripts/iterate.sh --target <file> --reference <after.png>` for a residual delta-spec. Apply deltas, refresh.
+6. **Optional iterate.** After implementation, offer `node runtime/bin/fal-site.mjs iterate --target <file> --reference <after.png>` for a residual delta-spec. Apply deltas, refresh.
 
 ## Model notes
 
 - Opus 4.7 handles multi-image reasoning and produces precise design specs. For 3× cheaper runs with near-parity on this task, set `FAL_SITE_MODEL=anthropic/claude-sonnet-4.6`.
 - `gpt-image-2/edit` is the right primitive because it edits an existing screenshot while preserving legible in-image text, avoid substituting other image models here.
 
-## Runtime
+## Runtime details
 
-The skill ships a small Node 18+ runtime under `runtime/` (`puppeteer`, `@fal-ai/client`, `sharp`). Scripts `npm install` on first run. Override the runtime path with `FAL_SITE_RUNTIME=/abs/path`.
+The skill ships a small Node 18+ runtime under `runtime/` (`puppeteer`, `@fal-ai/client`, `sharp`). First-time setup: `cd runtime && npm install`. Override the runtime path with `FAL_SITE_RUNTIME=/abs/path`.

@@ -1,6 +1,6 @@
 # fal.ai Skills
 
-Agent skills for [fal.ai](https://fal.ai). All execution runs through the [genmedia CLI](https://github.com/fal-ai-community/genmedia-cli), these skills are knowledge layers (which endpoint to use, how to prompt it, how to chain calls), not API wrappers.
+Agent skills for [fal.ai](https://fal.ai). All execution runs through the [genmedia CLI](https://github.com/fal-ai-community/genmedia-cli). These skills are knowledge layers (which endpoint to use, how to prompt it, how to chain calls). They are not API wrappers and ship no `.sh` scripts.
 
 Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://claude.ai/claude-code), and other agent platforms supporting the community skills format.
 
@@ -25,12 +25,9 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 | Skill | Purpose |
 |-------|---------|
 | **[fal-workflow](skills/claude.ai/fal-workflow)** | Multi-step pipelines. Mode A authors workflow JSON for the fal.ai cloud runtime; Mode B drives genmedia CLI orchestration. |
-| **[fal-train](skills/claude.ai/fal-train)** | LoRA training. |
-| **[fal-redesign](skills/claude.ai/fal-redesign)** | Website redesign with its own Node runtime. Powers screenshot → vision-driven build-spec → HTML implementation. |
+| **[fal-redesign](skills/claude.ai/fal-redesign)** | Website redesign with its own Node runtime (puppeteer screenshot, multi-vision pipeline, file orchestration). Powers screenshot → vision-driven build-spec → HTML implementation. |
 | **[fal-regenerate-3d](skills/claude.ai/fal-regenerate-3d)** | Interactive 3D character-selector experience (Three.js + Meshy + Seedance). Powers [fal-roster.vercel.app](https://fal-roster.vercel.app). |
-| **[fal-gamedev](skills/claude.ai/fal-gamedev)** | 2D pixel-art game assets, characters, sprite sheets, parallax / isometric backgrounds. |
-
-Older single-endpoint skills (`fal-3d`, `fal-audio`, `fal-image-edit`, `fal-upscale`, etc.) are preserved under `skills/claude.ai/` for backward compatibility; their knowledge has been consolidated into the umbrella skills above.
+| **[fal-gamedev](skills/claude.ai/fal-gamedev)** | 2D pixel-art game assets: characters, sprite sheets, parallax and isometric backgrounds. |
 
 ## Setup
 
