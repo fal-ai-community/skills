@@ -242,21 +242,21 @@ https://fal.ai/api/openapi/queue/openapi.json?endpoint_id={model-id}
 **Images:**
 ```
 ![Generated Image](https://v3.fal.media/files/...)
-• 1024×768 | Generated in 2.2s
+- 1024×768 | Generated in 2.2s
 ```
 
 **Videos:**
 ```
 [Click to view video](https://v3.fal.media/files/.../video.mp4)
-• Duration: 5s | Generated in 45s
+- Duration: 5s | Generated in 45s
 ```
 
 **Async Submission:**
 ```
 Request submitted to queue.
-• Request ID: abc123-def456
-• Model: fal-ai/veo3
-• Check status: --status "abc123-def456"
+- Request ID: abc123-def456
+- Model: fal-ai/veo3
+- Check status: --status "abc123-def456"
 ```
 
 ## Object Lifecycle (Optional)

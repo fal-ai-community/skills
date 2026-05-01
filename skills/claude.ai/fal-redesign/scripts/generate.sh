@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fal-site generate — greenfield site generation via fal.ai (brief -> mockup -> HTML).
+# fal-site generate: greenfield site generation via fal.ai (brief -> mockup -> HTML).
 # Usage:
 #   bash generate.sh --context "<freeform>" [--variants 4] [--concurrency 2] [--out <dir>] [--mockup-only]
 set -euo pipefail

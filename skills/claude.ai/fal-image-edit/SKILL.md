@@ -123,7 +123,7 @@ Here's your edited image:
 
 ![Edited Image](https://v3.fal.media/files/...)
 
-• 1024×1024 | Operation: Style Transfer
+- 1024×1024 | Operation: Style Transfer
 ```
 
 ## Model Selection Tips

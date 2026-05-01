@@ -136,7 +136,7 @@ Here's the generated speech:
 
 [Download audio](https://v3.fal.media/files/.../speech.mp3)
 
-• Duration: 5.2s | Model: Maya TTS
+- Duration: 5.2s | Model: Maya TTS
 ```
 
 ### For STT:
@@ -145,7 +145,7 @@ Here's the transcription:
 
 "Hello, this is the transcribed text from the audio file."
 
-• Duration: 12.5s | Language: English
+- Duration: 12.5s | Language: English
 ```
 
 ## Model Selection Tips

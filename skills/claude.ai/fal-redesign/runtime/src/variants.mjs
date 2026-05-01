@@ -9,7 +9,7 @@ Hard requirements:
 - Self-contained single <!DOCTYPE html> document.
 - Use Tailwind CSS via CDN: <script src="https://cdn.tailwindcss.com"></script>
 - Extra custom CSS allowed inline in a <style> tag.
-- Fonts from Google Fonts <link> tag — pick fonts that match the direction (don't default to Inter).
+- Fonts from Google Fonts <link> tag: pick fonts that match the direction (don't default to Inter).
 - Minimal vanilla JS only if truly needed (no libraries beyond Tailwind CDN).
 - Use semantic HTML (header, main, section, footer, nav, article).
 - Fully responsive, mobile-first, polished at every breakpoint.
@@ -39,7 +39,7 @@ export async function generateVariant({ brief, direction, heroImageUrl }) {
       ...baseBlocks,
       ``,
       `A hero image has already been generated for this variant (attached). ITS AESTHETIC IS THE LAW FOR THIS SITE:`,
-      `- Extract the palette directly from the hero image (2-4 colors) and build the whole page around it (backgrounds, accent, text) — they must be visibly coherent.`,
+      `- Extract the palette directly from the hero image (2-4 colors) and build the whole page around it (backgrounds, accent, text): they must be visibly coherent.`,
       `- Match the image's mood, rendering style (photo / illustration / 3D / grainy / clean), lighting and level of saturation in the rest of the UI.`,
       `- Choose typography that feels native to the image's era and temperature.`,
       `- Any section, button, divider, gradient and secondary imagery must look like it was cropped from the same visual universe.`,
@@ -58,7 +58,7 @@ export async function generateVariant({ brief, direction, heroImageUrl }) {
     const prompt = [
       ...baseBlocks,
       ``,
-      `No hero image yet — design with placeholder img src="{{HERO_IMAGE}}". Keep palette and typography tight to the direction.`,
+      `No hero image yet: design with placeholder img src="{{HERO_IMAGE}}". Keep palette and typography tight to the direction.`,
     ].join("\n");
     html = await llm({
       system_prompt: SYSTEM,

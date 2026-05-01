@@ -102,7 +102,7 @@ Here's your upscaled image:
 
 ![Upscaled Image](https://v3.fal.media/files/...)
 
-• 512×512 → 2048×2048 (4x)
+- 512×512 → 2048×2048 (4x)
 ```
 
 ## Model Selection Tips

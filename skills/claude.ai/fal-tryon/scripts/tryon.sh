@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# tryon.sh — Virtual try-on: apply garment onto person photo
+# tryon.sh: Virtual try-on: apply garment onto person photo
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MODEL="fal-ai/fashn/tryon/v1.5"

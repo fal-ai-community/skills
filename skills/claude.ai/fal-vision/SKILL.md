@@ -1,14 +1,14 @@
 ---
 name: fal-vision
-description: Analyze images using AI — segment objects, detect objects, extract text (OCR), describe images, ask questions about images. Use when the user requests "Segment image", "Detect objects", "OCR", "Extract text from image", "Describe image", "What's in this image", "Image analysis".
+description: Analyze images using AI, segment objects, detect objects, extract text (OCR), describe images, ask questions about images. Use when the user requests "Segment image", "Detect objects", "OCR", "Extract text from image", "Describe image", "What's in this image", "Image analysis".
 metadata:
-  author: fal-ai
-  version: "1.0.0"
+ author: fal-ai
+ version: "1.0.0"
 ---
 
 # fal-vision
 
-Analyze and understand images using fal.ai vision models — segmentation, detection, OCR, captioning, and visual QA.
+Analyze and understand images using fal.ai vision models, segmentation, detection, OCR, captioning, and visual QA.
 
 ## Scripts
 

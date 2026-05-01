@@ -1,14 +1,14 @@
 ---
 name: fal-kling-o3
-description: Generate images and videos with Kling O3 — Kling's most powerful model family. Text-to-image, text-to-video, image-to-video, and video-to-video editing. Use when the user requests "Kling", "Kling O3", "Best quality video", "Kling image", "Kling video editing".
+description: Generate images and videos with Kling O3. Kling's most powerful model family. Text-to-image, text-to-video, image-to-video, and video-to-video editing. Use when the user requests "Kling", "Kling O3", "Best quality video", "Kling image", "Kling video editing".
 metadata:
-  author: fal-ai
-  version: "1.0.0"
+ author: fal-ai
+ version: "1.0.0"
 ---
 
 # fal-kling-o3
 
-Kling O3 is Kling's most powerful model family — covering image generation, text-to-video, image-to-video, and video-to-video editing/remix. Two tiers: **Standard** (faster, cheaper) and **Pro** (highest quality).
+Kling O3 is Kling's most powerful model family, covering image generation, text-to-video, image-to-video, and video-to-video editing/remix. Two tiers: **Standard** (faster, cheaper) and **Pro** (highest quality).
 
 ## Scripts
 
@@ -94,7 +94,7 @@ Kling O3 is Kling's most powerful model family — covering image generation, te
 ## Output Format
 ```json
 {
-  "images": [{"url": "https://fal.media/files/...", "content_type": "image/png"}],
-  "video": {"url": "https://fal.media/files/...", "content_type": "video/mp4"}
+ "images": [{"url": "https://fal.media/files/...", "content_type": "image/png"}],
+ "video": {"url": "https://fal.media/files/...", "content_type": "video/mp4"}
 }
 ```

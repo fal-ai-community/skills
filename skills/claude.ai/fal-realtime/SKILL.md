@@ -1,14 +1,14 @@
 ---
 name: fal-realtime
-description: Real-time and streaming AI image generation — instant results for interactive use. Use when the user requests "Real-time generation", "Fast generation", "Streaming image", "Instant image", "Live generation", "Realtime".
+description: Real-time and streaming AI image generation, instant results for interactive use. Use when the user requests "Real-time generation", "Fast generation", "Streaming image", "Instant image", "Live generation", "Realtime".
 metadata:
-  author: fal-ai
-  version: "1.0.0"
+ author: fal-ai
+ version: "1.0.0"
 ---
 
 # fal-realtime
 
-Real-time and streaming image generation using fal.ai's fastest models. Results in under 1 second — ideal for interactive applications, live previews, and rapid iteration.
+Real-time and streaming image generation using fal.ai's fastest models. Results in under 1 second, ideal for interactive applications, live previews, and rapid iteration.
 
 ## Scripts
 
@@ -74,22 +74,22 @@ Or use the `search_models` MCP tool with keywords like "realtime", "fast", "schn
 ## Output Format
 ```json
 {
-  "images": [
-    {
-      "url": "https://fal.media/files/...",
-      "content_type": "image/jpeg",
-      "width": 1024,
-      "height": 1024
-    }
-  ],
-  "seed": 12345,
-  "has_nsfw_concepts": [false]
+ "images": [
+ {
+ "url": "https://fal.media/files/...",
+ "content_type": "image/jpeg",
+ "width": 1024,
+ "height": 1024
+ }
+ ],
+ "seed": 12345,
+ "has_nsfw_concepts": [false]
 }
 ```
 
 ## Tips
 
-- Real-time models use fewer inference steps — prompts should be clear and concise
+- Real-time models use fewer inference steps, prompts should be clear and concise
 - Use `--seed` to lock in a good composition, then iterate on the prompt
-- LoRA support works with FLUX Klein Realtime — great for style-locked fast iteration
+- LoRA support works with FLUX Klein Realtime, great for style-locked fast iteration
 - These models use the synchronous API (no queue), so results are instant

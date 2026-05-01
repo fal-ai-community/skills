@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# generate-3d.sh — Generate a 3D model from text or image
+# generate-3d.sh: Generate a 3D model from text or image
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MODEL="fal-ai/hunyuan3d-v3/image-to-3d"
@@ -58,7 +58,7 @@ SUBMIT=$(curl -s -X POST "https://queue.fal.run/$MODEL" \
 REQUEST_ID=$(echo "$SUBMIT" | jq -r '.request_id // empty')
 if [ -z "$REQUEST_ID" ]; then echo "Error: $SUBMIT" >&2; exit 1; fi
 
-echo "Waiting (request: $REQUEST_ID) — 3D generation takes 1-5 min..." >&2
+echo "Waiting (request: $REQUEST_ID): 3D generation takes 1-5 min..." >&2
 ELAPSED=0
 while [ "$ELAPSED" -lt "$TIMEOUT" ]; do
   STATUS=$(curl -s "https://queue.fal.run/$MODEL/requests/$REQUEST_ID/status?logs=1" \

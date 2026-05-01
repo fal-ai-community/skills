@@ -1,14 +1,14 @@
 ---
 name: fal-tryon
-description: Virtual try-on — see how clothes look on a person. Use when the user requests "Try on clothes", "Virtual try-on", "How does this look on me", "Fashion try-on", "Garment transfer".
+description: Virtual try-on, see how clothes look on a person. Use when the user requests "Try on clothes", "Virtual try-on", "How does this look on me", "Fashion try-on", "Garment transfer".
 metadata:
-  author: fal-ai
-  version: "1.0.0"
+ author: fal-ai
+ version: "1.0.0"
 ---
 
 # fal-tryon
 
-Virtual try-on — transfer garments onto person photos using fal.ai models.
+Virtual try-on, transfer garments onto person photos using fal.ai models.
 
 ## Scripts
 

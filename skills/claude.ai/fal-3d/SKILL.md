@@ -2,8 +2,8 @@
 name: fal-3d
 description: Generate 3D models from text or images. Use when the user requests "Create 3D model", "Text to 3D", "Image to 3D", "3D generation", "Generate mesh", "3D asset".
 metadata:
-  author: fal-ai
-  version: "1.0.0"
+ author: fal-ai
+ version: "1.0.0"
 ---
 
 # fal-3d
@@ -55,16 +55,16 @@ Or use the `search_models` MCP tool with relevant keywords like "3d", "mesh", "i
 
 - For best results from images: use a clear photo with a single object on a plain background
 - Remove background first if needed (use fal-image-edit or fal-generate with birefnet)
-- Simple, well-defined objects work best — complex scenes don't reconstruct well yet
-- 3D generation takes 1-5 minutes — jobs use the queue API
+- Simple, well-defined objects work best, complex scenes don't reconstruct well yet
+- 3D generation takes 1-5 minutes, jobs use the queue API
 
 ## Output Format
 ```json
 {
-  "mesh": {
-    "url": "https://fal.media/files/.../model.glb",
-    "content_type": "model/gltf-binary",
-    "file_name": "model.glb"
-  }
+ "mesh": {
+ "url": "https://fal.media/files/.../model.glb",
+ "content_type": "model/gltf-binary",
+ "file_name": "model.glb"
+ }
 }
 ```

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# restore.sh — Restore image quality (deblur, denoise, dehaze, fix-face, document)
+# restore.sh: Restore image quality (deblur, denoise, dehaze, fix-face, document)
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 IMAGE_URL=""

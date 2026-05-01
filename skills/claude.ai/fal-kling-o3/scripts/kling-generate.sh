@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# kling-generate.sh — Generate images with Kling O3
+# kling-generate.sh: Generate images with Kling O3
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MODEL="fal-ai/kling-image/o3/text-to-image"

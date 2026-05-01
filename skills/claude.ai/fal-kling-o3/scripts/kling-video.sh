@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# kling-video.sh — Generate or edit videos with Kling O3
+# kling-video.sh: Generate or edit videos with Kling O3
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROMPT=""

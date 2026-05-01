@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# lip-sync.sh — Sync lips in existing video to new audio
+# lip-sync.sh: Sync lips in existing video to new audio
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MODEL="fal-ai/sync-lipsync/v2"

@@ -1,12 +1,14 @@
 ---
 name: fal-train
-description: Train custom AI models (LoRA) on fal.ai — personalize image generation for specific people, styles, objects, or video generation. Use when the user requests "Train model", "Train LoRA", "Fine-tune", "Custom model", "Train on my images", "Portrait training".
+description: Train custom AI models (LoRA) on fal.ai, personalize image generation for specific people, styles, objects, or video generation. Use when the user requests "Train model", "Train LoRA", "Fine-tune", "Custom model", "Train on my images", "Portrait training".
 metadata:
-  author: fal-ai
-  version: "1.0.0"
+ author: fal-ai
+ version: "1.0.0"
 ---
 
 # fal-train
+
+> **Runtime:** All endpoint calls run via the [genmedia CLI](https://github.com/fal-ai-community/genmedia-cli). See the `genmedia` skill for command syntax; run `genmedia init` once if not yet installed. The legacy `train.sh` script remains for direct API use.
 
 Train custom LoRA models on fal.ai for personalized AI generation.
 
@@ -70,15 +72,15 @@ Or use the `search_models` MCP tool with keywords like "lora", "training", "trai
 ## Output Format
 ```json
 {
-  "diffusers_lora_file": {
-    "url": "https://fal.media/files/.../lora.safetensors",
-    "content_type": "application/octet-stream",
-    "file_name": "lora.safetensors",
-    "file_size": 12345678
-  },
-  "config_file": {
-    "url": "https://fal.media/files/.../config.json"
-  }
+ "diffusers_lora_file": {
+ "url": "https://fal.media/files/.../lora.safetensors",
+ "content_type": "application/octet-stream",
+ "file_name": "lora.safetensors",
+ "file_size": 12345678
+ },
+ "config_file": {
+ "url": "https://fal.media/files/.../config.json"
+ }
 }
 ```
 

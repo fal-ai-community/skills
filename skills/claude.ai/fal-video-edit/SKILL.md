@@ -1,9 +1,9 @@
 ---
 name: fal-video-edit
-description: Edit existing videos using AI — remix style, edit content, upscale resolution, remove background, or add audio/sound effects. Use when the user requests "Edit video", "Remix video", "Upscale video", "Remove video background", "Add sound to video", "Video to audio".
+description: Edit existing videos using AI, remix style, edit content, upscale resolution, remove background, or add audio/sound effects. Use when the user requests "Edit video", "Remix video", "Upscale video", "Remove video background", "Add sound to video", "Video to audio".
 metadata:
-  author: fal-ai
-  version: "1.0.0"
+ author: fal-ai
+ version: "1.0.0"
 ---
 
 # fal-video-edit

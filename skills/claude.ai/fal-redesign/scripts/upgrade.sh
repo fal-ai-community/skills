@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fal-redesign upgrade — redesign an existing coded site via fal.ai (opus-4.7 + gpt-image-2/edit).
+# fal-redesign upgrade: redesign an existing coded site via fal.ai (opus-4.7 + gpt-image-2/edit).
 # Usage:
 #   bash upgrade.sh --target <path|url> [--context "..."] [--variants N] [--out <dir>]
 set -euo pipefail

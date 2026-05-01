@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fal-redesign — one-command installer
+# fal-redesign: one-command installer
 #
 #   curl -fsSL https://raw.githubusercontent.com/fal-ai-community/skills/main/skills/claude.ai/fal-redesign/install.sh | bash
 #
@@ -33,12 +33,12 @@ trap 'rm -rf "$TMP"' EXIT
 say "fetching ${REPO}@${BRANCH}…"
 curl -fsSL "https://codeload.github.com/${REPO}/tar.gz/refs/heads/${BRANCH}" | tar -xz -C "$TMP"
 SRC="$(find "$TMP" -maxdepth 1 -type d -name "skills-*" | head -n1)/${SUBDIR}"
-[ -d "$SRC" ] || fail "archive layout unexpected — ${SUBDIR} not found"
+[ -d "$SRC" ] || fail "archive layout unexpected: ${SUBDIR} not found"
 
 mkdir -p "$(dirname "$TARGET")"
 if [ -e "$TARGET" ] || [ -L "$TARGET" ]; then
   BACKUP="${TARGET}.bak.$(date +%s)"
-  warn "existing install at ${TARGET} — moved to ${BACKUP}"
+  warn "existing install at ${TARGET}: moved to ${BACKUP}"
   mv "$TARGET" "$BACKUP"
 fi
 

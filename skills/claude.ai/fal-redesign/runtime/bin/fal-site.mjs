@@ -9,7 +9,7 @@ import { upgradeSite, iterateSite, describeExisting, implementFromOriginal, gene
 import { fal } from "@fal-ai/client";
 import { buildClip } from "../src/video.mjs";
 
-const HELP = `fal-site — AI-native design pipeline on fal.ai.
+const HELP = `fal-site: AI-native design pipeline on fal.ai.
 
 Sub-commands:
   upgrade <path|url>        Upgrade a site you (Claude Code / Codex) already coded.
@@ -287,14 +287,14 @@ async function cmdUpgrade(argv) {
 
   if (r.mode === "multi") {
     const okCount = r.variants.filter((v) => v.ok).length;
-    console.error(`\n✔ upgrade complete in ${elapsed}s — ${okCount}/${r.variants.length} variants`);
+    console.error(`\n✔ upgrade complete in ${elapsed}s: ${okCount}/${r.variants.length} variants`);
     console.error(`  before:  ${r.beforePath}`);
     console.error(`  gallery: ${r.galleryPath}`);
     r.variants.forEach((v) => {
       if (v.ok) console.error(`  - ${v.slug}: ${v.afterPath}`);
       else console.error(`  - ${v.slug}: FAIL ${v.error}`);
     });
-    const lines = [`# fal-redesign upgrade — variants`, ``, `Open gallery: ${r.galleryPath}`, ``, `Generated variants:`, ...r.variants.filter((v) => v.ok).map((v) => `- **${v.direction.label}** (${v.direction.slug}) → ${v.afterPath}`), ``, `Next step: pick your favorite, then run`, `\`\`\``, `bash scripts/describe.sh --after <chosen-after-*.png>`, `\`\`\``, `to produce the build-spec for the chosen direction.`];
+    const lines = [`# fal-redesign upgrade: variants`, ``, `Open gallery: ${r.galleryPath}`, ``, `Generated variants:`, ...r.variants.filter((v) => v.ok).map((v) => `- **${v.direction.label}** (${v.direction.slug}) → ${v.afterPath}`), ``, `Next step: pick your favorite, then run`, `\`\`\``, `bash scripts/describe.sh --after <chosen-after-*.png>`, `\`\`\``, `to produce the build-spec for the chosen direction.`];
     process.stdout.write(lines.join("\n") + "\n");
     return;
   }

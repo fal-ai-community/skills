@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# talking-head.sh — Generate a talking head video from portrait + audio/text
+# talking-head.sh: Generate a talking head video from portrait + audio/text
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MODEL="veed/fabric-1.0"

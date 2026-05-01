@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# realtime.sh — Real-time image generation (sub-second)
+# realtime.sh: Real-time image generation (sub-second)
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MODEL="fal-ai/flux-2/klein/realtime"

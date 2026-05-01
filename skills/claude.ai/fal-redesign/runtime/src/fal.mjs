@@ -59,7 +59,7 @@ export async function llm({
   return out.output ?? "";
 }
 
-// Vision LLM — same router, with images attached.
+// Vision LLM: same router, with images attached.
 // Docs: https://fal.ai/models/openrouter/router/vision
 export async function llmVision({
   prompt,

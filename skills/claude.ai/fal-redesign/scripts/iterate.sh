@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fal-redesign iterate — screenshot the implemented site, compare to a reference after.png,
+# fal-redesign iterate: screenshot the implemented site, compare to a reference after.png,
 # emit a delta-spec of residual pixel-level fixes.
 # Usage:
 #   bash iterate.sh --target <path|url> --reference <path/to/after.png> [--out <dir>]

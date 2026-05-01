@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# video-audio.sh — Add synchronized audio/sound effects to a video
+# video-audio.sh: Add synchronized audio/sound effects to a video
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MODEL="fal-ai/mmaudio-v2"

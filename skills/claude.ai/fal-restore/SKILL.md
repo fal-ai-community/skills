@@ -1,14 +1,14 @@
 ---
 name: fal-restore
-description: Restore and fix image quality — deblur, denoise, dehaze, fix faces, restore documents. Use when the user requests "Fix blurry image", "Remove noise", "Fix face", "Restore photo", "Enhance document", "Deblur", "Denoise".
+description: Restore and fix image quality, deblur, denoise, dehaze, fix faces, restore documents. Use when the user requests "Fix blurry image", "Remove noise", "Fix face", "Restore photo", "Enhance document", "Deblur", "Denoise".
 metadata:
-  author: fal-ai
-  version: "1.0.0"
+ author: fal-ai
+ version: "1.0.0"
 ---
 
 # fal-restore
 
-Restore and enhance image quality using AI — fix blur, noise, haze, faces, and documents.
+Restore and enhance image quality using AI, fix blur, noise, haze, faces, and documents.
 
 ## Scripts
 

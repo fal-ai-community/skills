@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# edit-video.sh — Edit, remix, upscale, or remove background from a video
+# edit-video.sh: Edit, remix, upscale, or remove background from a video
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 VIDEO_URL=""

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fal-redesign describe — re-run VLM#2 (build-spec + tokens) on an already-generated after.png,
+# fal-redesign describe: re-run VLM#2 (build-spec + tokens) on an already-generated after.png,
 # without redoing the screenshot + gpt-image-2/edit passes. Useful for iterating on the spec only.
 # Usage:
 #   bash describe.sh --after <path/to/after.png> [--out <dir>]

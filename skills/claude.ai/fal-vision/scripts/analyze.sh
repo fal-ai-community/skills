@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# analyze.sh — Analyze an image (segment, detect, OCR, describe, QA)
+# analyze.sh: Analyze an image (segment, detect, OCR, describe, QA)
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 IMAGE_URL=""

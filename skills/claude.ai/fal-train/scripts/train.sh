@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# train.sh — Submit a LoRA training job to fal.ai
+# train.sh: Submit a LoRA training job to fal.ai
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MODEL="fal-ai/flux-lora-fast-training"

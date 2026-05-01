@@ -5,8 +5,10 @@ description: Build a fully-interactive 3D character-selector experience powered 
 
 # fal-regenerate-3d Skill
 
+> **Runtime:** Asset generation steps run via the [genmedia CLI](https://github.com/fal-ai-community/genmedia-cli) (FLUX.2 / GPT-Image-2 / Meshy v6 / Seedance / etc.). The final deliverable is a static HTML page with Three.js, generated assets are bundled into it. See the `genmedia` skill for command syntax; run `genmedia init` once if not yet installed.
+
 End-to-end recipe to ship a polished, multi-character 3D web experience using fal.ai models.
-This is the recipe that powers **[fal-roster.vercel.app](https://fal-roster.vercel.app)** — a cyberpunk character selector with 10 unique operatives, each with a matching companion creature, environment-themed floor texture, animated background and color palette.
+This is the recipe that powers **[fal-roster.vercel.app](https://fal-roster.vercel.app)**: a cyberpunk character selector with 10 unique operatives, each with a matching companion creature, environment-themed floor texture, animated background and color palette.
 
 ## What it builds
 
@@ -24,22 +26,22 @@ All packaged into a single static HTML page with a Three.js scene. ~25–35 MB o
 ## Pipeline
 
 ```
-1. GPT-Image-2          → 1024x1536 character full-body T-pose (per character)
-2. Meshy v6             → image-to-3d, enable_rigging=true, animation_action_id={chosen}
-                          → animated GLB (idle, dance, alert, etc.)
-3. GPT-Image-2/edit     → companion creature image, color-locked to character palette
-4. Meshy v6             → image-to-3d, enable_rigging=false → static creature GLB
-5. PATINA               → fal-ai/patina/material/extract on the character image,
-                          returns basecolor + normal + roughness + metalness for the floor
-6. Seedance 2.0         → fal-ai/bytedance/seedance-2.0/fast/image-to-video, 8s loop
-7. gltf-transform CLI   → resize 1024 → webp q80 → draco
-                          (typically 95–96% size reduction, ~400–800 KB final)
-8. Three.js scene       → MeshStandardMaterial floor with alphaMap circular cutout,
-                          mirrored reflection (refl.y = root.y, scale.y = -1),
-                          breathing animation on companions,
-                          per-character palette via CSS custom properties (--c1/--c2/--c3),
-                          per-character floor texture swap on character click,
-                          transition lines + radial flash on swap
+1. GPT-Image-2 → 1024x1536 character full-body T-pose (per character)
+2. Meshy v6 → image-to-3d, enable_rigging=true, animation_action_id={chosen}
+ → animated GLB (idle, dance, alert, etc.)
+3. GPT-Image-2/edit → companion creature image, color-locked to character palette
+4. Meshy v6 → image-to-3d, enable_rigging=false → static creature GLB
+5. PATINA → fal-ai/patina/material/extract on the character image,
+ returns basecolor + normal + roughness + metalness for the floor
+6. Seedance 2.0 → fal-ai/bytedance/seedance-2.0/fast/image-to-video, 8s loop
+7. gltf-transform CLI → resize 1024 → webp q80 → draco
+ (typically 95–96% size reduction, ~400–800 KB final)
+8. Three.js scene → MeshStandardMaterial floor with alphaMap circular cutout,
+ mirrored reflection (refl.y = root.y, scale.y = -1),
+ breathing animation on companions,
+ per-character palette via CSS custom properties (--c1/--c2/--c3),
+ per-character floor texture swap on character click,
+ transition lines + radial flash on swap
 ```
 
 ## CREATE-YOUR-OWN flow
@@ -48,13 +50,13 @@ Visitors with a FAL key can generate their own character + companion live, in-br
 
 ```
 flux-2 klein 9b (text-to-image)
-  └─ character full-body image
-       ├─ Meshy v6 (rigged + animated) → character GLB
-       └─ flux-2 klein 9b/edit         → companion image
-                                          └─ Meshy v6 (no rig) → companion GLB
+ └─ character full-body image
+ ├─ Meshy v6 (rigged + animated) → character GLB
+ └─ flux-2 klein 9b/edit → companion image
+ └─ Meshy v6 (no rig) → companion GLB
 ```
 
-Cost: ~$2–3 per generation (4 fal calls). Runs in background — modal closes on Generate so the user can keep using the experience while the gen runs. The `CREATE YOUR OWN` tile transforms into a loading state, then becomes the new character card with a `↻ re-create` button.
+Cost: ~$2–3 per generation (4 fal calls). Runs in background, modal closes on Generate so the user can keep using the experience while the gen runs. The `CREATE YOUR OWN` tile transforms into a loading state, then becomes the new character card with a `↻ re-create` button.
 
 ## Key fal endpoints used
 
@@ -113,4 +115,4 @@ For one full character:
 | **Total per character** | **~$1.20** |
 | **10 characters** | **~$12** |
 
-Runtime parallelizes well — the original 10-character set was generated in ~10 minutes wall-clock with 9 concurrent jobs per stage.
+Runtime parallelizes well, the original 10-character set was generated in ~10 minutes wall-clock with 9 concurrent jobs per stage.
