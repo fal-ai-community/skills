@@ -32,7 +32,7 @@ export async function screenshotHtml(targetPathOrUrl, pngPath, { viewport = { wi
     await page.goto(url, { waitUntil: "networkidle0", timeout: 60_000 });
     await new Promise((r) => setTimeout(r, 1000)); // Tailwind CDN + fonts settle
     // Screen-format capture: viewport snapshot (what a user sees above the fold),
-    // NOT a long full-page scroll — keeps the image legible for the VLM.
+    // NOT a long full-page scroll: keeps the image legible for the VLM.
     await page.screenshot({ path: pngPath, type: "png", fullPage });
   } finally {
     await browser.close();
@@ -69,47 +69,47 @@ async function uploadLocal(path) {
 
 const EDIT_PROMPT_SYSTEM = `You are a senior web art director. You are writing ONE prompt for the gpt-image-2 image-editing model that will transform the attached screenshot into a production-quality redesign of the same website. The redesign must be better than the original; everything else is open.
 
-Before you write one word of the prompt, do this silent brand analysis. Let the BRAND and its CONTENT decide every visual choice — do not default to any one style (editorial, minimal, brutalist, illustrated, photographic). The goal is the right move for this specific product, not your signature move.
+Before you write one word of the prompt, do this silent brand analysis. Let the BRAND and its CONTENT decide every visual choice: do not default to any one style (editorial, minimal, brutalist, illustrated, photographic). The goal is the right move for this specific product, not your signature move.
 
-STEP 1 — Read the content.
+STEP 1: Read the content.
 What product is this? Who buys it? What is the emotional register it needs (trust, energy, calm, credibility, wonder, irreverence, warmth, precision, playfulness, craft, hacker, family)? Is the page a utility, a portfolio, a shopfront, a tool, a manifesto, a subscription, a game, a gadget? Write an internal one-sentence brand summary.
 
-STEP 2 — Decide the primary visual carrier.
+STEP 2: Decide the primary visual carrier.
 This is the big choice. Pick ONE of the following based on the brand, not on fashion:
-  (a) The PRODUCT as a hero image — a large rendered or illustrated object that IS the page's visual focal point (physical goods, instruments, gadgets, wearables, apps-as-objects).
-  (b) PHOTOGRAPHY — a single well-framed still or a rhythmic pair, documentary or product-shot or moody, depending on the brand.
-  (c) ILLUSTRATION / CHARACTERS / MASCOTS — playful, cel-shaded, retro-game, childlike, hand-drawn, or mascot-led when the brand is playful, collectible, character-driven, consumer-social, or explicitly whimsical.
-  (d) TYPOGRAPHY — oversized display type as the visual — only when the brand is text-first (a slow-media product, a manifesto, a newsletter, a literary object, an editorial/serif-leaning product).
-  (e) DIAGRAM / INFORMATION GRAPHIC — when the product is technical and the information itself is the story.
-  (f) GRAPHIC SYSTEM — flat abstract marks, color blocks, grid tiles — when the brand wants calm, modern, pattern-led.
+  (a) The PRODUCT as a hero image: a large rendered or illustrated object that IS the page's visual focal point (physical goods, instruments, gadgets, wearables, apps-as-objects).
+  (b) PHOTOGRAPHY: a single well-framed still or a rhythmic pair, documentary or product-shot or moody, depending on the brand.
+  (c) ILLUSTRATION / CHARACTERS / MASCOTS: playful, cel-shaded, retro-game, childlike, hand-drawn, or mascot-led when the brand is playful, collectible, character-driven, consumer-social, or explicitly whimsical.
+  (d) TYPOGRAPHY: oversized display type as the visual: only when the brand is text-first (a slow-media product, a manifesto, a newsletter, a literary object, an editorial/serif-leaning product).
+  (e) DIAGRAM / INFORMATION GRAPHIC: when the product is technical and the information itself is the story.
+  (f) GRAPHIC SYSTEM: flat abstract marks, color blocks, grid tiles: when the brand wants calm, modern, pattern-led.
 Name the choice and justify in one sentence. Do NOT default to (d) typography. Do NOT default to (a) product-hero. The brand decides.
 
-STEP 3 — Palette.
+STEP 3: Palette.
 Pick 3–6 hex values. The palette must fit the brand's register (bright primaries for a playful game, deep ink for a slow-media tool, earthy naturals for a craft product, neon on black for a hacker tool, warm pastels for wellness, etc.). Avoid palettes that ignore the brand (e.g. austere-ink-on-white for a playful children's game is wrong; bright cartoon colors for a premium precision instrument is wrong). No palette is banned, no palette is defaulted.
 
-STEP 4 — Typography.
-Pick ONE display and ONE body. The pairing must match the brand register — rounded chunky sans for playful, serif with voice for considered/literary, neo-grotesk for precision tools, pixel/mono for retro or technical, hand-lettered for tactile/crafty. Typography in the redesign must be in service of the primary visual carrier chosen in Step 2 — if imagery or illustration is carrying the page, keep typography tighter and quieter; if typography is the carrier, make it oversized and confident.
+STEP 4: Typography.
+Pick ONE display and ONE body. The pairing must match the brand register: rounded chunky sans for playful, serif with voice for considered/literary, neo-grotesk for precision tools, pixel/mono for retro or technical, hand-lettered for tactile/crafty. Typography in the redesign must be in service of the primary visual carrier chosen in Step 2: if imagery or illustration is carrying the page, keep typography tighter and quieter; if typography is the carrier, make it oversized and confident.
 
-STEP 5 — Layout rhythm.
+STEP 5: Layout rhythm.
 Choose the layout that serves the hero: a full-bleed image page, a tight editorial single-column, an asymmetric magazine spread, a centered-object product page, a gridded catalogue, a comic-strip sequence, a data-dense dashboard, a playful non-grid playground. Pick, do not default.
 
-Only NOW write the single gpt-image-2 edit prompt. It must be a concrete edit-instruction to the image model — not a critique, not generic advice. Every sentence describes a specific, visible change to apply while preserving:
-- the brand name and all copy visible in the screenshot (verbatim — do not drop text, do not invent text),
+Only NOW write the single gpt-image-2 edit prompt. It must be a concrete edit-instruction to the image model: not a critique, not generic advice. Every sentence describes a specific, visible change to apply while preserving:
+- the brand name and all copy visible in the screenshot (verbatim: do not drop text, do not invent text),
 - the information architecture (nav items, section order, CTA semantics).
 
 Specify, in flowing art-director sentences:
-1. The primary visual carrier (from Step 2) — describe the hero image, illustration, photograph, diagram, or typographic move in concrete visual detail so the image model can render it.
+1. The primary visual carrier (from Step 2): describe the hero image, illustration, photograph, diagram, or typographic move in concrete visual detail so the image model can render it.
 2. The palette: 3–6 hex values and where each is used.
 3. The typography: display + body family names, size/case/tracking for the hero.
 4. The layout move: how the grid rebalances, how sections are paced, any structural shift.
-5. Component detail: buttons, chips, badges, dividers, illustrated accents — how they look in the chosen register.
+5. Component detail: buttons, chips, badges, dividers, illustrated accents: how they look in the chosen register.
 6. Any supporting imagery or graphical elements beyond the hero (secondary illustrations, textures, diagrammatic icons, pattern tiles).
 
-Output ONLY the prompt text. 350–700 words. No preamble, no markdown, no bullet lists — write it as flowing art-director copy. Open by naming the primary visual carrier choice + the palette hexes + the typography pairing. End with: "Render as a tall desktop web page screenshot, 1920x2880 portrait (showing hero + below-the-fold sections), no browser chrome, no device frame, no watermark, razor-sharp text, no broken glyphs, no duplicated words."`;
+Output ONLY the prompt text. 350–700 words. No preamble, no markdown, no bullet lists: write it as flowing art-director copy. Open by naming the primary visual carrier choice + the palette hexes + the typography pairing. End with: "Render as a tall desktop web page screenshot, 1920x2880 portrait (showing hero + below-the-fold sections), no browser chrome, no device frame, no watermark, razor-sharp text, no broken glyphs, no duplicated words."`;
 
 export async function writeEditPrompt({ screenshotUrl, context, direction }) {
   const userMsg = [
-    context?.brief ? `BRAND CONTEXT (for reference only — do not change the copy):\n${typeof context.brief === "string" ? context.brief : JSON.stringify(context.brief, null, 2)}` : null,
+    context?.brief ? `BRAND CONTEXT (for reference only: do not change the copy):\n${typeof context.brief === "string" ? context.brief : JSON.stringify(context.brief, null, 2)}` : null,
     context?.notes ? `ADDITIONAL NOTES:\n${context.notes}` : null,
     direction ? `DESIGN DIRECTION: ${direction.label}\nDIRECTION DETAILS: ${direction.vibe}\nYour edit prompt must embrace this direction specifically, not a generic improvement. Push every visible decision (palette, typography, grid, motion hints, texture) toward this direction.` : null,
     `Write the gpt-image-2 edit prompt for the attached screenshot now.`,
@@ -158,11 +158,11 @@ export async function editImage({ screenshotUrl, editPrompt }) {
 
 const DESCRIBE_SYSTEM = `You are a senior design engineer writing a precise build-spec for another engineer (Claude Code / Codex). You receive ONE image: the newly approved TARGET design that must be implemented exactly.
 
-Describe the TARGET design in enough depth that an engineer can reproduce it in HTML/CSS without seeing it a second time. Never speculate about a "before" or compare versions — just describe what is visible in the TARGET image.
+Describe the TARGET design in enough depth that an engineer can reproduce it in HTML/CSS without seeing it a second time. Never speculate about a "before" or compare versions: just describe what is visible in the TARGET image.
 
 You MUST output TWO things in this order and nothing else:
 
-PART A — a Markdown build-spec using exactly these sections (skip a section only if truly absent):
+PART A: a Markdown build-spec using exactly these sections (skip a section only if truly absent):
 
 # Design spec
 
@@ -198,7 +198,7 @@ Buttons (fill, border, radius, label style, icons), tags, chips, badges, divider
 ## Implementation notes
 Concrete Tailwind / CSS / spacing hints (e.g. "hero wordmark clamp(72px, 9vw, 128px), leading 0.95, tracking -0.02em", "section padding 96px top 48px bottom at lg").
 
-Then PART B — a single fenced JSON block titled tokens, matching this schema exactly. Wrap it in \`\`\`json ... \`\`\` fences. Omit fields you genuinely cannot determine; never invent values.
+Then PART B: a single fenced JSON block titled tokens, matching this schema exactly. Wrap it in \`\`\`json ... \`\`\` fences. Omit fields you genuinely cannot determine; never invent values.
 
 \`\`\`json
 {
@@ -228,7 +228,7 @@ Then PART B — a single fenced JSON block titled tokens, matching this schema e
 }
 \`\`\`
 
-Note on imagery: the engineer will be given the full target image (\`after.png\`) as a visual reference. Do NOT output pixel bboxes or image prompts — the engineer reads the image directly to decide which assets to source or placeholder.
+Note on imagery: the engineer will be given the full target image (\`after.png\`) as a visual reference. Do NOT output pixel bboxes or image prompts: the engineer reads the image directly to decide which assets to source or placeholder.
 
 Be concise in PART A. Output only PART A followed by PART B. No preamble, no trailing commentary.
 
@@ -258,7 +258,7 @@ Be concise. No fluff. No "Great news!" preamble. Output Markdown only.`;
 
 const IMPLEMENT_SYSTEM = `You are a staff-level front-end engineer. You are given:
   (A) The ORIGINAL HTML of a website between BEGIN_HTML and END_HTML markers.
-  (B) An attached image — the APPROVED REDESIGN (1920×2880).
+  (B) An attached image: the APPROVED REDESIGN (1920×2880).
 
 Your job is twofold.
 
@@ -270,7 +270,7 @@ Before writing any HTML, do this silent audit (do not print it):
 2. For EACH section: note the grid (cols, gap, container width), the type (display family vs sans body, sizes, weight, case, tracking), the palette (at least 4-6 hex values), the components (buttons, chips, cards, dividers), the imagery and its aspect ratio.
 3. Cross-reference against the ORIGINAL HTML to find the copy strings you'll reuse. If the original has more sections than the mockup, keep only those the mockup shows. If the mockup shows something the original lacks (e.g. a new image slot), add it.
 
-===== PART 1 — HTML =====
+===== PART 1: HTML =====
 Produce a NEW, complete single-file HTML document that REPRODUCES the mockup:
 - PALETTE: use hex values read directly from the mockup. Do not carry over the original site's colors. At minimum identify: background, surface, display text, body text, muted text, primary accent, line/border. Use those in the CSS.
 - TYPOGRAPHY: use the exact display family style (e.g. high-contrast serif, didone, grotesk, mono, etc.) you see in the mockup. Pick a Google Font that matches (don't default to Inter unless the mockup shows it). Size, weight, case, tracking must visibly match.
@@ -286,7 +286,7 @@ Hard rules for PART 1:
 - Minimal vanilla JS only if strictly needed.
 - Every decision must trace back to something you can point to in the mockup.
 
-PART 2 — After the closing </html>, output a single fenced JSON block with the flux prompts for every tile you referenced. Use this exact schema:
+PART 2: After the closing </html>, output a single fenced JSON block with the flux prompts for every tile you referenced. Use this exact schema:
 
 \`\`\`tiles
 {
@@ -300,7 +300,7 @@ PART 2 — After the closing </html>, output a single fenced JSON block with the
 Rules for PART 2:
 - One entry per <img> that references \`./tiles/tile-NN\`. Files must match the paths used in the HTML exactly.
 - Each prompt is 1-2 sentences. Describe subject + mood + palette + rendering style (photo/illustration/3D). No text in images.
-- Width/height are the intended source dimensions — pick powers-of-16 values between 512 and 1536 matching the aspect ratio the HTML expects (e.g. square → 1024x1024, landscape hero → 1536x1024, portrait → 768x1024).
+- Width/height are the intended source dimensions: pick powers-of-16 values between 512 and 1536 matching the aspect ratio the HTML expects (e.g. square → 1024x1024, landscape hero → 1536x1024, portrait → 768x1024).
 - If the design has no imagery at all, still output \`"tiles": []\`.
 
 Output ONLY the HTML + the \`\`\`tiles JSON block. No preamble, no fences around the HTML itself.`;
@@ -405,7 +405,7 @@ function splitMarkdownAndTokens(text) {
   try {
     tokens = JSON.parse(m[2].trim());
   } catch {
-    // Attempt to salvage — find the outermost braces.
+    // Attempt to salvage: find the outermost braces.
     const raw = m[2];
     const a = raw.indexOf("{");
     const b = raw.lastIndexOf("}");
@@ -500,7 +500,7 @@ function buildGalleryHtml(results, beforePath) {
     return `<a class="card" href="./${rel}" target="_blank" rel="noopener"><img loading="lazy" src="./${rel}" alt="" /><span class="num">${r.slug}</span><span class="label">${r.direction.label}</span><span class="slug">${r.direction.slug}</span></a>`;
   }).join("\n");
   const beforeRel = beforePath.split("/").pop();
-  return `<!doctype html><meta charset="utf-8"><title>fal-design — variants</title>
+  return `<!doctype html><meta charset="utf-8"><title>fal-design: variants</title>
 <style>
 :root{color-scheme:dark;--bg:#0a0a0b;--fg:#f2f0ea;--mut:#8a8781;--acc:#ff5c2b}
 *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,sans-serif}
@@ -522,17 +522,17 @@ main{padding:24px 32px 64px;display:grid;grid-template-columns:repeat(auto-fill,
 .card.fail{opacity:.55}
 </style>
 <header>
-  <h1>fal-design — variants</h1>
+  <h1>fal-design: variants</h1>
   <p class="sub">${results.filter((r) => r.ok).length} of ${results.length} redesigns rendered. Pick your favorite, then run <code>describe.sh --after &lt;file&gt;</code> to produce the build-spec for it.</p>
 </header>
-<section class="before"><img src="./${beforeRel}" alt="before"><span class="cap">Before — current site</span></section>
+<section class="before"><img src="./${beforeRel}" alt="before"><span class="cap">Before: current site</span></section>
 <main>${cards}</main>`;
 }
 
 const DELTA_SYSTEM = `You are a senior design QA engineer. You receive two attached images:
 
-  IMAGE 1 = CURRENT IMPLEMENTATION — a screenshot of the live site the engineer has shipped.
-  IMAGE 2 = REFERENCE TARGET — the approved design to match.
+  IMAGE 1 = CURRENT IMPLEMENTATION: a screenshot of the live site the engineer has shipped.
+  IMAGE 2 = REFERENCE TARGET: the approved design to match.
 
 The engineer has already done one implementation pass. Your job is a surgical delta-spec: only the pixel-level residual fixes needed to make CURRENT match TARGET.
 

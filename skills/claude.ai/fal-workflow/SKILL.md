@@ -1,24 +1,51 @@
 ---
 name: fal-workflow
-description: Generate production-ready fal.ai workflow JSON files. Use when user requests "create workflow", "chain models", "multi-step generation", "image to video pipeline", or complex AI generation pipelines.
+description: Author and execute multi-step media pipelines on fal.ai. Two modes: (A) declarative workflow JSON files for the fal.ai workflow runtime ("create workflow", "chain models", "image to video pipeline"); (B) imperative genmedia CLI orchestration when scripting locally ("design pipeline", "fan-out generation", "frame bridging", "narrated video", "dataset generation").
 metadata:
-  author: fal-ai
-  version: "3.0.0"
+ author: fal-ai
+ version: "4.0.0"
 ---
 
-# fal.ai Workflow Generator
+# fal.ai Workflows: Two Modes
 
-Generate **100% working, production-ready fal.ai workflow JSON files**. Workflows chain multiple AI models together for complex generation pipelines.
+> **Runtime:** Two modes. Mode A authors `.json` files for the fal.ai workflow runtime (executed in the cloud, no local CLI needed). Mode B drives the [genmedia CLI](https://github.com/fal-ai-community/genmedia-cli) for local orchestration. See the `genmedia` skill for Mode B command syntax; run `genmedia init` once if not yet installed.
 
-**References:**
-- [Model Reference](references/MODELS.md) - Detailed model configurations
-- [Common Patterns](references/PATTERNS.md) - Reusable workflow patterns
-- [Code Examples](references/EXAMPLES.md) - Code snippets and partial examples
+This skill covers two complementary ways to build multi-step media pipelines on fal.ai. They share endpoints and concepts but differ in deliverable.
 
-**Troubleshooting Reference:**
-- [Complete Workflows](references/WORKFLOWS.md) - Working JSON examples for debugging (use ONLY when user reports errors)
+| Mode | Deliverable | When to use |
+|------|-------------|-------------|
+| **A. Workflow JSON** | A portable `.json` file the fal.ai workflow runtime executes | The user wants a reusable, shareable workflow asset; the pipeline graph is fixed at design time |
+| **B. genmedia CLI orchestration** | A sequence of `genmedia run / status / upload` calls (often scripted) | Local scripting, exploratory pipelines, dataset jobs, branching logic, or pipelines that need conditional steps |
+
+If unsure: prefer Mode A when the result is a deliverable for someone else to run; Mode B when you are running it yourself or steps need runtime decisions.
 
 ---
+
+## Mode A: Workflow JSON authoring
+
+Generate **100% working, production-ready fal.ai workflow JSON files**. Workflows chain multiple AI models together via a declarative graph.
+
+**JSON-mode references:**
+- [MODELS.md](references/MODELS.md), model configurations for JSON nodes
+- [PATTERNS.md](references/PATTERNS.md), reusable JSON workflow patterns
+- [EXAMPLES.md](references/EXAMPLES.md), code snippets and partial examples
+- [WORKFLOWS.md](references/WORKFLOWS.md), full JSON workflows (debugging reference; use only when user reports errors)
+
+## Mode B: genmedia CLI orchestration
+
+Plan and execute a sequence of `genmedia` calls with clear inputs, outputs, dependencies, and quality checks. Use this when a single model call is not enough and the orchestration happens in your shell, not on fal.ai.
+
+**CLI-mode references:**
+- [pipeline-patterns.md](references/pipeline-patterns.md), fan-out, sequential composition, frame bridging, multi-modal assembly, variation matrices
+- [node-rules.md](references/node-rules.md), per-role rules (planner / generator / editor / utility / QA / manifest)
+- [utility-endpoints.md](references/utility-endpoints.md), utility endpoint catalog (resize, composite, mask, audio, subtitle, etc.)
+- [recipes.md](references/recipes.md), end-to-end recipes (cinematic video, product campaign, character continuity, narrated documentary, dataset, social batch)
+
+For default endpoint choices in Mode B, consult `fal-models-catalog`. Always run `genmedia schema <endpoint_id> --json` before executing and `genmedia pricing <endpoint_id> --json` when cost matters.
+
+---
+
+# Mode A: Workflow JSON authoring (continued)
 
 ## Core Architecture
 
@@ -37,51 +64,51 @@ Generate **100% working, production-ready fal.ai workflow JSON files**. Workflow
 
 ```json
 {
-  "name": "my-workflow",
-  "title": "My Workflow",
-  "contents": {
-    "name": "workflow",
-    "nodes": {
-      "output": {
-        "type": "display",
-        "id": "output",
-        "depends": ["node-image"],
-        "input": {},
-        "fields": { "image": "$node-image.images.0.url" }
-      },
-      "node-image": {
-        "type": "run",
-        "id": "node-image",
-        "depends": ["input"],
-        "app": "fal-ai/flux/dev",
-        "input": { "prompt": "$input.prompt" }
-      }
-    },
-    "output": { "image": "$node-image.images.0.url" },
-    "schema": {
-      "input": {
-        "prompt": {
-          "name": "prompt",
-          "label": "Prompt",
-          "type": "string",
-          "required": true,
-          "modelId": "node-image"
-        }
-      },
-      "output": {
-        "image": { "name": "image", "label": "Generated Image", "type": "string" }
-      }
-    },
-    "version": "1",
-    "metadata": {
-      "input": { "position": { "x": 0, "y": 0 } },
-      "description": "Simple text to image workflow"
-    }
-  },
-  "is_public": true,
-  "user_id": "",
-  "user_nickname": "",
-  "created_at": ""
+ "name": "my-workflow",
+ "title": "My Workflow",
+ "contents": {
+ "name": "workflow",
+ "nodes": {
+ "output": {
+ "type": "display",
+ "id": "output",
+ "depends": ["node-image"],
+ "input": {},
+ "fields": { "image": "$node-image.images.0.url" }
+ },
+ "node-image": {
+ "type": "run",
+ "id": "node-image",
+ "depends": ["input"],
+ "app": "fal-ai/flux/dev",
+ "input": { "prompt": "$input.prompt" }
+ }
+ },
+ "output": { "image": "$node-image.images.0.url" },
+ "schema": {
+ "input": {
+ "prompt": {
+ "name": "prompt",
+ "label": "Prompt",
+ "type": "string",
+ "required": true,
+ "modelId": "node-image"
+ }
+ },
+ "output": {
+ "image": { "name": "image", "label": "Generated Image", "type": "string" }
+ }
+ },
+ "version": "1",
+ "metadata": {
+ "input": { "position": { "x": 0, "y": 0 } },
+ "description": "Simple text to image workflow"
+ }
+ },
+ "is_public": true,
+ "user_id": "",
+ "user_nickname": "",
+ "created_at": ""
 }
 ```
 
@@ -121,14 +148,14 @@ Generate **100% working, production-ready fal.ai workflow JSON files**. Workflow
 ```json
 // ❌ WRONG
 "node-b": {
-  "depends": [],
-  "input": { "data": "$node-a.output" }
+ "depends": [],
+ "input": { "data": "$node-a.output" }
 }
 
 // ✅ CORRECT
 "node-b": {
-  "depends": ["node-a"],
-  "input": { "data": "$node-a.output" }
+ "depends": ["node-a"],
+ "input": { "data": "$node-a.output" }
 }
 ```
 
@@ -151,9 +178,9 @@ Generate **100% working, production-ready fal.ai workflow JSON files**. Workflow
 
 ```json
 "schema": {
-  "input": {
-    "field": { "modelId": "first-consuming-node" }
-  }
+ "input": {
+ "field": { "modelId": "first-consuming-node" }
+ }
 }
 ```
 
@@ -161,11 +188,11 @@ Generate **100% working, production-ready fal.ai workflow JSON files**. Workflow
 
 ```json
 "output": {
-  "depends": ["node-a", "node-b", "node-c"],
-  "fields": {
-    "a": "$node-a.video",
-    "b": "$node-b.images.0.url"
-  }
+ "depends": ["node-a", "node-b", "node-c"],
+ "fields": {
+ "a": "$node-a.video",
+ "b": "$node-b.images.0.url"
+ }
 }
 ```
 
@@ -188,7 +215,7 @@ Generate **100% working, production-ready fal.ai workflow JSON files**. Workflow
 | Music | `$node.audio_file.url` |
 | Frame Extract | `$node.frame.url` |
 
-Use `search-models.sh` or `search_models` MCP tool to discover current models. See `references/MODELS.md` for workflow code templates.
+Use `genmedia models "<query>" --json` or `genmedia models --category <cat> --json` to discover current models. See `references/MODELS.md` for workflow code templates.
 
 ---
 
@@ -196,22 +223,22 @@ Use `search-models.sh` or `search_models` MCP tool to discover current models. S
 
 ```json
 "schema": {
-  "input": {
-    "text_field": {
-      "name": "text_field",
-      "label": "Display Label",
-      "type": "string",
-      "description": "Help text",
-      "required": true,
-      "modelId": "consuming-node"
-    },
-    "image_urls": {
-      "name": "image_urls",
-      "type": { "kind": "list", "elementType": "string" },
-      "required": true,
-      "modelId": "node-id"
-    }
-  }
+ "input": {
+ "text_field": {
+ "name": "text_field",
+ "label": "Display Label",
+ "type": "string",
+ "description": "Help text",
+ "required": true,
+ "modelId": "consuming-node"
+ },
+ "image_urls": {
+ "name": "image_urls",
+ "type": { "kind": "list", "elementType": "string" },
+ "required": true,
+ "modelId": "node-id"
+ }
+ }
 }
 ```
 
@@ -231,26 +258,23 @@ Before outputting any workflow, verify:
 
 ---
 
-## Usage
+## Authoring a workflow JSON
 
-### Using Script
+Author the JSON file by hand following the structure shown above. There is no script wrapper; the agent writes the file directly. Validate before delivery:
+
+1. Every node id matches its object key.
+2. Every `$node.xxx` reference appears in `depends`.
+3. No string interpolation; variables are entire values.
+4. Schema input has `modelId` for each field.
+5. Output node `depends` includes every node it references.
+
+For each model used, inspect the schema first:
 
 ```bash
-bash /mnt/skills/user/fal-workflow/scripts/create-workflow.sh \
-  --name "my-workflow" \
-  --title "My Workflow Title" \
-  --nodes '[...]' \
-  --outputs '{...}'
+genmedia schema <endpoint_id> --json
 ```
 
-### Using MCP Tool
-
-```javascript
-mcp__fal-ai__create-workflow({
-  smartMode: true,
-  intent: "Generate a story with LLM, create an illustration, then animate it"
-})
-```
+Then write the corresponding `input` block in the workflow JSON.
 
 ---
 
@@ -294,3 +318,95 @@ Example:
 ```
 https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai/nano-banana-pro
 ```
+
+---
+
+# Mode B: genmedia CLI orchestration
+
+When the deliverable is local execution rather than a portable JSON file, plan a pipeline of `genmedia` calls.
+
+## Inputs to collect
+
+Ask only for missing information that changes the pipeline:
+
+- Final deliverable: image set, video, clips, audio, subtitles, dataset, social batch, product campaign, storyboard, style exploration.
+- Source assets: product images, character references, first frames, video, audio, logo, transcript, brand guide.
+- Runtime limits: quality target, cost sensitivity, number of variants, duration, aspect ratios, deadline.
+- Continuity requirements: product identity, character face, scene layout, voice, color grade.
+- Model preference: ask only when quality/speed/cost tradeoffs are not clear from the brief.
+
+## Core CLI workflow
+
+1. Write a short pipeline graph before running anything.
+
+ ```text
+ input assets -> planner -> generation nodes -> utility nodes -> QA -> final outputs
+ ```
+
+2. Resolve endpoints for each role. Check known endpoint IDs first via `fal-models-catalog`.
+
+ ```bash
+ genmedia models --endpoint_id <endpoint_id> --json
+ ```
+
+ Use text search only as fallback discovery for roles not covered:
+
+ ```bash
+ genmedia models "image generation product photography" --json
+ genmedia docs "fal.ai workflow utility endpoints" --json
+ ```
+
+3. Inspect every endpoint before use.
+
+ ```bash
+ genmedia schema <endpoint_id> --json
+ genmedia pricing <endpoint_id> --json
+ ```
+
+4. Upload local files once and reuse returned URLs.
+
+ ```bash
+ genmedia upload ./input.png --json
+ ```
+
+5. Run each node with JSON output. Use `--async` for slow generation; poll with `genmedia status`.
+
+ ```bash
+ genmedia run <endpoint_id> --<field> "<value>" --json
+ genmedia run <endpoint_id> --<field> "<value>" --async --json
+ genmedia status <endpoint_id> <request_id> --download "./outputs/workflow/{request_id}_{index}.{ext}" --json
+ ```
+
+6. For downstream nodes, pass the media URL from the previous result. Only upload local intermediate files when no URL is available.
+
+7. Download final assets with templates that cannot collide:
+
+ ```bash
+ --download "./outputs/workflow/{request_id}_{index}.{ext}"
+ ```
+
+8. Return a compact manifest (see [node-rules.md](references/node-rules.md) for the manifest schema).
+
+## CLI pipeline rules
+
+- One node, one transformation.
+- Fan out independent generation / crop / upscale / subtitle / variation lanes.
+- Sequential chains only when node B genuinely needs node A output.
+- Prefer reference / edit / image-to-video over independent text-only generations when continuity matters.
+- Use utility endpoints for deterministic work (crop, resize, grid, composite, audio merge, subtitle, speed change, compression).
+- Record endpoint, schema-relevant parameters, request ID, and output path for every node.
+- On 422 errors: read `validation_errors`, re-inspect schema, fix the exact field.
+
+## CLI quality gate
+
+Before returning, verify:
+
+- The pipeline graph matches the requested deliverable.
+- No generation model was chosen from memory alone.
+- All local source files were uploaded before use.
+- Final files were saved through `--download`.
+- Utility endpoints used exact schema fields.
+- Continuity anchors were repeated where identity or product fidelity matters.
+- Each node output is either accepted, retried, or marked with a defect.
+
+If the workflow becomes too complex, stop expanding and ask the user to choose between faster iteration, higher fidelity, or broader variation.

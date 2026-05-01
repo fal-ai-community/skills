@@ -8,8 +8,8 @@ const REVIEW_SYSTEM = `You are a brutal but fair design-awards jury member and a
 You are given: a screenshot of a website as it currently renders in a browser, plus the raw HTML file and the brief.
 
 Your job, in one pass:
-1. Look at the screenshot and identify the concrete flaws that keep this site from being a design-award winner today — type hierarchy, color harmony, pacing, composition, tension, density, motion, copy craft.
-2. Rewrite the complete single-file HTML so that those flaws are fixed and the site visibly levels up — stronger editorial confidence, sharper typography, richer layout, better micro-details, unexpected but tasteful choices.
+1. Look at the screenshot and identify the concrete flaws that keep this site from being a design-award winner today: type hierarchy, color harmony, pacing, composition, tension, density, motion, copy craft.
+2. Rewrite the complete single-file HTML so that those flaws are fixed and the site visibly levels up: stronger editorial confidence, sharper typography, richer layout, better micro-details, unexpected but tasteful choices.
 3. Keep the site self-contained: Tailwind via CDN, Google Fonts link, inline <style>, minimal vanilla JS only if needed. No external assets beyond the hero image.
 4. Preserve the hero <img> and write it with src="{{HERO_IMAGE}}" (a new hero will be swapped in after your rewrite).
 5. Use only the brand/copy in the brief (tighten or rework phrasing is fine; do not invent facts).
@@ -78,7 +78,7 @@ export async function reviewVariant({ siteDir, brief, direction }) {
     `BRIEF:`,
     JSON.stringify(brief, null, 2),
     ``,
-    `DESIGN DIRECTION: ${direction.label} — ${direction.vibe}`,
+    `DESIGN DIRECTION: ${direction.label}: ${direction.vibe}`,
     ``,
     `CURRENT HTML (inline, between BEGIN_HTML / END_HTML):`,
     `BEGIN_HTML`,

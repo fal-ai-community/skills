@@ -1,6 +1,6 @@
 import { gptImage2, downloadAsDataUri } from "./fal.mjs";
 
-// Generate a hero image. Returns { url, dataUri } — url is used as vision reference for the LLM,
+// Generate a hero image. Returns { url, dataUri }: url is used as vision reference for the LLM,
 // dataUri is embedded in the final standalone HTML so the file is truly self-contained.
 export async function generateHero({ brief, direction }) {
   const prompt = [

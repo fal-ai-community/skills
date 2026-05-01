@@ -1,15 +1,15 @@
-# fal-redesign — launch-day demo cheat-sheet
+# fal-redesign, launch-day demo cheat-sheet
 
 Copy-paste blocks in order. Designed for a 60–90s screen recording.
 
 ## 0. Setup (off-camera)
 
 ```bash
-export FAL_KEY=...            # https://fal.ai/dashboard/keys
+export FAL_KEY=... # https://fal.ai/dashboard/keys
 
-# Demo subject — a deliberately plain starter HTML:
-cd ~/mon-projet-web            # contains index.html (PixelFind)
-open index.html                # show the "before" in the browser
+# Demo subject, a deliberately plain starter HTML:
+cd ~/mon-projet-web # contains index.html (PixelFind)
+open index.html # show the "before" in the browser
 
 # Open a second terminal for the skill commands
 cd ~/mon-projet-web
@@ -18,15 +18,15 @@ cd ~/mon-projet-web
 ## 1. Single redesign (the core money shot)
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/upgrade.sh \
-  --target ./index.html \
-  --context "PixelFind — a royalty-free image search and in-browser editor"
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs upgrade \
+ --target ./index.html \
+ --context "PixelFind, a royalty-free image search and in-browser editor"
 ```
 
 Artifacts land in `./.fal-site-upgrade/`:
-- `before.png`  current screenshot
-- `after.png`   redesign
-- `changes.md`  build-spec (Hard constraints section first)
+- `before.png` current screenshot
+- `after.png` redesign
+- `changes.md` build-spec (Hard constraints section first)
 - `tokens.json` design tokens
 - `edit-prompt.txt`
 
@@ -34,7 +34,7 @@ Open `after.png` at the 20–35s mark of the video for the reveal.
 
 ```bash
 open ./.fal-site-upgrade/after.png
-cat  ./.fal-site-upgrade/changes.md | head -40
+cat ./.fal-site-upgrade/changes.md | head -40
 ```
 
 ## 2. Hand off to Claude Code for implementation
@@ -48,9 +48,9 @@ Refresh the browser. Split-screen the old vs. new. That's the delivery.
 ## 3. Residual pixel-fix pass (optional)
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/iterate.sh \
-  --target ./index.html \
-  --reference ./.fal-site-upgrade/after.png
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs iterate \
+ --target ./index.html \
+ --reference ./.fal-site-upgrade/after.png
 ```
 
 Produces `current.png` + `delta.md`. Hand `delta.md` back to Claude Code; refresh.
@@ -58,11 +58,11 @@ Produces `current.png` + `delta.md`. Hand `delta.md` back to Claude Code; refres
 ## 4. Multi-direction teaser (outro shot)
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/upgrade.sh \
-  --target ./index.html \
-  --context "PixelFind — a royalty-free image search and in-browser editor" \
-  --variants 4 \
-  --out ./.fal-redesign-variants
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs upgrade \
+ --target ./index.html \
+ --context "PixelFind, a royalty-free image search and in-browser editor" \
+ --variants 4 \
+ --out ./.fal-redesign-variants
 ```
 
 Then open the gallery:
@@ -71,15 +71,15 @@ Then open the gallery:
 open ./.fal-redesign-variants/gallery.html
 ```
 
-4 redesigns side-by-side in 4 distinct directions. Use this as the closing shot of the video: "one command, four futures — pick one."
+4 redesigns side-by-side in 4 distinct directions. Use this as the closing shot of the video: "one command, four futures, pick one."
 
 ## 5. Greenfield (bonus for a future video)
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/generate.sh \
-  --context "a volunteer-run bouldering gym inside a deconsecrated 19th-century church in Lyon, key-fob 24/7, weekly route-voting assemblies, Sunday brioche breakfast in the old sacristy" \
-  --variants 3 \
-  --out ./.fal-redesign-greenfield
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs generate \
+ --context "a volunteer-run bouldering gym inside a deconsecrated 19th-century church in Lyon, key-fob 24/7, weekly route-voting assemblies, Sunday brioche breakfast in the old sacristy" \
+ --variants 3 \
+ --out ./.fal-redesign-greenfield
 ```
 
 Produces N standalone single-file HTML pages in different directions.
@@ -88,16 +88,16 @@ Produces N standalone single-file HTML pages in different directions.
 
 ## Timing per step (approximate)
 
-| Step                | Typical duration |
+| Step | Typical duration |
 | ------------------- | ---------------- |
-| `upgrade` single    | 60–150s          |
+| `upgrade` single | 60–150s |
 | `upgrade` 4-variant | 90–180s (parallel)|
-| `describe`          | 20–40s           |
-| `iterate`           | 40–70s           |
-| `generate` 3-var    | 180–300s         |
+| `describe` | 20–40s |
+| `iterate` | 40–70s |
+| `generate` 3-var | 180–300s |
 
 ## One-liner you can pin to your Raycast / Alfred
 
 ```bash
-bash ~/.claude/skills/fal-redesign/scripts/upgrade.sh --target ./index.html --context "<brand>"
+node ~/.claude/skills/fal-redesign/runtime/bin/fal-site.mjs upgrade --target ./index.html --context "<brand>"
 ```
