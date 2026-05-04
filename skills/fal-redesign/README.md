@@ -41,7 +41,7 @@ Each model plays to its strength. The result is a redesign your engineer-agent c
 Copy this folder into your skills directory, or reference it via a Claude Code plugin / symlink:
 
 ```bash
-ln -s /path/to/skills/claude.ai/fal-redesign ~/.claude/skills/fal-redesign
+ln -s /path/to/skills/fal-redesign ~/.claude/skills/fal-redesign
 export FAL_KEY=... # https://fal.ai/dashboard/keys
 ```
 

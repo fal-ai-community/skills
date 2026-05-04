@@ -1,0 +1,494 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "name": "character-design",
+      "description": "Build consistent character designs and character media with genmedia. Use this for original characters, reference sheets, expression sheets, outfit variations, identity-preserving edits, and character-to-video workflows.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "1f62641d84b3dc0f2c0e13663afbb71cd9682483e82b920cc53450713c5f5d57",
+          "bytes": 5147
+        },
+        {
+          "path": "references/anchor-system.md",
+          "sha256": "397f23ee81160990aad789931649aded955314c583539665fb89f1bf15831acd",
+          "bytes": 1898
+        },
+        {
+          "path": "references/examples.md",
+          "sha256": "1980d83b82d2ee18417aa3d704a30c4ad17b17e93a3676ed0be1508e64dd849f",
+          "bytes": 2028
+        },
+        {
+          "path": "references/prompt-patterns.md",
+          "sha256": "256ba5364c0b9b52538774e1c307ec1e8dbeffcd5cd85950e2b3551bcac382bc",
+          "bytes": 1880
+        }
+      ]
+    },
+    {
+      "name": "cinematography",
+      "description": "Design cinematic image and video prompts for genmedia. Use this for shot language, camera movement, lighting, lens choices, color grade, film texture, scene blocking, and production-ready visual direction.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "8d23b4836a7621e1c9715def480d95e3b4b2135bfd7995e2800013949fc8eba7",
+          "bytes": 4925
+        },
+        {
+          "path": "references/examples.md",
+          "sha256": "e143734e15f79411240056f22b9def4d8053b11cb54958213e68eec9899778c8",
+          "bytes": 1674
+        },
+        {
+          "path": "references/lighting-lens-color.md",
+          "sha256": "e9bbe4c61c98c0cf98cb652101b0e16f670184d7236e5509e9abc2e8de195f2a",
+          "bytes": 1995
+        },
+        {
+          "path": "references/shot-language.md",
+          "sha256": "21ca47d38ae6388293c410c4181fd2d84f8058fbcd36bf3db5d1643179e3faaf",
+          "bytes": 1901
+        }
+      ]
+    },
+    {
+      "name": "commercial",
+      "description": "Plan and run commercial image or video production with genmedia. Use this for product photography, ads, e-commerce batches, product reveals, lifestyle commercials, background replacement, social formats, and brand-safe prompt work.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "be01bc3eabf0cd1004b9ce6a1bf9725aa0bb308a3c499483971ce423e392e3b6",
+          "bytes": 6104
+        },
+        {
+          "path": "references/examples.md",
+          "sha256": "529a12813026c6f77c5171b99cfb966b57c81b36594626e8dd7a5eed81c7ba15",
+          "bytes": 1818
+        },
+        {
+          "path": "references/prompt-patterns.md",
+          "sha256": "491aaf66cac663b453d395b0a3c690f3da1a11a93292361b6589a6d6fec26be4",
+          "bytes": 2620
+        },
+        {
+          "path": "references/workflows.md",
+          "sha256": "e1cd239afb8a1b8f3bf5e7ae46d063b15a2cc73e0b9a28373b1d0acb344f135f",
+          "bytes": 2111
+        }
+      ]
+    },
+    {
+      "name": "fal-gamedev",
+      "description": "Generate 2D pixel art game assets, characters, sprite sheets, background removal, and game backgrounds. Trigger for \"pixel art character\", \"sprite sheet\", \"walk cycle\", \"game sprites\", \"isometric sprites\", \"side-scroller assets\", \"RPG character sprites\", \"idle animation\", \"attack animation\", \"jump animation\", \"game background\", \"parallax background\", \"isometric map\", \"2D game art\", \"pixel art animation\". Covers character generation (nano-banana-pro / gpt-image-2), sprite sheet animation (nano/edit or gpt-image-2/edit), background removal (Bria), and background generation (parallax layers or isometric map).",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "5b78fd483bd46b0783ad1decfd60617c4000cd7b52610455bfd4d4bf396758c2",
+          "bytes": 27534
+        }
+      ]
+    },
+    {
+      "name": "fal-models-catalog",
+      "description": "Choose the right fal.ai endpoint for a given task. Modality-organized catalog of production endpoint defaults, text-to-image, image-to-image, text-to-video, image-to-video, and more. Use when the user has not named a specific model, or asks \"which model for X\", \"best endpoint for Y\", \"what should I use for Z\".",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "13582586677b5afff1beaa7a3ac2306c59a3ab7ca6b7b2be0492a9af21b46de1",
+          "bytes": 2866
+        },
+        {
+          "path": "references/audio-to-text.md",
+          "sha256": "2a55433dd4b0293d324f75deadd86451ba1ec676fc82e3dc52a16cab137fa5ee",
+          "bytes": 1837
+        },
+        {
+          "path": "references/image-to-3d.md",
+          "sha256": "33a10b6fbd7ad300871e4bbe924f9050cb5add7f3c80494ffa72ae833af72edf",
+          "bytes": 2521
+        },
+        {
+          "path": "references/image-to-image.md",
+          "sha256": "71011dd3a3bad2893d99f0ed70f240a335d571226280dbf54d0bdad9abdc04f6",
+          "bytes": 4594
+        },
+        {
+          "path": "references/image-to-text.md",
+          "sha256": "7e777fe6c80980edb0c1a9f2e2623c9eabde40c9b77f29e55ca6fe9d264bc1a5",
+          "bytes": 2856
+        },
+        {
+          "path": "references/image-to-video.md",
+          "sha256": "8d9c1cc8e2e68d897ccdffdd2ebd7df627f851db77bc54e8e418e98f9afbea64",
+          "bytes": 4818
+        },
+        {
+          "path": "references/text-to-3d.md",
+          "sha256": "d6bfdcbfeadb24bac5b90db55511bba86b9e677c75c83392ad95935ec0e99250",
+          "bytes": 1732
+        },
+        {
+          "path": "references/text-to-audio.md",
+          "sha256": "1b9bfa86945d0eee286b691e637e631baa07088ae26de8c096f20ed188e084b1",
+          "bytes": 3022
+        },
+        {
+          "path": "references/text-to-image.md",
+          "sha256": "860cbfa182cb45a9da9e8e9c2f8982ef8724c92dcc145e2ff0bd08bd093f77eb",
+          "bytes": 3294
+        },
+        {
+          "path": "references/text-to-video.md",
+          "sha256": "1840fc2ba3b392fb46fea3240727ebf198fc9d8f0c627ed42aef41f6d856e619",
+          "bytes": 2266
+        },
+        {
+          "path": "references/video-to-video.md",
+          "sha256": "3282c3084a7c3ffce07f8ecc4c8595168a133553a9638245fc1e3916c7ed96c8",
+          "bytes": 2865
+        }
+      ]
+    },
+    {
+      "name": "fal-prompting",
+      "description": "Model-family-specific prompt craft for fal.ai endpoints. Trigger when the user mentions a specific model family by name and asks how to prompt it (\"how do I prompt Kling\", \"GPT Image 2 prompt structure\", \"Happy Horse tips\"), or when prompts to a routed endpoint keep coming back generic and the family's known nuances should be applied. For endpoint selection (\"which model for X\"), use `fal-models-catalog` instead. This skill is about how to talk to a model once it has been chosen.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "e9e88c6b5ccac9367353ab9a829ce764c7a253ae3b93f1306bb247eabafde1d7",
+          "bytes": 2758
+        },
+        {
+          "path": "references/gpt-image-2.md",
+          "sha256": "50430650b1b03ca83ee80ff5fef9844bb27ed56e0e621c280f0353ea18cdd84b",
+          "bytes": 6043
+        },
+        {
+          "path": "references/happy-horse.md",
+          "sha256": "82bc895cfbf4f42b2672f329f069a5130ecf77a09500b9d4127e5acd296b17f7",
+          "bytes": 3970
+        },
+        {
+          "path": "references/kling.md",
+          "sha256": "cd0653d33aead4b622753aa84f8f47be816932a4cfe222da8c6962f05068929e",
+          "bytes": 5129
+        }
+      ]
+    },
+    {
+      "name": "fal-recipes",
+      "description": "Use-case-driven multi-step pipelines on fal.ai. Trigger when the user asks for a specific kind of content production rather than a single endpoint call: \"make a commercial\", \"ad creative\", \"product photography\", \"cinematic shot\", \"film look\", \"character design\", \"consistent character\", \"anchor system\", \"storyboard\", \"multi-shot\", \"narrative video\", \"talking head\", \"lip sync\", \"make this person talk\", \"virtual try-on\", \"garment transfer\", \"restore image\", \"deblur\", \"denoise\", \"fix face\", \"old photo restore\", \"add audio to video\", \"video sound effects\", \"product shot\", \"photoreal\", \"realistic photo\", \"candid photo\", \"editorial portrait\", \"documentary photo\", \"looks like a real photograph\", \"iPhone-style photo\", \"film photo\", \"archival photo\". Each recipe describes inputs, the genmedia call sequence, and quality checks.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "2c6a99b5cf427b89436f65836f00e8ac25d8dabf0871127e5ee196e5faf4c98a",
+          "bytes": 4534
+        },
+        {
+          "path": "references/character-design.md",
+          "sha256": "a432f10ee2b8e84bebc506af285748ef9c56c9b3f5c205201190b88f2fcb1022",
+          "bytes": 8744
+        },
+        {
+          "path": "references/character-lipsync.md",
+          "sha256": "7cd5e02b5df35ed6989672848c6789ff24e5e40f914af4205ade68dc2c030e4b",
+          "bytes": 4376
+        },
+        {
+          "path": "references/cinematography.md",
+          "sha256": "e2092269cb9acb10795f8676fea634d69c0ddc597fd9f6a9ed2c53a62d466ba6",
+          "bytes": 9258
+        },
+        {
+          "path": "references/commercial.md",
+          "sha256": "f02bb04518a2c63535535760927dbc72e1583e67db60c83ac04d2133078de2b2",
+          "bytes": 10032
+        },
+        {
+          "path": "references/image-restoration.md",
+          "sha256": "48adc6893479c37265c9fbaa8454d2b51b0797948097f1d13272f7d01fa078f8",
+          "bytes": 4521
+        },
+        {
+          "path": "references/product-shot.md",
+          "sha256": "2f27f791b3d1ce1e82a79ae3bdd84c84f2cd9b166d4dd03482ce6f4e67f36a12",
+          "bytes": 5699
+        },
+        {
+          "path": "references/realism.md",
+          "sha256": "f735907a0853ff7dcd0160c44232c9b1981bc8f7f4f90bde1c7ef1cb8b5670c2",
+          "bytes": 24083
+        },
+        {
+          "path": "references/storytelling.md",
+          "sha256": "0026c1486c095412f36f8093bb90eec163218c8c6a607faf4db1cfc6144716d4",
+          "bytes": 11003
+        },
+        {
+          "path": "references/video-with-audio.md",
+          "sha256": "f454c1de0b8e66a24bc509e3dc569f539cf5c614131c89f9405f61e8b6cdafec",
+          "bytes": 5155
+        },
+        {
+          "path": "references/virtual-tryon.md",
+          "sha256": "302827b8db12f95838757861fa9f4cd6cf88d6ec9f78116886084fa2ee0b724c",
+          "bytes": 4192
+        }
+      ]
+    },
+    {
+      "name": "fal-redesign",
+      "description": "Upgrade a coded website to award-tier, editorially-crafted design using fal.ai. Takes a local HTML file or a dev-server URL, screenshots it, has an opus-4.7 vision model write a gpt-image-2 edit prompt, uses fal-ai/gpt-image-2/edit to produce the redesigned reference image, then opus-4.7 vision writes a Markdown build-spec with a \"Hard constraints\" section + a tokens.json. Also supports iterate (screenshot implemented site \u2192 delta-spec vs reference) and greenfield generate (brief \u2192 mockup \u2192 single-file HTML). Invoke when the user says \"improve the design\", \"make it world-class\", \"redesign this landing page\", \"upgrade this site\", \"design pass\", or points at a local HTML / dev server for a visual review.",
+      "files": [
+        {
+          "path": ".gitignore",
+          "sha256": "89c3ddc6773e07af2a3b0f84e6ccc6e5ac3f7b63c7c37a6c8aa76ab47d3feffa",
+          "bytes": 32
+        },
+        {
+          "path": "DEMO.md",
+          "sha256": "35e7fd13940bc8a6bc3f3938da87c67fce35fb021964792b155ca91d5b8a3a36",
+          "bytes": 3120
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "33042e7805bc7e62e174e852d8e1c9fc9b179d94b4a25d98aca1f12b8587a0e2",
+          "bytes": 1086
+        },
+        {
+          "path": "README.md",
+          "sha256": "3ede2fa7db0cf37e0c050c2fccdb1c122d22873b30541aa8a00b13265336552f",
+          "bytes": 5228
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "71a23a7384ecaa2db2b8ffccd39d7c936563de6aebc243cc2a52c5edca512afd",
+          "bytes": 5781
+        },
+        {
+          "path": "runtime/.gitignore",
+          "sha256": "d1a53295017269e4a82d276d0b5a00204935a60a53a4d21d9adbfb0db111cd6a",
+          "bytes": 57
+        },
+        {
+          "path": "runtime/README.md",
+          "sha256": "58dfac061d323836619e798576731748fab2a5930ec6241dd4149894c1fbdf93",
+          "bytes": 1989
+        },
+        {
+          "path": "runtime/package-lock.json",
+          "sha256": "59d58fd3d0f7c241d77f31482be149a7648c00bca5b9ed0a595ad08746fa7216",
+          "bytes": 60974
+        },
+        {
+          "path": "runtime/package.json",
+          "sha256": "f050e2024d5f126071fcfe6afb55582acadbac94794d313917a06d20c83d3a4c",
+          "bytes": 630
+        },
+        {
+          "path": "runtime/bin/fal-site.mjs",
+          "sha256": "d78e7eab390b88aacc4813084dde2d1919091f347318a395ccf0982560cdf463",
+          "bytes": 18612
+        },
+        {
+          "path": "runtime/src/brief.mjs",
+          "sha256": "597a9da2cb62ba27774c50baeba7f638142d0aa896b5e3990c679f32fdf6ed15",
+          "bytes": 2274
+        },
+        {
+          "path": "runtime/src/directions.mjs",
+          "sha256": "1f59c863a4fca9a17e037dbd8cf438323a1d582e909b40121b54e3c57cd89a94",
+          "bytes": 6647
+        },
+        {
+          "path": "runtime/src/fal.mjs",
+          "sha256": "a911be88c360cb92b882913917f23b83c8f0334469bd41da346c460601388f2d",
+          "bytes": 3012
+        },
+        {
+          "path": "runtime/src/hero.mjs",
+          "sha256": "7c8abc11d32227b6bda8218d7c3b71856167b6c48abe0f5de8d7214d7daf0536",
+          "bytes": 1007
+        },
+        {
+          "path": "runtime/src/implement.mjs",
+          "sha256": "5f9c681885e4632b3f93cd893a2386e82762b35b9cf5f831acd627015417170f",
+          "bytes": 3333
+        },
+        {
+          "path": "runtime/src/mockup.mjs",
+          "sha256": "97ffa7e691c0926444cab214dcb68e26677a6fca271579bd42116234b5791e3a",
+          "bytes": 2898
+        },
+        {
+          "path": "runtime/src/review.mjs",
+          "sha256": "ccc1a34a31d480780aded96e0f68d1f16a31843017bebdafaf21197c30608001",
+          "bytes": 5370
+        },
+        {
+          "path": "runtime/src/upgrade.mjs",
+          "sha256": "850e8a799c34c021afe766cd3a90a46134dc038af96c223c4e8256d0b8a3ec47",
+          "bytes": 32545
+        },
+        {
+          "path": "runtime/src/variants.mjs",
+          "sha256": "6ed740b8b9f94ec5dc30e160e42cc4f1a24994d7ca8b7c0acff3f8368743bd63",
+          "bytes": 4013
+        },
+        {
+          "path": "runtime/src/video.mjs",
+          "sha256": "f624aa0d625e537f961753756229cfc8f2ccb5d939016b2c64f7ca6427a7e28c",
+          "bytes": 10861
+        }
+      ]
+    },
+    {
+      "name": "fal-regenerate-3d",
+      "description": "Build a fully-interactive 3D character-selector experience powered entirely by fal.ai. Generates stylized characters (FLUX.2 / GPT-Image-2), rigged animated GLBs (Meshy v6), themed companion creatures, per-character PATINA floor textures, looped Seedance video backgrounds, and a Three.js scene with palette swaps, breathing reflections, transition effects and a CREATE-YOUR-OWN flow.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "e9716e331cc0d811f3ff44d3d4ccfbb87c20fca61ad08f0b59d567c2c15853df",
+          "bytes": 6282
+        }
+      ]
+    },
+    {
+      "name": "fal-workflow",
+      "description": "Author and execute multi-step media pipelines on fal.ai. Two modes: (A) declarative workflow JSON files for the fal.ai workflow runtime (\"create workflow\", \"chain models\", \"image to video pipeline\"); (B) imperative genmedia CLI orchestration when scripting locally (\"design pipeline\", \"fan-out generation\", \"frame bridging\", \"narrated video\", \"dataset generation\").",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "a079894cc2c31b161cb4eca6f9396d84f40e45608607107085a57ac2ea9eb5f4",
+          "bytes": 12951
+        },
+        {
+          "path": "references/EXAMPLES.md",
+          "sha256": "8447d3f495da275f374c572f5bcc78bdceda8115a44fef7f89d8143e7d202d89",
+          "bytes": 3828
+        },
+        {
+          "path": "references/MODELS.md",
+          "sha256": "b1d7faaa11a80acd9dbcea1a4916440db0091617de706d283ed8918ff219e49c",
+          "bytes": 11297
+        },
+        {
+          "path": "references/PATTERNS.md",
+          "sha256": "bce02988722326ad405519627bab1dbbef6f34ea31758d6f66570c55ddb218fa",
+          "bytes": 2520
+        },
+        {
+          "path": "references/WORKFLOWS.md",
+          "sha256": "98e4da942e75a6c193599954158600e3ff3a011363c5bfb7dbdd048a300b5082",
+          "bytes": 18775
+        },
+        {
+          "path": "references/node-rules.md",
+          "sha256": "cf449fe1aa4bf0338ae1cc0a226fcb675eebf9597017e04eb4f52083a3b57fef",
+          "bytes": 2826
+        },
+        {
+          "path": "references/pipeline-patterns.md",
+          "sha256": "dcfe4b87b0a3b02883ff98c3437f91145d933e5b669caccab736c1f9e6c40988",
+          "bytes": 3623
+        },
+        {
+          "path": "references/recipes.md",
+          "sha256": "c5b332b61fc557595ce2e9e992ec9e9944936008db9ac064b9872d12696a4a7e",
+          "bytes": 3036
+        },
+        {
+          "path": "references/utility-endpoints.md",
+          "sha256": "c1921d500107659236c401451ecc1e9655576b5b35fb5e7bb1f8a308f0287501",
+          "bytes": 3401
+        }
+      ]
+    },
+    {
+      "name": "genmedia",
+      "description": "Use the genmedia CLI to search, inspect, run, and manage 1200+ fal.ai model endpoints. Trigger when the user mentions \"genmedia\", \"fal CLI\", or asks to \"search models\", \"run a model\", \"fetch schema\", \"check pricing\", \"upload to fal\", \"queue async job\", \"track request\", or any direct interaction with the fal.ai endpoint catalog. This is the foundational skill. Every other fal.ai-related skill in this repo executes its work through genmedia commands. Use `--json` whenever the output will be parsed by an agent.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "752d2497b86a32527667500800e4d95bca1590902aa732b916ab0d263ad0fa7c",
+          "bytes": 3894
+        },
+        {
+          "path": "references/full-reference.md",
+          "sha256": "d44b1e36382998e763b616630d39c802e48a39dff528f99f1bdbbe0e6e688ed7",
+          "bytes": 8668
+        }
+      ]
+    },
+    {
+      "name": "genmedia-workflow",
+      "description": "Design and execute multi-step media workflows with genmedia. Use this for pipelines that combine planning, generation, editing, image or video utilities, audio, subtitles, batching, and final delivery manifests.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "450e1d49500917ee199d981b2e8e45cc9a8d7caf408f6c7eed5dfbd065e16195",
+          "bytes": 5392
+        },
+        {
+          "path": "references/node-rules.md",
+          "sha256": "cf449fe1aa4bf0338ae1cc0a226fcb675eebf9597017e04eb4f52083a3b57fef",
+          "bytes": 2826
+        },
+        {
+          "path": "references/pipeline-patterns.md",
+          "sha256": "dcfe4b87b0a3b02883ff98c3437f91145d933e5b669caccab736c1f9e6c40988",
+          "bytes": 3623
+        },
+        {
+          "path": "references/recipes.md",
+          "sha256": "c5b332b61fc557595ce2e9e992ec9e9944936008db9ac064b9872d12696a4a7e",
+          "bytes": 3036
+        },
+        {
+          "path": "references/utility-endpoints.md",
+          "sha256": "c1921d500107659236c401451ecc1e9655576b5b35fb5e7bb1f8a308f0287501",
+          "bytes": 3401
+        }
+      ]
+    },
+    {
+      "name": "model-routing",
+      "description": "Choose default fal.ai endpoint IDs for genmedia production skills. Use this with commercial, character-design, cinematography, storytelling, and workflow when the user has not named a specific model.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "aaa36cb33dde91821127d44c238fa92256df4048b420834b064c64a277612fbd",
+          "bytes": 4704
+        }
+      ]
+    },
+    {
+      "name": "storytelling",
+      "description": "Build multi-shot narrative image, video, and audio workflows with genmedia. Use this for storyboards, shot lists, multi-prompt video, first-frame to last-frame pipelines, social stories, brand films, and sequence continuity.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "84db6699346718074e2c3c9e6ac1f9cd650e97f588023d9050ba8cf04d11b0f6",
+          "bytes": 5658
+        },
+        {
+          "path": "references/examples.md",
+          "sha256": "1b882303a6e7546896c4045a0b57f70cb2cd60afb8217ff8266865215ef0e507",
+          "bytes": 2802
+        },
+        {
+          "path": "references/shot-planning.md",
+          "sha256": "8ceccbda8fdeab87f1c4c5f1303562d3d37eca8f461e219e3650e22eb280ba4c",
+          "bytes": 1883
+        },
+        {
+          "path": "references/workflows.md",
+          "sha256": "618762ee0c9304f1a1065dc8f10de6bcd41242a59334b2a6f8e77badfa51afee",
+          "bytes": 2094
+        }
+      ]
+    }
+  ]
+}
