@@ -15,7 +15,7 @@ import os
 import re
 import sys
 
-SKILLS_DIR = os.path.join("skills", "claude.ai")
+SKILLS_DIR = "skills"
 INDEX_FILE = os.path.join(SKILLS_DIR, "index.json")
 
 
@@ -76,7 +76,7 @@ def build_index() -> dict:
     skills = []
     for entry in sorted(os.listdir(SKILLS_DIR)):
         skill_dir = os.path.join(SKILLS_DIR, entry)
-        if not os.path.isdir(skill_dir):
+        if not os.path.isdir(skill_dir) or entry.startswith("."):
             continue
         skill_file = os.path.join(skill_dir, "SKILL.md")
         if not os.path.exists(skill_file):
