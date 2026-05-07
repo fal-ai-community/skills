@@ -454,13 +454,39 @@
       ]
     },
     {
-      "name": "model-routing",
-      "description": "Choose default fal.ai endpoint IDs for genmedia production skills. Use this with commercial, character-design, cinematography, storytelling, and workflow when the user has not named a specific model.",
+      "name": "marketing",
+      "description": "Plan and run campaign-level marketing asset production with genmedia. Use this for launch kits, campaign matrices, paid social variants, landing-page visuals, email and banner imagery, hook/proof/conversion assets, creator ad packages, and channel-specific marketing deliverables.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "aaa36cb33dde91821127d44c238fa92256df4048b420834b064c64a277612fbd",
-          "bytes": 4704
+          "sha256": "18d5f0e69cdef6e4e1e6b60d9d96e21770c98cd9f4d1341deef56ccb3b60b2e9",
+          "bytes": 6447
+        },
+        {
+          "path": "references/campaign-patterns.md",
+          "sha256": "b071e24144829cd01c50e14e1e9498573af884200421a466c4c0f6baddfbc98b",
+          "bytes": 2348
+        },
+        {
+          "path": "references/examples.md",
+          "sha256": "f6f54eda43693e6f6be397d77bd49668cb2781b04e86c36924aa4de4e55e60b9",
+          "bytes": 1965
+        },
+        {
+          "path": "references/workflows.md",
+          "sha256": "63c3dada851269d55a653f1a7f67dc2094862a0479b94ea61a4aac92f777fd11",
+          "bytes": 1642
+        }
+      ]
+    },
+    {
+      "name": "model-routing",
+      "description": "Choose default fal.ai endpoint IDs for genmedia production skills. Use this with commercial, marketing, ugc, character-design, cinematography, storytelling, and workflow when the user has not named a specific model.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "6d3f6b555d37e758aec32ab66e7ce549aadfb8613cf030baee968705f277fbe0",
+          "bytes": 5840
         }
       ]
     },
@@ -487,6 +513,32 @@
           "path": "references/workflows.md",
           "sha256": "618762ee0c9304f1a1065dc8f10de6bcd41242a59334b2a6f8e77badfa51afee",
           "bytes": 2094
+        }
+      ]
+    },
+    {
+      "name": "ugc",
+      "description": "Plan and run UGC-style creator ads and social proof videos with genmedia. Use this for direct-to-camera creator scripts, talking-head ads, product demos, testimonials, founder clips, unboxing, reaction, before-after, faceless voiceover, and short vertical social videos.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "a70d5de3b17aebad5c9175039729f6935745a2e7600c512300176731c2fbc2e9",
+          "bytes": 6196
+        },
+        {
+          "path": "references/examples.md",
+          "sha256": "f2f5a70efeb975421a0b433408df2a1021b27bb6ceae3fcca4547d1de784ad7c",
+          "bytes": 1509
+        },
+        {
+          "path": "references/formats.md",
+          "sha256": "84a0a35623662553f88ea1dbb54dc77115dd541091c3b4c64c3abb70ab5041db",
+          "bytes": 2315
+        },
+        {
+          "path": "references/workflows.md",
+          "sha256": "e0831dd6ea3d1eccafa35d09e73103c10f3af0f867fc0b725300d3eff935e3b7",
+          "bytes": 1831
         }
       ]
     }
