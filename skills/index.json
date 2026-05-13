@@ -412,8 +412,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "d7d62c369e3f57a6de59c4384d315e55719be4c02f2ae66f92af3997f3c25d18",
-          "bytes": 12753
+          "sha256": "5515fc8f3ec190fe008d3c056cbb64854e95f87f7ab3f5dc2d2928c029306427",
+          "bytes": 14821
         },
         {
           "path": "references/examples.md",
@@ -422,13 +422,13 @@
         },
         {
           "path": "references/genmedia-commands.md",
-          "sha256": "e859c353004bbb6db7a489f65e0c5a2f891b29a1ac2f28063b63c0b36ce83f20",
-          "bytes": 5681
+          "sha256": "887bbce023cb221f62a96225e8c3ff115a3097723ee9fab2c457f5e349a3bccc",
+          "bytes": 7299
         },
         {
           "path": "references/prompt-contract.md",
-          "sha256": "a59615f4ea52711a89cad657a6792952ee8aacbbb8f2aeb870b378b580e58b5f",
-          "bytes": 9156
+          "sha256": "387a16c77213ec1b08d204aa89c16db0c6f492f7ba630fb55e109f174a1bdb9e",
+          "bytes": 9772
         }
       ]
     },
