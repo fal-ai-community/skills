@@ -80,6 +80,32 @@
       ]
     },
     {
+      "name": "fal-controlnet-lock",
+      "description": "Author fal.ai workflow JSON and genmedia CLI pipelines that lock image composition using ControlNet. Covers canny-edge, depth, pose, and tile control types; preprocessor-to-ControlNet generation chains; multi-controlnet weighting; and style-transfer while preserving spatial structure. Trigger for \"controlnet\", \"composition lock\", \"lock the layout\", \"keep the pose\", \"same structure different style\", \"restyle with controlnet\", \"edge-guided generation\", \"depth-conditioned generation\", \"lock composition\", \"preserve structure\", \"structural restyle\".",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "febb18af259c7e81132f473c2f9918bc362990eba1fa036aa79492acbceb1464",
+          "bytes": 8081
+        },
+        {
+          "path": "references/endpoints.md",
+          "sha256": "69687fdcc3df0071b6c1b5d053dc0cf6ccc21eba010bf0d3205cd523f082c39d",
+          "bytes": 5303
+        },
+        {
+          "path": "references/patterns.md",
+          "sha256": "ec22b749799f2bc9302da8ef02369e71abca6e2c45964e11abb1bd014b90e99b",
+          "bytes": 8137
+        },
+        {
+          "path": "references/workflows.md",
+          "sha256": "09b0a0b3c6aac136dfd3d1ad500a75d9ba0d2e33d8141cba212ecf46721dc16c",
+          "bytes": 11536
+        }
+      ]
+    },
+    {
       "name": "fal-gamedev",
       "description": "Generate 2D pixel art game assets, characters, sprite sheets, background removal, and game backgrounds. Trigger for \"pixel art character\", \"sprite sheet\", \"walk cycle\", \"game sprites\", \"isometric sprites\", \"side-scroller assets\", \"RPG character sprites\", \"idle animation\", \"attack animation\", \"jump animation\", \"game background\", \"parallax background\", \"isometric map\", \"2D game art\", \"pixel art animation\". Covers character generation (nano-banana-pro / gpt-image-2), sprite sheet animation (nano/edit or gpt-image-2/edit), background removal (Bria), and background generation (parallax layers or isometric map).",
       "files": [
