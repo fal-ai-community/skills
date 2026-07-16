@@ -90,6 +90,14 @@ skills/
  └── *.md
 ```
 
+## Built on genmedia
+
+Third-party skills that use the genmedia CLI as their execution layer:
+
+| Skill | Purpose |
+|-------|---------|
+| **[HyperShots](https://github.com/hypersocialinc/hypershots)** | App Store screenshots: agent-authored HTML rendered at exact store dimensions with a spec validator; genmedia powers its sticker art (GPT Image 2 + BiRefNet cutouts) and spec-preserving style passes. |
+
 ## License
 
 MIT
