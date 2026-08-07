@@ -134,7 +134,7 @@ async function cmdImplement(argv) {
   const file = new File([new Blob([afterBuf], { type: "image/png" })], "after.png", { type: "image/png" });
   console.error(`[implement] uploading after.png → fal storage`);
   const afterUrl = await fal.storage.upload(file);
-  console.error(`[implement] opus-4.7 vision writing new HTML + tile prompts`);
+  console.error(`[implement] opus-5 vision writing new HTML + tile prompts`);
   const { html, tiles } = await implementFromOriginal({ originalHtmlPath: resolve(out.original), afterUrl });
   writeFileSync(resolve(out.outHtml), html);
   console.error(`[implement] ✓ ${out.outHtml}  (${tiles.length} tile(s) to generate)`);

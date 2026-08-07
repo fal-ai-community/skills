@@ -42,7 +42,7 @@ export async function falRun(model, payload, { timeoutMs = 240_000 } = {}) {
 export async function llm({
   prompt,
   system_prompt,
-  model = "anthropic/claude-sonnet-4.6",
+  model = "anthropic/claude-sonnet-5",
   temperature = 0.9,
   max_tokens = 12_000,
   reasoning = false,
@@ -65,7 +65,7 @@ export async function llmVision({
   prompt,
   image_urls,
   system_prompt,
-  model = "anthropic/claude-sonnet-4.6",
+  model = "anthropic/claude-sonnet-5",
   temperature = 0.6,
   max_tokens = 4_000,
 } = {}) {

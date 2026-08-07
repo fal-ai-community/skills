@@ -52,7 +52,7 @@ export async function generateVariant({ brief, direction, heroImageUrl }) {
       image_urls: [heroImageUrl],
       temperature: 0.9,
       max_tokens: 16_000,
-      model: "anthropic/claude-sonnet-4.6",
+      model: "anthropic/claude-sonnet-5",
     });
   } else {
     const prompt = [
@@ -65,7 +65,7 @@ export async function generateVariant({ brief, direction, heroImageUrl }) {
       prompt,
       temperature: 1.0,
       max_tokens: 16_000,
-      model: "anthropic/claude-sonnet-4.6",
+      model: "anthropic/claude-sonnet-5",
     });
   }
 

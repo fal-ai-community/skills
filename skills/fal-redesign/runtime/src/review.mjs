@@ -95,7 +95,7 @@ export async function reviewVariant({ siteDir, brief, direction }) {
     image_urls: [shotUrl],
     temperature: 0.8,
     max_tokens: 16_000,
-    model: "anthropic/claude-sonnet-4.6",
+    model: "anthropic/claude-sonnet-5",
   });
 
   const { html: improvedHtml, heroPrompt } = splitReviewOutput(raw);
