@@ -12,9 +12,9 @@ No more "make it look nicer" feedback loops. The model *shows* you the new desig
 
 ```
 your index.html → screenshot (1920×1200)
-screenshot + brand → opus-4.7 writes a redesign prompt
+screenshot + brand → opus-5 writes a redesign prompt
 screenshot + prompt → fal-ai/gpt-image-2/edit → after.png
-after.png → opus-4.7 writes Markdown build-spec + tokens.json
+after.png → opus-5 writes Markdown build-spec + tokens.json
  → returned to Claude Code / Codex
 ```
 
@@ -29,7 +29,7 @@ Most "AI design" tools ask a language model to *write* beautiful CSS. LLMs are b
 `fal-redesign` flips the job:
 
 - **Image model does the design.** `gpt-image-2/edit` is trained on real design and renders legible in-image typography. Given a screenshot + an art-director prompt, it produces a mockup that looks like it came out of Figma, not a prompt.
-- **Vision LLM does the spec.** `opus-4.7` reads the new mockup and writes a concrete change-list, palette hexes, font stacks, tracking, grid shifts, component details, plus a `Hard constraints` section the implementer must follow verbatim.
+- **Vision LLM does the spec.** `opus-5` reads the new mockup and writes a concrete change-list, palette hexes, font stacks, tracking, grid shifts, component details, plus a `Hard constraints` section the implementer must follow verbatim.
 - **Your agent does the code.** Claude Code / Codex then applies the spec to your real HTML, because that's what coding agents are good at.
 
 Each model plays to its strength. The result is a redesign your engineer-agent can actually *execute*, not a vibes-based critique.
@@ -102,12 +102,12 @@ Outputs N standalone single-file HTML variations (Tailwind CDN + inline base64 h
 
 | Stage | Model | Why |
 | --- | --- | --- |
-| Brief extraction | `anthropic/claude-opus-4.7` via `openrouter/router` | Structures freeform context into a tight JSON brief. |
-| Redesign prompt | `anthropic/claude-opus-4.7` via `openrouter/router/vision` | Strong multi-image reasoning; writes art-director prompts gpt-image-2 understands. |
+| Brief extraction | `anthropic/claude-opus-5` via `openrouter/router` | Structures freeform context into a tight JSON brief. |
+| Redesign prompt | `anthropic/claude-opus-5` via `openrouter/router/vision` | Strong multi-image reasoning; writes art-director prompts gpt-image-2 understands. |
 | Redesign image | `fal-ai/gpt-image-2/edit` | Edits a screenshot while preserving readable brand copy in-image. |
-| Build-spec | `anthropic/claude-opus-4.7` via `openrouter/router/vision` | Produces precise, actionable Markdown specs + tokens. |
+| Build-spec | `anthropic/claude-opus-5` via `openrouter/router/vision` | Produces precise, actionable Markdown specs + tokens. |
 
-Override the vision model with `FAL_SITE_MODEL=<provider>/<model>`. Use `anthropic/claude-sonnet-4.6` for ~3× cheaper runs with near-parity for this task.
+Override the vision model with `FAL_SITE_MODEL=<provider>/<model>`. Use `anthropic/claude-sonnet-5` for ~3× cheaper runs with near-parity for this task.
 
 ---
 

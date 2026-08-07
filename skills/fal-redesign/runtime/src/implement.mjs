@@ -38,7 +38,7 @@ export async function implementFromMockup({ brief, direction, mockupUrl }) {
     image_urls: [mockupUrl],
     temperature: 0.6,
     max_tokens: 16_000,
-    model: "anthropic/claude-sonnet-4.6",
+    model: "anthropic/claude-sonnet-5",
   });
 
   return cleanupHtml(html);

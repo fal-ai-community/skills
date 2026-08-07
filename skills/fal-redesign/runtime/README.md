@@ -25,7 +25,7 @@ cat email.txt | npx fal-site --stdin -n 8 -o ~/Desktop/out
 - `--no-hero`: skip the gpt-image-2 hero (faster, tiny HTML)
 - `--concurrency <N>`: parallel variant builds (default `3`)
 - `--list-directions`: print available design directions
-- `--model <id>`: override the text model (default `anthropic/claude-sonnet-4.6`)
+- `--model <id>`: override the text model (default `anthropic/claude-sonnet-5`)
 
 ### Output
 

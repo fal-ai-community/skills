@@ -8,7 +8,7 @@ import { pickDirections } from "./directions.mjs";
 
 // Model used throughout for VLM#1 + VLM#2, via the OpenRouter router on fal.
 // Overridable via env var to quickly swap providers without touching code.
-const MODEL = process.env.FAL_SITE_MODEL || "anthropic/claude-opus-4.7";
+const MODEL = process.env.FAL_SITE_MODEL || "anthropic/claude-opus-5";
 
 function ensureKey() {
   if (!process.env.FAL_KEY) {
@@ -441,7 +441,7 @@ export async function upgradeSite({ target, outDir, context, variants = 1 }) {
   // If FAL_SITE_DIRECTION is set, pickDirections returns [match]; otherwise we leave
   // direction undefined so the prompt defaults to freeform brand-analysis.
   const forced = process.env.FAL_SITE_DIRECTION ? pickDirections(1)[0] : undefined;
-  console.error(`[fal-design upgrade] 3/4 VLM#1 (opus-4.7) → edit prompt${forced ? ` (direction: ${forced.slug})` : ""}`);
+  console.error(`[fal-design upgrade] 3/4 VLM#1 (opus-5) → edit prompt${forced ? ` (direction: ${forced.slug})` : ""}`);
   const editPrompt = await writeEditPrompt({ screenshotUrl: beforeUrl, context, direction: forced });
   writeFileSync(editPromptPath, editPrompt);
 
@@ -451,7 +451,7 @@ export async function upgradeSite({ target, outDir, context, variants = 1 }) {
   if (!afterRes.ok) throw new Error(`failed to download redesigned image: ${afterRes.status}`);
   writeFileSync(afterPath, Buffer.from(await afterRes.arrayBuffer()));
 
-  console.error(`[fal-design upgrade] describing target (opus-4.7 vision) + tokens`);
+  console.error(`[fal-design upgrade] describing target (opus-5 vision) + tokens`);
   const { markdown, tokens } = await describeTarget({ afterUrl });
   writeFileSync(changesPath, markdown);
   if (tokens) writeFileSync(tokensPath, JSON.stringify(tokens, null, 2));
@@ -565,7 +565,7 @@ export async function describeExisting({ afterPath, outDir }) {
   console.error(`[fal-design describe] 1/3 uploading ${afterPath}`);
   const afterUrl = await uploadLocal(afterPath);
 
-  console.error(`[fal-design describe] 2/3 opus-4.7 vision → build-spec + tokens`);
+  console.error(`[fal-design describe] 2/3 opus-5 vision → build-spec + tokens`);
   const { markdown, tokens } = await describeTarget({ afterUrl });
   writeFileSync(changesPath, markdown);
   if (tokens) writeFileSync(tokensPath, JSON.stringify(tokens, null, 2));
@@ -588,7 +588,7 @@ export async function iterateSite({ target, referenceAfterPath, outDir }) {
   const currentUrl = await uploadLocal(currentPath);
   const targetUrl = await uploadLocal(referenceAfterPath);
 
-  console.error(`[fal-site iterate] 3/3 vision delta-spec (opus-4.7)`);
+  console.error(`[fal-site iterate] 3/3 vision delta-spec (opus-5)`);
   const delta = await deltaSpec({ currentUrl, targetUrl });
   writeFileSync(deltaPath, delta);
 

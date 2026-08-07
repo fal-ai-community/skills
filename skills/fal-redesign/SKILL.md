@@ -1,6 +1,6 @@
 ---
 name: fal-redesign
-description: Upgrade a coded website to award-tier, editorially-crafted design using fal.ai. Takes a local HTML file or a dev-server URL, screenshots it, has an opus-4.7 vision model write a gpt-image-2 edit prompt, uses fal-ai/gpt-image-2/edit to produce the redesigned reference image, then opus-4.7 vision writes a Markdown build-spec with a "Hard constraints" section + a tokens.json. Also supports iterate (screenshot implemented site → delta-spec vs reference) and greenfield generate (brief → mockup → single-file HTML). Invoke when the user says "improve the design", "make it world-class", "redesign this landing page", "upgrade this site", "design pass", or points at a local HTML / dev server for a visual review.
+description: Upgrade a coded website to award-tier, editorially-crafted design using fal.ai. Takes a local HTML file or a dev-server URL, screenshots it, has an opus-5 vision model write a gpt-image-2 edit prompt, uses fal-ai/gpt-image-2/edit to produce the redesigned reference image, then opus-5 vision writes a Markdown build-spec with a "Hard constraints" section + a tokens.json. Also supports iterate (screenshot implemented site → delta-spec vs reference) and greenfield generate (brief → mockup → single-file HTML). Invoke when the user says "improve the design", "make it world-class", "redesign this landing page", "upgrade this site", "design pass", or points at a local HTML / dev server for a visual review.
 metadata:
  author: fal-ai-community
  version: "0.1.0"
@@ -14,9 +14,9 @@ metadata:
 
 ```
 your index.html → screenshot (1920×1200)
-screenshot + brand → opus-4.7 writes a redesign prompt
+screenshot + brand → opus-5 writes a redesign prompt
 screenshot + prompt → fal-ai/gpt-image-2/edit → after.png
-after.png → opus-4.7 writes Markdown build-spec + tokens.json
+after.png → opus-5 writes Markdown build-spec + tokens.json
  → returned to Claude Code / Codex
 ```
 
@@ -74,7 +74,7 @@ export FAL_KEY=... # https://fal.ai/dashboard/keys
 ```
 
 Models used:
-- `anthropic/claude-opus-4.7`: via `openrouter/router` and `openrouter/router/vision` (overridable with `FAL_SITE_MODEL`).
+- `anthropic/claude-opus-5`: via `openrouter/router` and `openrouter/router/vision` (overridable with `FAL_SITE_MODEL`).
 - `fal-ai/gpt-image-2`: greenfield hero + mockup renders.
 - `fal-ai/gpt-image-2/edit`: screenshot-to-redesign transformation.
 
@@ -94,7 +94,7 @@ Models used:
 
 ## Model notes
 
-- Opus 4.7 handles multi-image reasoning and produces precise design specs. For 3× cheaper runs with near-parity on this task, set `FAL_SITE_MODEL=anthropic/claude-sonnet-4.6`.
+- Opus 5 handles multi-image reasoning and produces precise design specs. For 3× cheaper runs with near-parity on this task, set `FAL_SITE_MODEL=anthropic/claude-sonnet-5`.
 - `gpt-image-2/edit` is the right primitive because it edits an existing screenshot while preserving legible in-image text, avoid substituting other image models here.
 
 ## Runtime details
