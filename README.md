@@ -58,6 +58,15 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 | **[fal-regenerate-3d](skills/fal-regenerate-3d)** | Interactive 3D character-selector experience with Three.js, Meshy, and Seedance. |
 | **[genmedia-workflow](skills/genmedia-workflow)** | Genmedia-oriented workflow planning, node rules, pipeline patterns, and reusable recipes. |
 
+### Serverless skills
+
+These cover building and hosting your own apps with the [`fal` CLI](https://github.com/fal-ai/fal), not calling marketplace models.
+
+| Skill | Purpose |
+|-------|---------|
+| **[fal-serverless](skills/fal-serverless)** | Write a `fal.App`, test it with `fal run`, deploy it with `fal deploy`, and call the endpoint. |
+| **[fal-serverless-operate](skills/fal-serverless-operate)** | Operate deployed apps: revisions and rollbacks, scaling, runners and logs, errors, cold starts and cost. |
+
 ## Setup
 
 ### 1. Get an API key
@@ -79,6 +88,15 @@ genmedia init
 ```
 
 Installs the default skill bundle into `.agents/skills/` or `.claude/skills/`.
+
+**With the `fal` CLI:**
+
+```text
+fal skills install              # fal-serverless and fal-serverless-operate
+fal skills install fal-prompting  # or any skill in this registry
+```
+
+Installs into `.agents/skills/` plus the skills directory of each coding agent it finds (for example `.claude/skills/`). Add `--global` for a user-level install.
 
 ## Skill format
 
