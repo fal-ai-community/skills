@@ -13,13 +13,16 @@ the owner prefix.
 
 ```bash
 fal auth whoami                 # who am I; `fal account list` / `fal account set <team>` to switch
-fal doctor                      # fal version + which FAL_KEY id is active
+fal doctor                      # fal version + key id from the FAL_KEY env var (blank otherwise)
 fal apps list                   # add --env staging to look outside `main`
 ```
 
-- Every app lives in one environment. Commands default to `main`. Pass `--env <name>` or
-  set `FAL_ENV`, or you will be looking at the wrong app.
-- Nearly every command takes `--team <team>` and `--json` for scripting.
+- Every app lives in one environment. `fal apps {list,list-rev,scale,rollout,set-rev,runners,delete}`,
+  `deploy`, `run` and `secrets` take `--env <name>` (or `FAL_ENV`; default `main`). Forget
+  it and you will be looking at the wrong app. `queue`, `runners`, `apps gpus`,
+  `apps delete-rev`, `api` and `files` have no environment flag.
+- Commands that talk to the platform take `--team <team>`; list and inspect commands
+  (and `deploy`) take `--json`. Check `fal <cmd> --help` before relying on either flag.
 - A `FAL_KEY` env var overrides the login session. Check `fal doctor` if results look
   like another account's.
 
@@ -91,12 +94,14 @@ fal apps scale my-app --machine-types GPU-H100 GPU-A100 && fal apps rollout my-a
 
 - Runtime-tunable values (`keep_alive`, `min/max_concurrency`, `concurrency_buffer[_perc]`,
   `scaling_delay`, `request_timeout`, `regions`) **stick across future deploys**. To go
-  back to code values, deploy with `fal deploy app.py::MyApp --reset-scale`.
+  back to code values, deploy with `fal deploy app.py::MyApp --reset-scale`. A pyproject
+  name reference ignores that flag; set `app_scale_settings = true` in the app's table.
 - `machine_type`, `max_multiplexing` and `startup_timeout` set here are temporary: the
   next deploy resets them to the code. Machine type changes affect only new runners;
   follow them with `fal apps rollout`.
 - Billing covers every live second of `SETUP`, `IDLE` (including `keep_alive`),
-  `RUNNING` and `DRAINING`. `PENDING` and image pulls are free. `min_concurrency`
+  `RUNNING`, `DRAINING` and `TERMINATING` (`teardown()`). `PENDING`, `DOCKER_PULL` and
+  `TERMINATED` are free. `min_concurrency`
   runners bill around the clock.
 
 Tuning recipes and cold-start fixes: `references/cold-starts-and-cost.md`.
@@ -108,7 +113,7 @@ fal secrets set HF_TOKEN=hf_xxx --env main      # then `fal apps rollout my-app`
 fal secrets list --env staging                  # names only, never values
 fal secrets unset OLD_TOKEN
 
-fal keys create --scope API --desc "prod caller"   # call apps only; prints FAL_KEY='id:secret' ONCE
+fal keys create --scope API --desc "prod caller"   # call any model or app + API-scoped Platform APIs; cannot deploy/manage; prints FAL_KEY='id:secret' ONCE
 fal keys create --scope ADMIN --desc "CI deploys"  # also needed for fal deploy / fal run / managing apps
 fal keys list
 fal keys revoke <key_id>
@@ -143,9 +148,9 @@ Non-main environments add a suffix: `my-org/my-app--staging`.
 | Every error kills its runner | the app returns 503 | return 500 or 4xx; 503 means "runner broken" |
 | 504 `request_timeout` | work exceeds `request_timeout` | raise it, or set `skip_retry_conditions=["timeout"]` so it is not retried 10 times |
 | First request after idle is slow | runners expired | raise `keep_alive`, add `min_concurrency` or `concurrency_buffer`, speed up `setup()` |
-| Code scaling changes ignored | inherited live values | `fal deploy ... --reset-scale` |
+| Code scaling changes ignored | inherited live values | `fal deploy app.py::MyApp --reset-scale` (by app name: `app_scale_settings = true` in pyproject) |
 | New secret value not seen | runners started before the change | `fal apps rollout my-app` |
-| 401/403 calling the app | private app, key from another account, or wrong env suffix | `fal auth whoami`, `fal keys list`, check `--env` |
+| 401/403 calling the app | private app, or a key from another account/team | `fal auth whoami`, `fal keys list` (a wrong `--<env>` suffix points at a different or missing app; check the alias) |
 
 Status-code semantics, retry headers, error types and timeouts:
 `references/troubleshooting.md`.
@@ -156,7 +161,8 @@ These are destructive or disruptive and cannot be undone:
 `fal apps delete`, `fal apps delete-rev`, `fal environments delete` (removes all its
 apps, secrets and history), `fal queue flush`, `fal apps rollout --force`,
 `fal runners kill`, `fal keys revoke`, `fal secrets unset`, `fal files rm` (recursive),
-and `fal apps scale --min-concurrency N` (starts billing N runners around the clock).
+and `fal apps scale my-app --min-concurrency 1` (any N > 0 starts billing N runners
+around the clock).
 
 ## Platform MCP (optional)
 

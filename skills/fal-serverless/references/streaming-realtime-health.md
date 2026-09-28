@@ -63,8 +63,9 @@ class MyApp(fal.App):
         await websocket.close()
 ```
 
-- `fal_client.realtime("my-org/my-app")` always connects to `/realtime`, so use that
-  exact path for `@fal.realtime`.
+- `fal_client.realtime("my-org/my-app")` connects to `/realtime` by default (override
+  with `path=`), so use `@fal.realtime("/realtime")` unless callers pass a matching
+  custom path.
 - `@fal.realtime(path, *, buffering=None, session_timeout=None, input_modal=..., output_modal=..., max_batch_size=1, content_type="application/msgpack", encode_message=None, decode_message=None)`.
 - Raw sockets: `fal_client.ws_connect("my-org/my-app", path="/ws")` (and `ws_connect_async`).
 - Apps with websocket routes get `websockets` and `msgpack` added to their requirements.
@@ -145,6 +146,7 @@ class MyApp(fal.App):
 
     def setup(self):
         self.stop = threading.Event()
+        self.db = connect_db()   # a resource teardown() releases
 
     @fal.endpoint("/")
     def run(self, input: Input) -> Output:

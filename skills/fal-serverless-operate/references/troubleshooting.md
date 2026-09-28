@@ -84,7 +84,9 @@ Filter with `--state` (lowercase): `idle`, `running`, `pending`, `setup`,
 - `App classes should not override __init__ directly`: move the code into `setup()`.
 - `app_files is not supported for container apps.`: use `COPY` in the Dockerfile.
 - Build errors: rerun with `--no-cache`, and add `--debug` for the full traceback.
-- `fal doctor` prints the fal version and which key is active.
+- `fal doctor` prints the fal, isolate and Python versions, the platform, FAL_HOST, and
+  the key id from the `FAL_KEY` env var only (blank when auth comes from a profile,
+  `FAL_KEY_ID`/`FAL_KEY_SECRET` or `fal auth login`).
 
 ## Status codes and retries
 

@@ -361,33 +361,33 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "1d705b0fd95778dac007efffbee29e11a04f34b999e474fbc6cb6a0ee18016d5",
-          "bytes": 13333
+          "sha256": "80a06c61786686dee0d50e0a2772b7420fa62fdf5187471de4019eddac866554",
+          "bytes": 14024
         },
         {
           "path": "references/app-configuration.md",
-          "sha256": "3a025ec3809f80badb9eac1bed4914943f37e468f49e5b92ac662646d2560040",
-          "bytes": 8307
+          "sha256": "924f9de4f18c3070c13d70b46cac7830d34f93c98c2c7c46b86abb867d73342f",
+          "bytes": 8464
         },
         {
           "path": "references/calling-and-testing.md",
-          "sha256": "46e9efe5220eeb366c430a250e4b593c6d8c330eaa94047cf1fd4708f7c5a715",
-          "bytes": 5024
+          "sha256": "422a20933152127be16c198132bdafef2da6fdfd3a934bd5d8564bcb7d1ea353",
+          "bytes": 5371
         },
         {
           "path": "references/containers.md",
-          "sha256": "a8c331a4be982106fcc1f69059c175f51e8fe6a8e7776d487d42065807a7c738",
-          "bytes": 7053
+          "sha256": "85dd5c89aeb4ff951eb7dd93f26255de119ae34a8d9ce032b264f33a77763ff4",
+          "bytes": 7472
         },
         {
           "path": "references/inputs-outputs-files.md",
-          "sha256": "0763fb0f9794a3bb08a53e3c0efcd29708378729d6373ef6f886574c0f8b8cef",
-          "bytes": 7217
+          "sha256": "876614157f5d628bc1853cab1c56c8879ca4ea62b8e866d1063a6e3d3658eb5f",
+          "bytes": 8104
         },
         {
           "path": "references/streaming-realtime-health.md",
-          "sha256": "516e713403e88c477c91430db25b5313d93ca0ab4157b63b710a390dbd1f2554",
-          "bytes": 7508
+          "sha256": "b638888b0243cfa6112f9417d2136a069e9a7e4523ac9c2ffdbdf07588c4b8b8",
+          "bytes": 7640
         }
       ]
     },
@@ -397,23 +397,23 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "eacc791b8aa6469f92ea7ba755e52066ba9b4938bae35ac2c5f11a6446e71ab7",
-          "bytes": 9815
+          "sha256": "235b72b8939d39d39f9c17532fa4a4a410ad282e513b1f5992bfe8ff9f6e8de4",
+          "bytes": 10472
         },
         {
           "path": "references/cli-reference.md",
-          "sha256": "47d42f21b112dd8590b6a1f8e80cb7dca94d68813692f682b7f50f3fcd458783",
-          "bytes": 6219
+          "sha256": "a2674b954941c9707ab897aaf113dfedf52a22d09cb25314b873d81f5f3c8cde",
+          "bytes": 7005
         },
         {
           "path": "references/cold-starts-and-cost.md",
-          "sha256": "8773c91f516fb958f3573f6d9a3cc155ae76c58d6bb2d5c012658299d7598e1b",
-          "bytes": 5544
+          "sha256": "ae07fd86f1cfeae1430e28d4793db04e28332bb0e131a94a155991d189713037",
+          "bytes": 5573
         },
         {
           "path": "references/troubleshooting.md",
-          "sha256": "1a01d815695a40ca83af6668586e5f8e6e19f9b83cf112e97d09b010f2ba3d9c",
-          "bytes": 7779
+          "sha256": "a9478dc4aac2f3f5b6eaf3cd41b1eeaa1be33821b0f65016f322d9c3c6fb4463",
+          "bytes": 7942
         }
       ]
     },

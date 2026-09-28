@@ -32,7 +32,8 @@ print(handle.request_id, handle.status())
 result = handle.get()
 handle.cancel()
 
-# Direct call: no queue, no retries, no status
+# Direct call: no queue, no platform retries, no status (fal_client itself still
+# retries transport errors, timeouts and 408/409/429, up to 10 attempts)
 result = fal_client.run("my-org/my-app", arguments={"prompt": "a red fox"})
 
 # SSE stream (app must define @fal.endpoint("/stream"))
@@ -87,8 +88,11 @@ curl -X POST "https://queue.fal.run/my-org/my-app?fal_webhook=https://example.co
 ```
 
 Queue states: `IN_QUEUE` (with `queue_position`), `IN_PROGRESS` (with logs if requested),
-`COMPLETED`. Queue requests are retried on 503, 504 and connection failures (up to 10
-attempts); direct `fal.run` calls never are.
+`COMPLETED`. Queue requests are retried after a runner 503/504, a runner disconnect or
+incomplete response, a `request_timeout`, or a gateway-to-runner connection error (up to
+10 attempts total; tune with `skip_retry_conditions` / `retry_config`, e.g.
+`skip_retry_conditions = ["timeout"]` so long jobs are not re-run). The platform never
+retries direct `fal.run` calls.
 
 ## CLI smoke test
 

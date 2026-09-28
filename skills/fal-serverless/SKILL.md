@@ -19,12 +19,13 @@ fal auth whoami
 ```
 
 In CI, export `FAL_KEY` from `fal keys create --scope ADMIN`: `fal deploy` and `fal run`
-need an ADMIN-scoped key, while an API-scoped key can only call apps.
+need an ADMIN-scoped key; an API-scoped key can call endpoints but not deploy or manage apps.
 
 The runner uses the same Python minor version as the interpreter you run `fal` from
 (the app is cloudpickled). Pick that interpreter deliberately; 3.11 is a safe default.
-To pin a version instead, set `python_version` in `pyproject.toml` (see
-`references/app-configuration.md`) and deploy from a matching interpreter.
+To pin a version instead, pass `python_version` as a class keyword or set it in
+`pyproject.toml` (see `references/app-configuration.md`) and deploy from a matching
+interpreter.
 
 ## The mental model: what runs where
 
@@ -136,6 +137,8 @@ class TextToImage(fal.App):
    ```
 
    ```bash
+   # Queue submit: returns request_id / status_url / response_url, not the output.
+   # Use https://fal.run/my-org/text-to-image to block for the result (no queue retries).
    curl -X POST https://queue.fal.run/my-org/text-to-image \
      -H "Authorization: Key $FAL_KEY" -H "Content-Type: application/json" \
      -d '{"prompt": "a red fox"}'
@@ -148,11 +151,11 @@ class TextToImage(fal.App):
 | Attribute | Default | Notes |
 |---|---|---|
 | `machine_type` | `"S"` | `XS` `S` `M` `L` `XL` (CPU), `GPU-A100` `GPU-L40` `GPU-H100` `GPU-RTXPRO6000` `GPU-H200` `GPU-B200`. A list is a fallback order. |
-| `num_gpus` | 1 | Multi-GPU on one runner. |
+| `num_gpus` | unset (server default) | GPUs per runner, for multi-GPU; only applies to GPU machine types. |
 | `requirements` | `[]` | Pin versions. `--extra-index-url`, `<url>` pairs go before the packages that need them. |
 | `app_name` / `app_auth` | kebab-case class name / `private` on deploy | `public`, `private` or `shared`. |
 | `keep_alive` | 60 | Idle seconds before a runner shuts down. |
-| `min_concurrency` / `max_concurrency` | 0 / platform limit | Always-warm floor (billed 24/7) and runner ceiling. |
+| `min_concurrency` / `max_concurrency` | 0 / unset (server default 2) | Always-warm floor (billed 24/7) and runner ceiling. Set `max_concurrency` explicitly. |
 | `concurrency_buffer` | 0 | Warm runners above current demand. |
 | `max_multiplexing` | 1 | Concurrent requests per runner; only with async or thread-safe handlers. |
 | `startup_timeout` / `request_timeout` | 600 / platform default | Seconds for `setup()` / per request. |
@@ -165,7 +168,10 @@ class TextToImage(fal.App):
 Full table, retry settings and pyproject keys: `references/app-configuration.md`.
 
 Scaling values in code apply on the **first** deploy. Later deploys keep whatever is
-live (including `fal apps scale` changes) unless you pass `--reset-scale`.
+live (including `fal apps scale` changes) unless you pass `--reset-scale`. With a
+pyproject name reference (`fal deploy text-to-image`) the CLI `--reset-scale` and
+`--strategy` flags are silently ignored: set `app_scale_settings = true` /
+`deployment_strategy` in `[tool.fal.apps.<name>]`, or deploy by file reference.
 
 ## Endpoints
 
@@ -263,7 +269,9 @@ endpoint id gets a suffix, as in `my-org/my-app--staging`. Secrets do not fall b
 - Do not define `__init__` on the App (it raises); use `setup()`.
 - `fal run` URLs are public unless you pass `--auth private`.
 - Local and remote Python minor versions must match; the SDK refuses a mismatch.
-- Editing scaling values in code does nothing on a redeploy without `--reset-scale`.
+- Editing scaling values in code does nothing on a redeploy without `--reset-scale`
+  (or `app_scale_settings = true` in pyproject.toml when deploying by app name, where
+  the CLI flag is ignored).
   `machine_type`, `max_multiplexing` and `startup_timeout` always come from code.
 - A slow first `setup()` (weight download) can exceed `startup_timeout` (600 s by
   default) and crash-loop. Raise it, or pre-stage weights on `/data`.

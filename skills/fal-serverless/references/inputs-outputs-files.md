@@ -35,41 +35,51 @@ class Output(FalBaseModel):
 ## Reading input files
 
 ```python
-from fal.toolkit import download_file, Image
+import fal
+from fal.toolkit import download_file
 
-@fal.endpoint("/")
-def run(self, input: Input) -> Output:
-    path = download_file(input.video_url, target_dir="/tmp/inputs")   # returns pathlib.Path
-    ...
+class MyApp(fal.App):
+    @fal.endpoint("/")
+    def run(self, input: Input) -> Output:
+        if input.image_url:
+            path = download_file(input.image_url, target_dir="/tmp/inputs")   # pathlib.Path
+        ...
 ```
 
 - `download_file(url, target_dir, *, force=False, request_headers=None, filesize_limit=None)`.
   `target_dir` is required. A relative `target_dir` resolves under `/data`. `data:` URIs
-  are decoded without a network call. Re-downloading is skipped when a local file with the
-  same `Content-Length` exists (size, not hash; pass `force=True` for freshness).
-  `filesize_limit` is in MB.
+  are decoded without a network call. Every URL call downloads the full body again; if a
+  file of the same size already exists, the new copy is discarded and the existing path
+  returned (size, not hash; `force=True` replaces it). To skip the network, check the
+  path yourself or use `download_model_weights`. `filesize_limit` is in MB.
+  The file name comes from the response (Content-Disposition or URL path); use the
+  returned `Path`.
 - An `Image`-typed input field accepts a URL string; call `.to_pil()` on it to load it.
-- `File.save(path)` downloads a file object to a path. `File.as_bytes()` only works on
-  objects created from bytes in this process (`file_data` is set); on an object built
-  from a URL it raises `ValueError("File has not been downloaded")`.
+- `File.save(path)` downloads a file object to a path. `File.as_bytes()` returns
+  in-process data: it works after `from_bytes`/`from_pil` and after a non-multipart
+  `from_path`. On an object built from a URL (such as an input field) it raises
+  `ValueError("File has not been downloaded")`; use `.save(path)` or `download_file`.
 
 ## Returning files (upload to the fal CDN)
 
 ```python
 from fal.toolkit import File, Image, Video, Audio
 
-Image.from_pil(pil_image)                       # png by default; format="jpeg"|"webp"|"gif"|"jpg"
+Image.from_pil(pil_image)                       # pil_image.format if set, else png; format="png"|"jpeg"|"webp"|"gif" ("jpg" raises KeyError)
 Image.from_bytes(raw, format="png")
-Image.from_path("/tmp/out.png")
-Video.from_path("/tmp/out.mp4")
-Audio.from_path("/tmp/out.wav")
+Image.from_path("/tmp/out.png", content_type="image/png")
+Video.from_path("/tmp/out.mp4", content_type="video/mp4")
+Audio.from_path("/tmp/out.wav", content_type="audio/wav")
 Audio.from_bytes(raw, content_type="audio/wav", file_name="out.wav")
-File.from_path("/tmp/result.glb")
+File.from_path("/tmp/result.glb", content_type="model/gltf-binary")
 File.from_bytes(data, content_type="application/octet-stream", file_name="model.glb")
 ```
 
 Each call uploads immediately and returns a model with `url`, `content_type`,
-`file_name`, `file_size` (plus `width`/`height` for `Image`). Return it inside your
+`file_name`, `file_size`. `from_path` sets `content_type` to `application/octet-stream`
+unless you pass `content_type=`. `Image` `width`/`height` are filled only by `from_pil`
+and by `from_bytes(..., size=ImageSize(...))` (`from fal.toolkit.image import ImageSize`).
+Return it inside your
 output model. URLs are public by default and expire according to the account's media
 expiration settings. There is no `fal.toolkit.upload_image` helper; use the classes above.
 
@@ -108,8 +118,9 @@ import fal
 
 @fal.function(machine_type="S")
 def fetch_weights():
-    import urllib.request
-    urllib.request.urlretrieve("https://example.com/w.safetensors", "/data/models/w.safetensors")
+    from fal.toolkit import download_file
+    # creates the directory; writes via a temp file + os.replace; name comes from the response
+    return str(download_file("https://example.com/w.safetensors", target_dir="/data/models"))
 ```
 
 Run it with `fal run fetch.py::fetch_weights`.
@@ -117,10 +128,11 @@ Run it with `fal run fetch.py::fetch_weights`.
 ### KV store (small shared values)
 
 ```python
+import json
 from fal.toolkit import KVStore
 
 kv = KVStore("my-namespace")
-kv.set("key", json.dumps(obj), ttl=3600)   # str values only, <= 1.9 MB, ttl 60..2592000 s
+kv.set("key", json.dumps({"enabled": True}), ttl=3600)   # str values only, <= 1.9 MB, ttl 60..2592000 s
 value = kv.get("key")                      # None if missing
 kv.delete("key")
 ```

@@ -34,9 +34,10 @@ class MyApp(fal.App):
 | `image` | `ContainerImage` | `None` | Custom Docker image. Switches the app to container mode. See `containers.md`. |
 
 Python version: the runner uses **your local interpreter's minor version** by default,
-because the app is cloudpickled. There is no `python_version` class attribute; set
-`python_version = "3.11"` under `[tool.fal.apps.<name>]` in `pyproject.toml`, and
-deploy from a matching interpreter. A mismatch fails fast with
+because the app is cloudpickled. There is no `python_version` class attribute (one is
+silently ignored). Pin it with a class keyword, `class MyApp(fal.App, python_version="3.11")`,
+or with `python_version = "3.11"` under `[tool.fal.apps.<name>]` in `pyproject.toml`.
+Either way, deploy from a matching interpreter. A mismatch fails fast with
 `Local Python X differs from the app's python_version=Y`.
 
 ## Hardware and placement
@@ -44,7 +45,7 @@ deploy from a matching interpreter. A mismatch fails fast with
 | Attribute | Type | Default | Notes |
 |---|---|---|---|
 | `machine_type` | `str` or `list[str]` | `"S"` | CPU: `XS`, `S`, `M`, `L`, `XL`. GPU: `GPU-A100`, `GPU-L40`, `GPU-H100`, `GPU-RTXPRO6000`, `GPU-H200`, `GPU-B200`. A list is a fallback order, tried until one has capacity. |
-| `num_gpus` | `int` | `None` (1) | GPUs per runner, GPU types only. |
+| `num_gpus` | `int` | `None` (server default) | GPUs per runner, GPU types only. |
 | `regions` | `list[str]` | `None` (any) | `us-west`, `us-central`, `us-east`, `eu-north`, `eu-west`. |
 
 Machine specs: https://fal.ai/docs/documentation/deployment/machine-types
@@ -55,7 +56,7 @@ Machine specs: https://fal.ai/docs/documentation/deployment/machine-types
 |---|---|---|
 | `keep_alive` | `60` | Seconds an idle runner stays warm. |
 | `min_concurrency` | `0` | Runners always kept alive, even with no traffic (billed). |
-| `max_concurrency` | platform limit | Upper bound on runners. |
+| `max_concurrency` | `None` (server default 2) | Upper bound on runners. Set it explicitly. |
 | `concurrency_buffer` | `0` | Extra warm runners above current demand. |
 | `concurrency_buffer_perc` | `0` | Buffer as a percent of current request volume; the effective buffer is the max of this and `concurrency_buffer`. |
 | `scaling_delay` | `0` | Seconds a request may wait before a scale-up is triggered. |

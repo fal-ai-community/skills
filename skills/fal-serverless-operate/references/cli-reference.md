@@ -14,7 +14,7 @@ fal auth logout
 fal auth whoami
 fal account list | fal account set <account> | fal account unset     # aliases: accounts, team, teams
 fal profile list | set <PROFILE> | unset | key | host | create | delete
-fal doctor [--json]      # fal version, Python, and which FAL_KEY id is in use
+fal doctor [--json]      # fal/isolate version, Python, platform, FAL_HOST, and the key id from the FAL_KEY env var (blank unless FAL_KEY is set)
 ```
 
 A `FAL_KEY=<key_id>:<key_secret>` environment variable takes precedence over the
@@ -56,23 +56,30 @@ timestamp. Without `--since`, `logs` starts at runner start time (or 1 minute ag
 
 ```bash
 fal run <file.py::Class | pyproject-app-name> [--env ENV] [--auth private|public|shared]
-        [--app-name NAME] [--machine-type TYPE] [--no-cache] [--local]
-        [--exposed-port 8080] [--exposed-metrics-port 9090] [--limit-max-requests N]
+        [--app-name NAME] [--machine-type TYPE] [--no-cache]
+        [--local [--exposed-port 8080] [--exposed-metrics-port 9090]]   # port flags need --local
+        [--limit-max-requests N]
 fal deploy [<file.py[::Class]> | <pyproject-app-name>] [--env ENV] [--app-name NAME]
         [--auth AUTH] [--strategy rolling|recreate] [--attach | --detach]
         [--reset-scale | --no-scale] [--check] [--yes] [--message MSG]
-        [--annotation KEY=VALUE ...] [--no-cache] [--json]
+        [--annotation KEY=VALUE]... [--no-cache] [--json]   # repeat --annotation once per pair
 ```
 
 - `fal run` creates an **ephemeral, public-by-default** app that is deleted when the
   process exits; it ignores `app_auth` and pyproject `auth`.
 - `fal deploy` defaults to `private` auth and the `rolling` strategy.
+- `--app-name` and `--auth` only work with a file reference; with a pyproject app name
+  they raise an error. Set `name` / `auth` in `[tool.fal.apps.<name>]` instead.
 - `--no-scale` is the default (inherit the live scale settings); `--reset-scale`
-  applies the values in code.
+  applies the values in code. With a pyproject app name, `--reset-scale` and
+  `--strategy` are silently ignored; use `app_scale_settings` / `deployment_strategy`
+  in the pyproject table.
 - `--check` (or `FAL_DEPLOY_CHECK=true`) prints a pre-deploy diff and asks for
   confirmation; add `--yes` in CI.
 - `--force-env-build` is deprecated; use `--no-cache`.
-- `FAL_URL_OUTPUT=none|all` controls whether URLs are printed.
+- `FAL_URL_OUTPUT=all|playground|none` (default `all`) controls which URLs `fal deploy` /
+  `fal run` print: `playground` keeps the browser links (Playground, app overview) and
+  hides the Sync/Async API URLs; `none` prints no URLs.
 
 ## Queue
 
@@ -110,12 +117,13 @@ fal files rm <path>                                     # recursive
 ## Call an endpoint from the CLI
 
 ```bash
-fal api my-org/my-app prompt="a red fox" num_images=2 options[seed]=42
+fal api my-org/my-app prompt="a red fox" num_images=2 'options[seed]=42'   # quote [] keys in zsh
 fal api my-org/my-app/stream prompt="hi"     # a model id ending in /stream streams
 ```
 
 `fal api` submits through the queue and prints the result. Nested keys use
-`key[sub]=value` syntax.
+`key[sub]=value` syntax. Every value is sent as a JSON string (`"2"`, not `2`; `:=` does
+not change that), so the app's input model must coerce it.
 
 ## Python equivalents
 

@@ -20,7 +20,7 @@ runners expire during quiet periods, or when a spike exceeds warm capacity.
 | `min_concurrency` | 0 | Runners that always stay up. |
 | `concurrency_buffer` | 0 | Warm runners above current demand; wins over `min_concurrency` when higher. |
 | `concurrency_buffer_perc` | 0 | Buffer as a percent of request volume; effective buffer = max(this, `concurrency_buffer`). |
-| `max_concurrency` | platform limit | Hard ceiling on runners (and spend); more queueing when hit. |
+| `max_concurrency` | unset (server default 2) | Hard ceiling on runners (and spend); more queueing when hit. Set it explicitly. |
 | `scaling_delay` | 0 s | How long a queued request waits before triggering a scale-up. Avoids scaling for blips. |
 | `max_multiplexing` | 1 | Requests per runner at once. Needs async or thread-safe handlers and memory headroom. |
 

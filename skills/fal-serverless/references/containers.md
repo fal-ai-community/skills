@@ -56,10 +56,10 @@ Platform requirements for a container that runs a `fal.App`:
 
 Also from a file: `ContainerImage.from_dockerfile("docker/Dockerfile", context_dir="./my-project")`.
 
-Rules enforced by the SDK:
+Rules:
 
-- `app_files` cannot be combined with `image` (raises `app_files is not supported for container apps.`). Use `COPY` instead.
-- Local-path `requirements` and `local_python_modules` are fal Runtime features; in a container, install your code in the Dockerfile.
+- Enforced by the SDK: `app_files` cannot be combined with `image` (raises `app_files is not supported for container apps.`). Use `COPY` instead.
+- Per the docs, local-path `requirements` and `local_python_modules` are supported only on the fal Runtime. The SDK does not reject them for container apps, so do not rely on them there; install your code in the Dockerfile.
 
 ## ContainerImage parameters
 
@@ -71,7 +71,7 @@ Passed as keyword arguments to `from_dockerfile_str()` / `from_dockerfile()`:
 | `secrets` | `dict[str, str]` | `{}` | BuildKit secret mounts (`RUN --mount=type=secret,id=<key> ...`, read from `/run/secrets/<key>`). A value of `"$NAME"` or `"${NAME}"` resolves from your fal secret `NAME`. Not persisted in the image. |
 | `registries` | `dict[str, dict]` | `{}` | Private registry creds: `{"<registry-host>": {"username": ..., "password": ...}}`. Both keys are required. `"$NAME"` in the password references a fal secret; write `$$` for a literal `$`. |
 | `context_dir` | path | current working directory | Build context for `COPY`/`ADD`. |
-| `dockerignore` | `list[str]` | built-in defaults | Patterns excluded from the context. |
+| `dockerignore` | `list[str]` | `dockerignore_path` if given, else `<context_dir>/.dockerignore` if present, else built-in defaults (`.git`, `.env`, `.venv`, `*.md`, `Dockerfile`, `node_modules`, ...) | Patterns excluded from the context. An explicit list replaces the defaults. |
 | `dockerignore_path` | path | `None` | Path to a `.dockerignore` file. |
 | `compression` | `str` | `"gzip"` | Layer compression (`"gzip"` or `"zstd"`). |
 | `force_compression` | `bool` | `False` | Re-compress all layers. |
@@ -157,7 +157,9 @@ https://fal.ai/docs/documentation/development/migrate-external-docker-server
 
 ## Image size and cold starts
 
-Every runner pulls the image, so image size is paid on every cold start. Use
+Image size drives cold-start time whenever a runner lands on a node that does not have
+the image cached. The scheduler prefers nodes that already hold it, and after a rebuild
+only changed layers are re-pulled. Use
 `-runtime` rather than `-devel` CUDA bases when you do not compile, clean apt lists,
 use `pip install --no-cache-dir`, and keep model weights out of the image (put them on
 `/data` or download in `setup()`).
