@@ -12,18 +12,23 @@ pickled at deploy time and is not part of the image, so editing it does not rebu
 ## Inline Dockerfile
 
 ```python
+from importlib.metadata import version
+
 import fal
 from fal.container import ContainerImage
 from fal.toolkit import Image
 from pydantic import BaseModel
 
-DOCKERFILE = """
+# Pin every package. The f-string pins fal to the version you deploy with. A dev or
+# source install (e.g. 1.81.2.dev0+d20260928) is not on PyPI, so pip fails the build:
+# write a released version literally instead.
+DOCKERFILE = f"""
 FROM pytorch/pytorch:2.4.1-cuda12.4-cudnn9-runtime
 RUN apt-get update && apt-get install -y --no-install-recommends curl ffmpeg \
     && rm -rf /var/lib/apt/lists/*
-RUN pip install --no-cache-dir diffusers==0.31.0 transformers accelerate
+RUN pip install --no-cache-dir diffusers==0.31.0 transformers==4.46.3 accelerate==1.1.1
 # Install fal last so pydantic/protobuf/boto3 match the fal runtime.
-RUN pip install --no-cache-dir fal
+RUN pip install --no-cache-dir fal=={version("fal")}
 """
 
 class Input(BaseModel):
@@ -71,7 +76,7 @@ Passed as keyword arguments to `from_dockerfile_str()` / `from_dockerfile()`:
 | `secrets` | `dict[str, str]` | `{}` | BuildKit secret mounts (`RUN --mount=type=secret,id=<key> ...`, read from `/run/secrets/<key>`). A value of `"$NAME"` or `"${NAME}"` resolves from your fal secret `NAME`. Not persisted in the image. |
 | `registries` | `dict[str, dict]` | `{}` | Private registry creds: `{"<registry-host>": {"username": ..., "password": ...}}`. Both keys are required. `"$NAME"` in the password references a fal secret; write `$$` for a literal `$`. |
 | `context_dir` | path | current working directory | Build context for `COPY`/`ADD`. |
-| `dockerignore` | `list[str]` | `dockerignore_path` if given, else `<context_dir>/.dockerignore` if present, else built-in defaults (`.git`, `.env`, `.venv`, `*.md`, `Dockerfile`, `node_modules`, ...) | Patterns excluded from the context. An explicit list replaces the defaults. |
+| `dockerignore` | `list[str]` | `dockerignore_path` if given, else `<context_dir>/.dockerignore` if present, else built-in defaults (`.git`, `.env`, `.venv`, `*.md`, `Dockerfile`, `node_modules`, ...) | Patterns excluded from the context. An explicit list, `dockerignore_path` or a `.dockerignore` in the context replaces the defaults entirely, so repeat `.env`, `.git` and `.venv` in it or a `COPY . .` ships them (and any secrets in `.env`) into the image. |
 | `dockerignore_path` | path | `None` | Path to a `.dockerignore` file. |
 | `compression` | `str` | `"gzip"` | Layer compression (`"gzip"` or `"zstd"`). |
 | `force_compression` | `bool` | `False` | Re-compress all layers. |
@@ -86,14 +91,16 @@ project root or set `context_dir=Path(__file__).parent`.
 ## Build secrets and private packages
 
 ```python
+from importlib.metadata import version  # pin fal as in the first example
+
 image = ContainerImage.from_dockerfile_str(
-    """
+    f"""
     FROM python:3.11
     RUN apt-get update && apt-get install -y curl
     RUN --mount=type=secret,id=pip_token pip install --no-cache-dir \
         --extra-index-url https://$(cat /run/secrets/pip_token)@pypi.example.com/simple \
         my-private-package
-    RUN pip install --no-cache-dir fal
+    RUN pip install --no-cache-dir fal=={version("fal")}
     """,
     secrets={"pip_token": "${MY_PIP_TOKEN}"},
 )
@@ -111,17 +118,29 @@ For the fal Runtime (no container), the same substitution works inside `requirem
 ## Private base images
 
 ```python
+from importlib.metadata import version  # pin fal as in the first example
+
 class MyApp(fal.App):
     image = ContainerImage.from_dockerfile_str(
-        "FROM my-org/private-base:1.2.0",
+        f"""
+        FROM my-org/private-base:1.2.0
+        RUN apt-get update && apt-get install -y --no-install-recommends curl \\
+            && rm -rf /var/lib/apt/lists/*
+        RUN pip install --no-cache-dir fal=={version("fal")}
+        """,
         registries={
             "https://index.docker.io/v1/": {
                 "username": "my-user",
-                "password": "$DOCKERHUB_TOKEN",   # fal secrets set DOCKERHUB_TOKEN=...
+                "password": "$DOCKERHUB_TOKEN",   # a fal secret, never the token itself
             },
         },
     )
 ```
+
+The base image still needs `curl` and `fal` (installed last), as for any container.
+Ask the user to store the registry token as a fal secret in the dashboard or with
+`fal secrets set` in their own terminal; never type the token into a command you run or
+into the code.
 
 Google Artifact Registry: username `_json_key_base64`, password = a fal secret holding the
 base64 service-account JSON. AWS ECR: username `AWS`, password from

@@ -12,7 +12,7 @@ the owner prefix.
 ## 0. Establish context first
 
 ```bash
-fal auth whoami                 # who am I; `fal account list` / `fal account set <team>` to switch
+fal auth whoami                 # the account actually in use; `fal account list` / `fal account set <team>` to switch
 fal doctor                      # fal version + key id from the FAL_KEY env var (blank otherwise)
 fal apps list                   # add --env staging to look outside `main`
 ```
@@ -23,8 +23,10 @@ fal apps list                   # add --env staging to look outside `main`
   `apps delete-rev`, `api` and `files` have no environment flag.
 - Commands that talk to the platform take `--team <team>`; list and inspect commands
   (and `deploy`) take `--json`. Check `fal <cmd> --help` before relying on either flag.
-- A `FAL_KEY` env var overrides the login session. Check `fal doctor` if results look
-  like another account's.
+- Key credentials override the login session: `FAL_KEY`, a profile key
+  (`fal profile list`) or `FAL_KEY_ID`/`FAL_KEY_SECRET`. With a key, `--team` and
+  `fal account set` are ignored and commands act on the key's account. `fal doctor` shows
+  only `FAL_KEY`; `fal auth whoami` is the definitive check.
 
 ## 1. Inspect state
 
@@ -33,7 +35,7 @@ fal apps runners my-app                             # live runners and their sta
 fal apps runners my-app --since 1h --state all      # include terminated runners (max 24 h)
 fal apps runners my-app --state pending setup crash_backoff
 fal runners list --state running                    # across all apps
-fal queue size my-app                               # queued requests (--by-user to split)
+fal queue size my-app                               # queued requests (--by-user); `main` environment only
 fal apps list-rev my-app                            # revisions (id, date, machine, scaling)
 fal apps gpus my-app
 ```
@@ -71,17 +73,18 @@ Put `--` before the command so its flags are not parsed as `fal` flags.
 | Situation | Command |
 |---|---|
 | Bad deploy: go back | `fal apps list-rev my-app` then `fal apps set-rev my-app <rev_id> --strategy rolling` |
-| Restart all runners (after a secret change, leaked memory, bad state) | `fal apps rollout my-app` (graceful); `--force` kills immediately and drops in-flight requests |
+| Restart all runners (after a secret change, leaked memory, bad state) | `fal apps rollout my-app` (graceful, but replacements start on top of `max_concurrency`, so runners and cost can briefly near double); `--force` kills immediately and drops in-flight requests |
 | Replace one runner | `fal runners stop <id> --replace` (graceful, replacement first); `fal runners kill <id>` (immediate) |
 | Redeploy a fix | `fal deploy app.py::MyApp --message "fix oom"` |
-| Preview what a deploy will change | `fal deploy app.py::MyApp --check` (add `--yes` in CI) |
-| Deploy without waiting for the rollout | `fal deploy ... --detach` (rolling only) |
+| Review what a deploy will change | `fal deploy app.py::MyApp --check`: prints a diff, then deploys once confirmed. In a non-interactive shell it prints the diff and exits 1 without deploying. `--yes` skips the prompt and **deploys**: show the diff to the user first |
 | Switch traffic instantly (next request cold-starts) | `--strategy recreate` on `deploy` or `set-rev` |
-| Drop a backlog | `fal queue flush my-app` (optionally `--caller-user-id <id>`) |
+| Drop a backlog | `fal queue flush my-app` (optionally `--caller-user-id <id>`). No `--env`: it always acts on the app in `main`, so do not use it for another environment |
 
 A rolling deploy or `set-rev --strategy rolling` starts one runner on the new revision
 and switches traffic only after its `setup()` passes. If `setup()` crashes, traffic stays
-on the old revision.
+on the old revision. `fal deploy --detach` breaks this: traffic moves to the new
+revision right away and a failed rollout is not rolled back, so never use it for a fix
+whose `setup()` is untested.
 
 ## 5. Scale and tune (no redeploy)
 
@@ -109,7 +112,7 @@ Tuning recipes and cold-start fixes: `references/cold-starts-and-cost.md`.
 ## 6. Secrets, keys, environments, files
 
 ```bash
-fal secrets set HF_TOKEN=hf_xxx --env main      # then `fal apps rollout my-app`: runners read secrets at start
+fal secrets set HF_TOKEN=<value> --env main     # the user runs this; then `fal apps rollout my-app`
 fal secrets list --env staging                  # names only, never values
 fal secrets unset OLD_TOKEN
 
@@ -126,6 +129,10 @@ fal files upload ./weights.safetensors models/weights.safetensors
 fal files download models/config.json ./config.json
 ```
 
+Ask the user to set or rotate secret values themselves (their terminal or the
+dashboard); never put a real value in a command you run. Plain `fal secrets set` makes
+the secret available to every app that has no `secrets` allowlist; re-setting a
+restricted secret needs `--not-exposed-by-default` again. Runners read secrets at start.
 Secrets do not fall back between environments. `fal files upload` will not overwrite an
 existing path; `fal files rm` it first.
 
@@ -143,8 +150,8 @@ Non-main environments add a suffix: `my-org/my-app--staging`.
 
 | Symptom | Likely cause | Check or fix |
 |---|---|---|
-| Runners loop SETUP to CRASH_BACKOFF | exception in `setup()`, OOM, missing package or secret, `startup_timeout` too low | `fal runners logs <id>`; reproduce with `fal run app.py::MyApp` |
-| Long PENDING | no capacity for that GPU or region | add fallback `machine_type`s or regions |
+| Runners loop SETUP to CRASH_BACKOFF | exception in `setup()`, OOM, missing package or secret, `startup_timeout` too low | `fal runners logs <id>`; reproduce with `fal run app.py::MyApp --auth private` (add `--env <env>` for env-specific secrets; stop it when done) |
+| Long PENDING | no capacity for that GPU or region, or the account GPU limit is used up by all your apps | `fal runners gpus`; add fallback `machine_type`s or regions, or scale down other apps |
 | Every error kills its runner | the app returns 503 | return 500 or 4xx; 503 means "runner broken" |
 | 504 `request_timeout` | work exceeds `request_timeout` | raise it, or set `skip_retry_conditions=["timeout"]` so it is not retried 10 times |
 | First request after idle is slow | runners expired | raise `keep_alive`, add `min_concurrency` or `concurrency_buffer`, speed up `setup()` |
@@ -157,12 +164,14 @@ Status-code semantics, retry headers, error types and timeouts:
 
 ## Safety: confirm with the user before running
 
-These are destructive or disruptive and cannot be undone:
-`fal apps delete`, `fal apps delete-rev`, `fal environments delete` (removes all its
-apps, secrets and history), `fal queue flush`, `fal apps rollout --force`,
-`fal runners kill`, `fal keys revoke`, `fal secrets unset`, `fal files rm` (recursive),
-and `fal apps scale my-app --min-concurrency 1` (any N > 0 starts billing N runners
-around the clock).
+These are destructive, disruptive or billed:
+`fal deploy` (over an existing app, or with `--yes`), `fal apps set-rev`,
+`fal apps rollout` (any live app), `fal apps delete`, `fal apps delete-rev`,
+`fal environments delete` (removes all its apps, secrets and history),
+`fal queue flush`, `fal runners kill`/`stop`, `fal keys revoke`, `fal secrets set` over
+an existing name (the old value is gone), `fal secrets unset`, `fal files rm`
+(recursive), `fal run` (bills until stopped), and `fal apps scale` raising
+`--min-concurrency` (any N > 0 bills N runners around the clock) or machine types.
 
 ## Platform MCP (optional)
 

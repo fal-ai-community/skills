@@ -71,6 +71,7 @@ fallbacks (`["GPU-H100", "GPU-A100"]`) to cut `PENDING` time.
 from fal.toolkit import synchronized_inductor_cache
 
 class MyApp(fal.App):
+    machine_type = "GPU-H100"   # the cache is per GPU type; it needs a GPU machine
     startup_timeout = 900
 
     def setup(self):
@@ -91,7 +92,7 @@ class MyApp(fal.App):
 
 - Runner churn and states: `fal apps runners my-app --since 1h --state all`.
 - Current GPU footprint: `fal apps gpus my-app`, `fal runners gpus`.
-- Queue depth: `fal queue size my-app`.
+- Queue depth: `fal queue size my-app` (`main` environment only).
 - The dashboard's App Analytics shows request volume, latency percentiles, runner
   utilisation, startup duration and per-app cost. A high idle-to-processing ratio means
   `keep_alive` or `min_concurrency` is too high.

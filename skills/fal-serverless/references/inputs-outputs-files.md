@@ -35,15 +35,18 @@ class Output(FalBaseModel):
 ## Reading input files
 
 ```python
+import tempfile
+
 import fal
 from fal.toolkit import download_file
 
 class MyApp(fal.App):
     @fal.endpoint("/")
     def run(self, input: Input) -> Output:
-        if input.image_url:
-            path = download_file(input.image_url, target_dir="/tmp/inputs")   # pathlib.Path
-        ...
+        with tempfile.TemporaryDirectory() as d:          # one directory per request
+            if input.image_url:
+                path = download_file(input.image_url, target_dir=d, filesize_limit=100)
+            ...                                           # use `path` (a pathlib.Path) in here
 ```
 
 - `download_file(url, target_dir, *, force=False, request_headers=None, filesize_limit=None)`.
@@ -52,6 +55,9 @@ class MyApp(fal.App):
   file of the same size already exists, the new copy is discarded and the existing path
   returned (size, not hash; `force=True` replaces it). To skip the network, check the
   path yourself or use `download_model_weights`. `filesize_limit` is in MB.
+  Because of that reuse, never download caller URLs into a shared fixed directory:
+  two requests whose files share a name and size get the same file back. Reuse by
+  name is only safe for caches you control, such as weights.
   The file name comes from the response (Content-Disposition or URL path); use the
   returned `Path`.
 - An `Image`-typed input field accepts a URL string; call `.to_pil()` on it to load it.
@@ -65,7 +71,7 @@ class MyApp(fal.App):
 ```python
 from fal.toolkit import File, Image, Video, Audio
 
-Image.from_pil(pil_image)                       # pil_image.format if set, else png; format="png"|"jpeg"|"webp"|"gif" ("jpg" raises KeyError)
+Image.from_pil(pil_image, format="png")         # format="png"|"jpeg"|"webp"|"gif", lowercase ("jpg" raises KeyError)
 Image.from_bytes(raw, format="png")
 Image.from_path("/tmp/out.png", content_type="image/png")
 Video.from_path("/tmp/out.mp4", content_type="video/mp4")
@@ -74,6 +80,10 @@ Audio.from_bytes(raw, content_type="audio/wav", file_name="out.wav")
 File.from_path("/tmp/result.glb", content_type="model/gltf-binary")
 File.from_bytes(data, content_type="application/octet-stream", file_name="model.glb")
 ```
+
+Always pass `format=` to `from_pil`: without it, an image opened from a file uses PIL's
+uppercase `format` (`"JPEG"`), which yields an uppercase MIME type and skips the JPEG
+quality setting.
 
 Each call uploads immediately and returns a model with `url`, `content_type`,
 `file_name`, `file_size`. `from_path` sets `content_type` to `application/octet-stream`
@@ -92,9 +102,9 @@ Return a raw PIL image or tensor and serialization fails; always wrap it.
 
 | | fal CDN (toolkit types) | `/data` | `/tmp` |
 |---|---|---|---|
-| Use for | outputs returned to callers | model weights, datasets, caches | per-request scratch |
+| Use for | outputs returned to callers | model weights, datasets, caches | scratch (use a per-request subdirectory) |
 | Lifetime | media expiration setting | until deleted | runner lifetime |
-| Shared | no (unique URL per upload) | across all runners **and all apps** in the account | no |
+| Shared | no (unique URL per upload) | across all runners **and all apps** in the account | by all requests on the runner |
 | Access | public URL (ACL-restrictable) | filesystem only | filesystem only |
 
 ### Persistent `/data`
@@ -142,7 +152,8 @@ counters or locks.
 
 ## Secrets and environment at runtime
 
-- `fal secrets set HF_TOKEN=...` then read `os.environ["HF_TOKEN"]` in `setup()` or a
+- The user sets the value (`fal secrets set HF_TOKEN=...` in their own terminal, or the
+  dashboard; never put a real value in a command you run), then read `os.environ["HF_TOKEN"]` in `setup()` or a
   handler. Never read secrets at module top level: that runs on your machine and the value
   gets pickled into the app.
 - Runners see secrets from their own environment only (`--env staging` secrets do not
@@ -164,8 +175,9 @@ def run(self, input: Input) -> Output:
     ...
 ```
 
-Custom caller headers are forwarded (names are case-insensitive; callers cannot set
-`x-fal-*`). Total response headers must stay under 16 KB.
+Custom caller headers are forwarded (callers cannot set `x-fal-*`). Callers may send
+any case, but `self.current_request.headers` is a plain dict with lowercase keys, so
+look headers up in lowercase (`headers.get("x-my-trace-id")`). Total response headers must stay under 16 KB.
 
 Docs:
 - https://fal.ai/docs/documentation/development/handle-inputs-and-outputs

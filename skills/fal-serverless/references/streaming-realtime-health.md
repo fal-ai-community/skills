@@ -17,8 +17,8 @@ One function can carry only one route. `GET /health` is added automatically.
 
 ## Streaming (Server-Sent Events)
 
-The clients (`fal_client.stream`, JS `fal.stream`) append `/stream` to the endpoint id, so
-the streaming endpoint **must** be `@fal.endpoint("/stream")`.
+The clients (`fal_client.stream`, JS `fal.stream`) default to `path="/stream"`, so use
+`@fal.endpoint("/stream")` unless callers pass a matching `path=`.
 
 ```python
 import json
@@ -38,12 +38,27 @@ class MyApp(fal.App):
   so the Playground renders them; inline data URIs avoid a CDN upload per frame.
 - Throttle events (e.g. every N steps) and use low-quality previews.
 - If a synchronous pipeline produces events through a callback, run it in a thread and
-  hand events to the generator through a `queue.Queue` with a `None` sentinel.
+  hand events to the generator through a `queue.Queue` with a `None` sentinel. Put the
+  sentinel in `finally`, or a pipeline exception leaves the stream hanging:
+
+```python
+def worker():
+    try:
+        pipeline(..., callback=lambda e: q.put(e))
+    except Exception as e:
+        q.put({"error": str(e)})
+    finally:
+        q.put(None)
+```
+
+  The generator should yield an error event (or raise) when it gets one.
 - Streaming is a direct connection: it is never retried by the queue, and dropping the
   connection cancels the request.
 
-Client: `for event in fal_client.stream("my-org/my-app", arguments={...}): ...`.
-From the CLI: `fal api my-org/my-app/stream prompt="hi"`.
+Test with `for event in fal_client.stream("my-org/my-app", arguments={...}): ...`, or
+`curl -N -X POST https://fal.run/my-org/my-app/stream -H "Authorization: Key $FAL_KEY" -H 'Content-Type: application/json' -d '{"prompt": "a red fox"}'`.
+Do not test streams with `fal api .../stream`: it prints events only after the stream
+ends and gives up after 5 s without data.
 
 ## Realtime (WebSocket, msgpack)
 
@@ -117,6 +132,8 @@ class MyApp(fal.App):
 
     @fal.endpoint("/predict")
     async def predict(self, input: Input, x_fal_request_id: str | None = fastapi.Header(None)):
+        if not x_fal_request_id:
+            raise fastapi.HTTPException(400, "x-fal-request-id is required")
         task = asyncio.create_task(self._generate(input))
         self._tasks[x_fal_request_id] = task
         try:
@@ -128,6 +145,8 @@ class MyApp(fal.App):
 
     @fal.endpoint("/predict/cancel")
     async def predict_cancel(self, x_fal_request_id: str | None = fastapi.Header(None)):
+        if not x_fal_request_id:
+            raise fastapi.HTTPException(400, "x-fal-request-id is required")
         task = self._tasks.get(x_fal_request_id)
         if task and not task.done():
             task.cancel()
@@ -141,6 +160,8 @@ returns. Check a flag between steps in long loops.
 ```python
 import threading
 
+from fastapi.responses import JSONResponse
+
 class MyApp(fal.App):
     termination_grace_period_seconds = 60
 
@@ -152,8 +173,11 @@ class MyApp(fal.App):
     def run(self, input: Input) -> Output:
         for step in range(input.steps):
             if self.stop.is_set():
-                break
+                # Unfinished work is not a success: 503 lets the queue retry it on
+                # another runner.
+                return JSONResponse(status_code=503, content={"detail": "runner shutting down"})
             ...
+        return Output(...)
 
     def handle_exit(self):      # called on SIGTERM
         self.stop.set()
@@ -161,6 +185,8 @@ class MyApp(fal.App):
     def teardown(self):         # after in-flight requests finish, within the grace period
         self.db.close()
 ```
+
+Only queue requests are retried; a direct `fal.run` caller receives the 503.
 
 ## Status codes that change platform behaviour
 

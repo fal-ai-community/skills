@@ -61,7 +61,7 @@ Machine specs: https://fal.ai/docs/documentation/deployment/machine-types
 | `concurrency_buffer_perc` | `0` | Buffer as a percent of current request volume; the effective buffer is the max of this and `concurrency_buffer`. |
 | `scaling_delay` | `0` | Seconds a request may wait before a scale-up is triggered. |
 | `max_multiplexing` | `1` | Concurrent requests per runner. Raise only if handlers are `async` or otherwise concurrency-safe and the model has memory headroom. |
-| `request_timeout` | platform default | Max seconds per request. On timeout the request is aborted and the runner is stopped. |
+| `request_timeout` | 3600 s | Max seconds per request. On timeout the request is aborted and the runner is stopped. |
 | `startup_timeout` | 600 s | Max seconds for runner start + `setup()`. `fal run` prints a warning if `setup()` exceeded it. |
 | `termination_grace_period_seconds` | `5` (max 3600) | Budget between SIGTERM and SIGKILL, shared by in-flight requests and `teardown()`. Billed. |
 
@@ -109,7 +109,8 @@ Never override `__init__`: defining one raises `App classes should not override 
 
 ## pyproject.toml (`[tool.fal.apps]`)
 
-Name apps once and run them by name:
+Name apps once and run them by name. This is an alternative to the class attributes
+above; put each setting in one place only:
 
 ```toml
 [tool.fal.apps.my-app]
@@ -129,6 +130,13 @@ fal deploy my-app
 ```
 
 - `ref` paths resolve from the directory containing `pyproject.toml`.
+- For `ref` apps, the app name and auth come from the table: `name` (default: the table
+  key) replaces the class `app_name`, and a table `auth` replaces the class `app_auth`
+  (`fal run` still uses `--auth`, below). Every other setting defined on the class
+  (attribute or class keyword) wins over the same key in the table; the table only
+  fills in settings the class leaves unset.
+- With `ref = "file.py::Class"`, a table `requirements` key is dropped silently (the
+  class always supplies its own list): keep `requirements` on the class.
 - Also accepted: `name`, `team`, `deployment_strategy` (`rolling`/`recreate`),
   `requirements`, `requirements_context_dir`, `num_gpus`, `regions`, all scaling keys,
   `private_logs`, `app_files`, `app_files_ignore`, `app_files_context_dir`,

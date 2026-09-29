@@ -4,7 +4,7 @@
 
 | State | Meaning | Billed |
 |---|---|---|
-| `PENDING` | Waiting for hardware. Long PENDING means capacity is short: add fallback machine types or regions. | no |
+| `PENDING` | Waiting for hardware. Long PENDING means no capacity for the configured machine types or regions (add fallbacks), or the account GPU limit is used up across all apps (`fal runners gpus`). | no |
 | `DOCKER_PULL` | Pulling the image (skipped when cached on the node). | no |
 | `SETUP` | Running `setup()`. | yes |
 | `IDLE` | Ready, no requests. Includes the `keep_alive` window. | yes |
@@ -25,7 +25,9 @@ Filter with `--state` (lowercase): `idle`, `running`, `pending`, `setup`,
 ## Triage by symptom
 
 **App keeps restarting or never becomes ready (SETUP to CRASH_BACKOFF loop)**
-1. `fal apps runners my-app --since 1h --state all --json` and pick a failed runner id.
+1. `fal apps runners my-app --since 1h --state all --json`. The CLI shows no termination
+   reason, so pick a recent `terminated` runner with a short `uptime_seconds` (while
+   others sit in `crash_backoff`), or check the reason on the dashboard.
 2. `fal runners logs <id> --lines 200` and look for the traceback at the end of `setup()`.
 3. Usual causes:
    - `ModuleNotFoundError`: a package is missing from `requirements`, or an import at
@@ -37,8 +39,12 @@ Filter with `--state` (lowercase): `idle`, `running`, `pending`, `setup`,
      raise `startup_timeout` or pre-stage weights on `/data`.
    - A secret is missing: `os.environ[...]` raised `KeyError`. Check
      `fal secrets list --env <env>` and the app's `secrets` allowlist.
-4. Reproduce with `fal run app.py::MyApp`, which runs the same `setup()` and streams its
-   logs to your terminal.
+4. Reproduce with `fal run app.py::MyApp --auth private` (plus `--env <env>` for an
+   environment-specific secret), which runs the same `setup()` and streams its logs.
+   Run it in the background and stop it when done: it bills while it runs. A clean run
+   does not rule out a `startup_timeout` overrun, since a deployed runner's cold start
+   can take longer: time `setup()` in its logs and leave headroom under the app's
+   `startup_timeout`.
 
 **Requests fail with 500**
 - Search the logs: `fal runners logs <id> --search Traceback --since 30m`.
@@ -59,16 +65,29 @@ Filter with `--state` (lowercase): `idle`, `running`, `pending`, `setup`,
   `skip_retry_conditions = ["timeout"]` so a slow request is not run up to 10 times.
 
 **Requests wait a long time in the queue**
-- `fal queue size my-app` (name without the owner) and `fal apps runners my-app --state pending setup`.
-- Pending runners mean capacity: add `machine_type` fallbacks or more `regions`.
+- `fal queue size my-app` (name without the owner; `main` environment only) and
+  `fal apps runners my-app --state pending setup crash_backoff`.
+- Pending runners: either no capacity (add `machine_type` fallbacks in code, or widen
+  placement with `fal apps scale my-app --regions us-east us-west`; the flag replaces
+  the whole region list rather than adding to it, so check the current list in
+  `fal apps list` first and include it, or you can narrow placement and make pending
+  worse), or the account GPU limit is used up across
+  all your apps (`fal runners gpus`, `fal apps gpus my-app`; scale down other apps or
+  ask fal for a higher limit).
+- `crash_backoff` runners: see the restart-loop section above.
 - Setup runners mean cold starts (see `cold-starts-and-cost.md`).
-- Check `max_concurrency` is not the cap. Account concurrency limits do not apply to your
-  own apps; `max_concurrency` does.
+- Check `max_concurrency` is not the cap; raise it with
+  `fal apps scale my-app --max-concurrency 10` (a code edit needs `--reset-scale` to take
+  effect). The account request-concurrency limit does not apply to your own apps, but
+  the account GPU limit does.
 - Callers can set `start_timeout` so a request gives up (504) if it has not started.
 
 **Stuck or bad runner**
 - Inspect: `fal runners shell <id>`, or `fal runners exec <id> -- nvidia-smi`,
-  `fal runners exec <id> -- ls -lh /data/models`, `fal runners exec <id> -- env`.
+  `fal runners exec <id> -- ls -lh /data/models`. For env vars, list names only:
+  `fal runners exec <id> -- sh -c 'env | cut -d= -f1 | sort'`, or
+  `fal runners exec <id> -- sh -c 'test -n "$HF_TOKEN" && echo set'`. Never print env
+  values: they include secrets and the owner's `FAL_KEY`.
 - Replace one: `fal runners stop <id> --replace` (graceful, replacement first) or
   `fal runners kill <id>` (immediate).
 - Replace all: `fal apps rollout my-app` (graceful) or `--force` (drops in-flight work).
@@ -84,6 +103,9 @@ Filter with `--state` (lowercase): `idle`, `running`, `pending`, `setup`,
 - `App classes should not override __init__ directly`: move the code into `setup()`.
 - `app_files is not supported for container apps.`: use `COPY` in the Dockerfile.
 - Build errors: rerun with `--no-cache`, and add `--debug` for the full traceback.
+- `Deploy confirmation for '<app>' requires interactive input`: `--check`,
+  `FAL_DEPLOY_CHECK` or a team policy requires confirmation. Show the printed summary
+  to the user and rerun with `--yes` only after they approve.
 - `fal doctor` prints the fal, isolate and Python versions, the platform, FAL_HOST, and
   the key id from the `FAL_KEY` env var only (blank when auth comes from a profile,
   `FAL_KEY_ID`/`FAL_KEY_SECRET` or `fal auth login`).
@@ -126,7 +148,7 @@ header):
 | `request_timeout` | app (default 3600 s) | one request's processing | runner stopped; queue retry (`timeout` condition) |
 | `startup_timeout` | app | runner start plus `setup()` | runner replaced; request stays queued |
 | `start_timeout` (`X-Fal-Request-Timeout`) | caller | wall clock until processing starts, across retries | 504, no retry |
-| `client_timeout` | caller (Python SDK) | client wait only | client stops waiting; the server may still run it |
+| `client_timeout` | caller (Python SDK `subscribe`) | total client wait; also the start deadline if `start_timeout` is unset | client stops waiting and cancels the request |
 
 ## Logs
 
