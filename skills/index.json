@@ -356,6 +356,68 @@
       ]
     },
     {
+      "name": "fal-serverless",
+      "description": "Build, test and deploy your own Python apps on fal Serverless GPUs with the `fal` SDK and CLI. Covers writing a `fal.App` (setup(), `@fal.endpoint`, Pydantic input/output, requirements, machine_type such as GPU-H100, keep_alive / min_concurrency / max_concurrency, secrets, fal.toolkit Image/File uploads, /data persistent storage, custom ContainerImage or Dockerfile, streaming and realtime endpoints, pyproject `[tool.fal.apps]`), testing with `fal run`, shipping with `fal deploy`, and calling the endpoint via fal_client, curl or the queue. Use when the user says \"deploy to fal\", \"fal.App\", \"fal run\", \"fal deploy\", \"serverless GPU app on fal\", \"host my model on fal\", \"fal.endpoint\", \"machine_type\", or edits code that imports `fal`. This skill is for building and hosting your own apps with the `fal` CLI. It is not for calling existing fal marketplace models (that is the genmedia CLI). For debugging, scaling or operating an app that is already deployed, use fal-serverless-operate.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "40c5e4947768d8e9b5ae161052d832e5c5ec8c56e5b06bb93b199e21b0099a31",
+          "bytes": 16249
+        },
+        {
+          "path": "references/app-configuration.md",
+          "sha256": "e563d553e90b1b5783cb619f5e116b9cd766d055e268c369f8e862aed7875405",
+          "bytes": 9087
+        },
+        {
+          "path": "references/calling-and-testing.md",
+          "sha256": "9cf5eed5cd05ff05de941853524ce89facafc8ba662084a62a7c6b3c2f370756",
+          "bytes": 7051
+        },
+        {
+          "path": "references/containers.md",
+          "sha256": "add702c5c87dbc81e97a8ef3ac79efede755a48a7945c62257d77dfbded11fdf",
+          "bytes": 8590
+        },
+        {
+          "path": "references/inputs-outputs-files.md",
+          "sha256": "41293f8a04cb75e259987663ce9ff359f9258960d4eaaa3332782222b773265b",
+          "bytes": 8983
+        },
+        {
+          "path": "references/streaming-realtime-health.md",
+          "sha256": "d5d782a5b6b3777ab6520d25e5cc6cda2c226939882c1c7a2af645c27db4f555",
+          "bytes": 8770
+        }
+      ]
+    },
+    {
+      "name": "fal-serverless-operate",
+      "description": "Operate and debug your own apps already deployed on fal Serverless with the `fal` CLI. Covers listing apps and revisions, rollback (`fal apps set-rev`), restarting runners (`fal apps rollout`), scaling (`fal apps scale` for keep_alive, min/max concurrency, machine types), runner states (PENDING, SETUP, CRASH_BACKOFF), logs (`fal runners logs`), shells on runners, the queue, and secrets, keys, environments and /data files. Also diagnoses crash loops, 5xx/503/504 errors, timeouts and retries, and cuts cold starts and GPU cost. Use when the user says \"fal logs\", \"fal runners\", \"my fal app is failing\", \"roll back on fal\", \"scale my fal app\", \"cold start\", \"keep_alive\", \"fal apps\", \"fal queue\", \"fal secrets\", \"fal doctor\", or asks why a deployed fal endpoint is slow, erroring or expensive. This skill covers your own deployed apps and the `fal` CLI. It is not for calling fal marketplace models (the genmedia CLI does that). To write or first deploy an app, use fal-serverless.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "632011eda3232cac9942176d29664542284f82262b4d0474469401925e9c1356",
+          "bytes": 11836
+        },
+        {
+          "path": "references/cli-reference.md",
+          "sha256": "3904ce55d58aeb959cb7ea609ea1a344bb2c4966b4f7e03c69b927e4e914eefe",
+          "bytes": 8735
+        },
+        {
+          "path": "references/cold-starts-and-cost.md",
+          "sha256": "c95b8daca574a619f505496168cbd4db4fdfab5250b38ed86174c3e1945b0bc9",
+          "bytes": 5683
+        },
+        {
+          "path": "references/troubleshooting.md",
+          "sha256": "d244aa333001a931b02e2a6409d162693dbeb169965837042a6e4d96e93641a6",
+          "bytes": 9680
+        }
+      ]
+    },
+    {
       "name": "fal-workflow",
       "description": "Author and execute multi-step media pipelines on fal.ai. Two modes: (A) declarative workflow JSON files for the fal.ai workflow runtime (\"create workflow\", \"chain models\", \"image to video pipeline\"); (B) imperative genmedia CLI orchestration when scripting locally (\"design pipeline\", \"fan-out generation\", \"frame bridging\", \"narrated video\", \"dataset generation\").",
       "files": [
