@@ -96,7 +96,7 @@ fal skills install              # fal-serverless and fal-serverless-operate
 fal skills install fal-prompting  # or any skill in this registry
 ```
 
-Requires a `fal` release that includes the `fal skills` command; older versions do not have it (run `fal skills --help` to check). Installs into `.agents/skills/` plus the skills directory of each coding agent it finds (for example `.claude/skills/`). Add `--global` for a user-level install. A skill directory with the same name that `fal` did not install is left untouched and reported as skipped; remove it to install the registry version.
+Requires a `fal` release that includes `fal skills` (check with `fal skills --help`). Add `--global` for a user-level install.
 
 ## Skill format
 

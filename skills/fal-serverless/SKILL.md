@@ -1,6 +1,6 @@
 ---
 name: fal-serverless
-description: Build, test and deploy your own Python apps on fal Serverless GPUs with the `fal` SDK and CLI. Covers writing a `fal.App` (setup(), `@fal.endpoint`, Pydantic input/output, requirements, machine_type such as GPU-H100, keep_alive / min_concurrency / max_concurrency, secrets, fal.toolkit Image/File uploads, /data persistent storage, custom ContainerImage or Dockerfile, streaming and realtime endpoints, pyproject `[tool.fal.apps]`), testing with `fal run`, shipping with `fal deploy`, and calling the endpoint via fal_client, curl or the queue. Use when the user says "deploy to fal", "fal.App", "fal run", "fal deploy", "serverless GPU app on fal", "host my model on fal", "fal.endpoint", "machine_type", or edits code that imports `fal`. This skill is for building and hosting your own apps with the `fal` CLI. It is not for calling existing fal marketplace models (that is the genmedia CLI). For debugging, scaling or operating an app that is already deployed, use fal-serverless-operate.
+description: Build, test and deploy your own Python apps on fal Serverless GPUs with the `fal` SDK and CLI. Covers writing a `fal.App` (setup(), `@fal.endpoint`, Pydantic input/output, requirements, machine_type, scaling, secrets, fal.toolkit file outputs, /data storage, custom container images, pyproject `[tool.fal.apps]`), testing with `fal run`, shipping with `fal deploy`, and calling the endpoint. Use when the user says "deploy to fal", "fal.App", "fal run", "fal deploy", "serverless GPU app on fal", "host my model on fal", "fal.endpoint", "machine_type", or edits code that imports `fal`. This skill is for building and hosting your own apps with the `fal` CLI. It is not for calling existing fal marketplace models (that is the genmedia CLI). For debugging, scaling or operating an app that is already deployed, use fal-serverless-operate.
 ---
 
 # fal Serverless: build and deploy a fal.App
@@ -9,6 +9,10 @@ You write a Python class that subclasses `fal.App`. `fal run` boots it on a temp
 cloud runner for testing, and `fal deploy` makes it a persistent, autoscaling HTTP/queue
 endpoint at `<owner>/<app-name>`. Builds happen remotely, so no local Docker or GPU is
 needed.
+
+This file covers what you need to get an app running. For anything else, check
+`fal <command> --help` (it always matches the installed version) and the docs linked at
+the end, rather than guessing.
 
 ## Setup
 
@@ -19,9 +23,9 @@ fal auth whoami            # which account is in use
 
 If `whoami` fails, ask the user to authenticate. The simplest path from an agent shell
 is for the user to export `FAL_KEY` themselves, or to run `fal auth login` in their own
-terminal (it prompts for a login method, then for an account). If you run it yourself,
-it blocks polling until the browser step completes and then asks for an account, so run
-it in the background with that answer piped in, and read the URL from the log:
+terminal. If you run it yourself, it blocks until the browser step completes and then
+asks for an account, so run it in the background with that answer piped in, and read the
+URL from the log:
 
 ```bash
 printf '\n' | fal auth login --connection github --no-browser > fal-login.log 2>&1 &
@@ -31,12 +35,13 @@ printf '\n' | fal auth login --connection github --no-browser > fal-login.log 2>
 Give the user the URL from `fal-login.log`, wait for the job to exit, then re-check
 `fal auth whoami`. Never paste a key into a command you run.
 
-In CI, export `FAL_KEY` from `fal keys create --scope ADMIN`: `fal deploy` and `fal run`
-need an ADMIN-scoped key; an API-scoped key can call endpoints but not deploy or manage apps.
+In CI, the user exports `FAL_KEY` from a key made with
+`fal keys create --preset SERVERLESS` (build, deploy and run apps). An `--preset API` key
+can only call endpoints. Do not suggest `--scope ADMIN`: it is deprecated and makes a key
+with full access to the account, billing included.
 
 The runner uses the Python minor version of the interpreter you run `fal` from (the app
-is cloudpickled); 3.11 is a safe default. To pin one, see `python_version` in
-`references/app-configuration.md`, and deploy from a matching interpreter.
+is cloudpickled), and the SDK refuses a mismatch. Deploy from the version you mean to run.
 
 ## The mental model: what runs where
 
@@ -48,7 +53,7 @@ is cloudpickled); 3.11 is a safe default. To pin one, see `python_version` in
   the handler, never at module top level. Keep top-level objects small and picklable.
   Never read secrets at top level.
 - `setup()` runs once per runner, before it takes requests. Load models there and keep
-  them on `self`.
+  them on `self`. Never define `__init__` on the App; it raises.
 
 ## Minimal complete app
 
@@ -119,18 +124,15 @@ class TextToImage(fal.App):
    ```
 
    A private `fal run` URL needs a key from the same account. If you authenticated with
-   `fal auth login`, `FAL_KEY` is unset: ask the user to export a key they created with
-   `fal keys create` (never create one inline and echo it), or call it from Python with
+   `fal auth login`, `FAL_KEY` is unset: ask the user to export a key they created, or
+   call it from Python with
    `fal.apps.run("<path after https://fal.run/ in the Sync URL>", {"prompt": "a red fox"})`,
-   which uses the CLI login and the team chosen with `fal account set`. `fal_client` also
-   falls back to the login session when no key is set, but ignores the selected team.
+   which uses the CLI login.
 
-   `fal run` runs until stopped and bills the runner meanwhile: kill its pid as soon as
-   you are done (or pass `--limit-max-requests 1`). It is ephemeral, ignores `app_auth`
-   and pyproject `auth`, and without `--auth private` is **public**, callable by anyone
-   with the URL on your bill. Skipping this step is the usual reason a first deploy
-   crash-loops. `fal run --local app.py::TextToImage` serves on `http://localhost:8080`
-   using your local packages and hardware instead.
+   `fal run` bills the runner until stopped: kill its pid as soon as you are done (or pass
+   `--limit-max-requests 1`). Without `--auth private` it is **public**, callable by
+   anyone with the URL on your bill. Skipping this step is the usual reason a first
+   deploy crash-loops.
 
 2. **Deploy (confirm with the user first):**
 
@@ -138,19 +140,15 @@ class TextToImage(fal.App):
    fal apps list --filter text-to-image            # does an app with this name exist?
    fal deploy app.py::TextToImage                 # private auth, rolling strategy
    fal deploy app.py::TextToImage --env staging   # separate app in another environment
-   fal deploy app.py::TextToImage --message "$(git rev-parse --short HEAD)"
    ```
 
    Before deploying, tell the user the app name, environment, machine type and any
-   non-zero `min_concurrency` (billed around the clock), and ask before deploying over
-   an existing app with the same name. If the deploy prints a pre-deploy summary and
-   exits asking for confirmation (from `--check`, `FAL_DEPLOY_CHECK` or a team policy),
-   show that summary to the user and add `--yes` only after they approve.
+   non-zero `min_concurrency` or `concurrency_buffer` (both keep runners up, and billed,
+   around the clock), and ask before deploying over an existing app with the same name.
+   If the deploy prints a summary and exits asking for confirmation, show that summary
+   to the user and add `--yes` only after they approve.
 
-   The output lists the Playground and the `Sync` / `Async` URLs. A rolling deploy
-   switches traffic only once a new runner's `setup()` succeeds, so it blocks until then.
-
-3. **Call it** (see `references/calling-and-testing.md`):
+3. **Call it:**
 
    ```python
    import fal_client
@@ -158,78 +156,59 @@ class TextToImage(fal.App):
    print(result["image"]["url"])
    ```
 
-   Or `fal api my-org/text-to-image prompt="a red fox"`. REST (sync `fal.run` and queue
-   `queue.fal.run`) is in the reference.
+   Or `fal api my-org/text-to-image prompt="a red fox"`. For REST, the queue, webhooks
+   and JavaScript, see the calling docs below.
 
-## Most-used App attributes
+## App attributes
 
-| Attribute | Default | Notes |
-|---|---|---|
-| `machine_type` | `"S"` | `XS` `S` `M` `L` `XL` (CPU), `GPU-A100` `GPU-L40` `GPU-H100` `GPU-RTXPRO6000` `GPU-H200` `GPU-B200`. A list is a fallback order. |
-| `num_gpus` | unset (server default) | GPUs per runner, for multi-GPU; only applies to GPU machine types. |
-| `requirements` | `[]` | Pin versions. `--extra-index-url`, `<url>` pairs go before the packages that need them. |
-| `app_name` / `app_auth` | kebab-case class name / `private` on deploy | `public`, `private` or `shared`. `shared` (callers pay with their own key) must first be enabled on the account by fal. |
-| `keep_alive` | 60 | Idle seconds before a runner shuts down. |
-| `min_concurrency` / `max_concurrency` | 0 / unset (server default 2) | Always-warm floor (billed 24/7) and runner ceiling. Set `max_concurrency` explicitly. |
-| `concurrency_buffer` | 0 | Warm runners above current demand. |
-| `max_multiplexing` | 1 | Concurrent requests per runner; only with async or thread-safe handlers. |
-| `startup_timeout` / `request_timeout` | 600 / 3600 | Seconds for `setup()` / per request. |
-| `regions` | any | `us-west` `us-central` `us-east` `eu-north` `eu-west`. |
-| `secrets` | account default | Allowlist of secret names exposed as env vars. |
-| `image` | none | `ContainerImage` for a custom Dockerfile. |
-| `app_files` / `local_python_modules` | `[]` | Ship local files/modules (fal Runtime only). |
-| `termination_grace_period_seconds` | 5 | SIGTERM-to-SIGKILL budget for draining and `teardown()`. |
+| Attribute | Notes |
+|---|---|
+| `machine_type` | CPU (`S` is the default) or GPU such as `GPU-A100`, `GPU-H100`. A list is a fallback order. Names: machine types docs. |
+| `requirements` | Pin every version. Unpinned `torch` can resolve to a build that does not match the GPU's CUDA. |
+| `app_name` / `app_auth` | Every deploy applies `app_auth` from code (default `private`), so a redeploy without it makes a public app private. |
+| `keep_alive` | Idle seconds before a runner shuts down. |
+| `min_concurrency` / `concurrency_buffer` | Runners kept up even at zero traffic: billed 24/7. |
+| `max_concurrency` | Runner ceiling. Set it explicitly. |
+| `max_multiplexing` | Concurrent requests per runner; only with async or thread-safe handlers. |
+| `startup_timeout` / `request_timeout` | Seconds for `setup()` / per request. A slow first `setup()` (weight download) can exceed `startup_timeout` and crash-loop. |
+| `secrets` | Allowlist of secret names; see Secrets. |
+| `image` | `ContainerImage` for a custom image; see Custom containers. |
 
-Full table, retry settings and pyproject keys: `references/app-configuration.md`.
-
-Scaling values in code apply on the **first** deploy. Later deploys keep whatever is
-live (including `fal apps scale` changes) unless you pass `--reset-scale`. With a
-pyproject name reference (`fal deploy text-to-image`) the CLI `--reset-scale` and
-`--strategy` flags are silently ignored: set `app_scale_settings = true` /
-`deployment_strategy` in `[tool.fal.apps.<name>]`, or deploy by file reference.
+Scaling values, `request_timeout` and `regions` in code apply on the **first** deploy.
+Later deploys keep whatever is live (including `fal apps scale` changes) unless you pass
+`--reset-scale`. `machine_type`, `max_multiplexing` and `startup_timeout` always come
+from code.
 
 ## Endpoints
 
-- `@fal.endpoint("/")` for the main route. Add more with other paths
-  (`@fal.endpoint("/enhance")` becomes `<owner>/<app>/enhance`).
+- `@fal.endpoint("/")` for the main route; other paths (`@fal.endpoint("/enhance")`)
+  become `<owner>/<app>/enhance`.
 - One Pydantic model parameter is the JSON body and the return annotation is the output
   schema. Both drive the OpenAPI spec and the dashboard Playground.
-- Handlers can be sync or `async`.
-- Streaming `@fal.endpoint("/stream")` (SSE `StreamingResponse`); WebSockets
-  `@fal.realtime("/realtime")`; health `@fal.endpoint("/health", health_check=fal.HealthCheck(...))`.
+- Handlers can be sync or `async`. Streaming, WebSockets and health checks: docs below.
 - Return errors with `fastapi.responses.JSONResponse(status_code=422, content={"detail": ...})`.
   **Never return 503 for ordinary errors**: a 503 stops the runner.
-
-Details: `references/streaming-realtime-health.md`.
 
 ## Files and storage
 
 - **Outputs:** wrap generated media in `fal.toolkit.Image.from_pil(...)`,
   `Image.from_bytes(data, format="png")`, `Video.from_path(...)`, `Audio.from_path(...)`,
-  or `File.from_path(...)` / `File.from_bytes(...)`. These upload to the fal CDN and
-  return `url`, `content_type`, `file_name`, `file_size`. Never return a raw PIL image.
+  or `File.from_path(...)`. These upload to the fal CDN and return a URL. Never return
+  a raw PIL image.
 - **Inputs:** accept URLs (`image_url: str`) and fetch them with
   `fal.toolkit.download_file(url, target_dir=d)` into a per-request directory
-  (`with tempfile.TemporaryDirectory() as d:`), or type the field as `Image` and call
-  `.to_pil()`. A shared `target_dir` can hand one request another request's file.
+  (`with tempfile.TemporaryDirectory() as d:`). A shared `target_dir` can hand one
+  request another request's file.
 - **`/data`:** a persistent volume shared by every runner and app in the account. Put
-  weights and caches there, never in the image. HuggingFace downloads land there
-  automatically.
+  weights and caches there, never in the image. Write to a temp name and rename into
+  place, so another runner never reads a partial file.
 - `/tmp` is per-runner scratch space, shared by every request on that runner.
-
-Details: `references/inputs-outputs-files.md`.
 
 ## Secrets
 
-Ask the user to set secret values themselves, in the dashboard or in their own terminal:
-
-```bash
-fal secrets set HF_TOKEN=<value>           # the user runs this; add --env staging for another environment
-fal secrets list                           # names only; safe for you to run
-```
-
-Never type a real secret value into a command you run: it lands in shell history and
-the transcript.
+Ask the user to set secret values themselves, in the dashboard or in their own terminal
+(`fal secrets set HF_TOKEN=<value>`). Never type a real value into a command you run.
+`fal secrets list` shows names only and is safe to run.
 
 ```python
 import os
@@ -242,11 +221,17 @@ class MyApp(fal.App):
         token = os.environ["HF_TOKEN"]      # read at runtime, not at import time
 ```
 
-Secrets are injected when a runner starts. After changing one, restart runners with
-`fal apps rollout <app>` (ask the user first on a live app). At build time use `${HF_TOKEN}` inside `requirements` entries or
-`ContainerImage(secrets=...)`; there are no secret env vars during the build.
+- Without `secrets`, the app gets every secret exposed by default. With it, the app gets
+  only the names listed, **at build time too**.
+- A secret set with `--not-exposed-by-default` reaches only apps that list it. Setting it
+  again without that flag makes it exposed again.
+- There are no secret env vars during the build. `${NAME}` is substituted in
+  `requirements` entries and in `ContainerImage(secrets={...})` values (for
+  `RUN --mount=type=secret` steps); a name the app cannot see stays literal.
+- Secrets are injected when a runner starts. After changing one, restart runners with
+  `fal apps rollout <app>` (ask the user first on a live app).
 
-## Custom containers (short version)
+## Custom containers
 
 ```python
 from importlib.metadata import version
@@ -264,61 +249,41 @@ RUN pip install --no-cache-dir fal=={version("fal")}
 """)
 ```
 
-The image must have `curl`, and installing `fal` last keeps `pydantic`, `protobuf` and
-`boto3` compatible. Pin every package; the f-string pins `fal` to the version you
-deploy with (the class body runs on your machine). A dev or source install reports a
-version that is not on PyPI (e.g. `1.81.2.dev0+d20260928`) and the build fails: pin a
-released version literally instead. `app_files` is not allowed with
-`image`; use `COPY`. To deploy an existing HTTP server unchanged, use `exposed_port` in
-`pyproject.toml` (Direct Server Mode). See `references/containers.md`.
+- The image must have `python3.X` on `PATH` with the **same minor version** as the
+  interpreter you deploy from; otherwise the build fails. Check the base image's Python
+  before choosing it.
+- Install `curl`, and install `fal` last so `pydantic`, `protobuf` and `boto3` stay
+  compatible (a mismatch breaks the runner, not the build). The f-string pins `fal` to the version you deploy with; if that is a dev
+  or source install (a version not on PyPI), pin a released version literally.
+- `app_files` is not allowed with `image`; use `COPY`.
 
-## pyproject.toml
+## Environments and pyproject
 
-```toml
-[tool.fal.apps.text-to-image]
-ref = "app.py::TextToImage"
-auth = "private"
-python_version = "3.11"
-```
+- `fal environments create staging`, then pass `--env staging` to `deploy`, `run`,
+  `secrets` and `apps`. Each environment is a separate app (`my-org/my-app--staging`)
+  with its own secrets; nothing falls back to `main`.
+- An app can be declared in `pyproject.toml` under `[tool.fal.apps.<name>]` with
+  `ref = "app.py::MyApp"` and deployed by name (`fal deploy <name>`). Keep each setting
+  in one place: the class or the table. See the pyproject docs.
 
-Then `fal run text-to-image --auth private` and `fal deploy text-to-image`. With a name
-reference, `fal deploy` rejects `--app-name`/`--auth` and reads `deployment_strategy`
-and `app_scale_settings` from the file. For `ref` apps, the table's `name` (default: the
-table key) and `auth` replace the class `app_name`/`app_auth`; for every other setting a
-value set on the class wins over the table, and a table `requirements` is ignored. Keep
-each setting in one place.
+## Docs
 
-## Environments
-
-`fal environments create staging`, then pass `--env staging` to `deploy`, `run`,
-`secrets` and `apps`. Each environment is a separate app (`my-org/my-app--staging`)
-with its own secrets; nothing falls back to `main`.
-
-## Pitfalls checklist
-
-- Heavy imports at module top level fail locally or bloat the pickle. Move them into methods.
-- Do not define `__init__` on the App (it raises); use `setup()`.
-- Local and remote Python minor versions must match; the SDK refuses a mismatch.
-- Editing scaling values in code does nothing on a redeploy without `--reset-scale`
-  (see above). `machine_type`, `max_multiplexing` and `startup_timeout` always come from code.
-- A slow first `setup()` (weight download) can exceed `startup_timeout` (600 s by
-  default) and crash-loop. Raise it, or pre-stage weights on `/data`.
-- `max_multiplexing > 1` with a synchronous, non-thread-safe handler corrupts state.
-- Pin `requirements`. Unpinned `torch` can resolve to a build that does not match the GPU's CUDA.
-- There is no `fal.toolkit.upload_image`. Use `Image.from_pil(...)`.
-- `FAL_KEY` inside a runner belongs to the app owner. Chained `fal_client` calls are billed to the owner.
-
-## References
-
-- `references/app-configuration.md`: read when you need an attribute not listed above,
-  retries, lifecycle hooks, or the full `pyproject.toml` schema.
-- `references/inputs-outputs-files.md`: read when handling media inputs or outputs,
-  `/data`, the KV store, request headers or runtime env vars.
-- `references/containers.md`: read when you need a Dockerfile, private registry,
-  build secrets or Direct Server Mode.
-- `references/streaming-realtime-health.md`: read when adding SSE, WebSockets, health
-  checks, cancellation, graceful shutdown or custom status codes.
-- `references/calling-and-testing.md`: read when calling the app (Python, JS, REST,
-  webhooks) or writing automated tests.
-
-Public docs: https://fal.ai/docs/documentation/development/app-lifecycle and https://fal.ai/docs/documentation/deployment/deploy-to-production
+- Lifecycle and deploying: https://fal.ai/docs/documentation/development/app-lifecycle,
+  https://fal.ai/docs/documentation/deployment/deploy-to-production
+- Machine types: https://fal.ai/docs/documentation/deployment/machine-types
+- Scaling: https://fal.ai/docs/documentation/deployment/scaling-configuration
+- Inputs, outputs and files: https://fal.ai/docs/documentation/development/handle-inputs-and-outputs,
+  https://fal.ai/docs/documentation/development/use-persistent-storage
+- Secrets: https://fal.ai/docs/documentation/development/manage-secrets-securely
+- Streaming, realtime, health checks, cancellation:
+  https://fal.ai/docs/documentation/development/streaming,
+  https://fal.ai/docs/documentation/development/realtime,
+  https://fal.ai/docs/documentation/development/add-health-check-endpoint,
+  https://fal.ai/docs/documentation/development/handle-cancellations
+- Containers: https://fal.ai/docs/documentation/serverless/optimizations/optimize-container-images,
+  https://fal.ai/docs/documentation/development/private-registries,
+  https://fal.ai/docs/documentation/development/migrate-external-docker-server
+- pyproject: https://fal.ai/docs/api-reference/python-sdk/pyproject-toml
+- Calling and testing: https://fal.ai/docs/documentation/development/calling-your-endpoints,
+  https://fal.ai/docs/documentation/model-apis/inference/queue,
+  https://fal.ai/docs/documentation/development/test-models-and-endpoints
