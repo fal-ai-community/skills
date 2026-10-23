@@ -356,6 +356,28 @@
       ]
     },
     {
+      "name": "fal-serverless",
+      "description": "Build, test and deploy your own Python apps on fal Serverless GPUs with the `fal` SDK and CLI. Covers writing a `fal.App` (setup(), `@fal.endpoint`, Pydantic input/output, requirements, machine_type, scaling, secrets, fal.toolkit file outputs, /data storage, custom container images, pyproject `[tool.fal.apps]`), testing with `fal run`, shipping with `fal deploy`, and calling the endpoint. Use when the user says \"deploy to fal\", \"fal.App\", \"fal run\", \"fal deploy\", \"serverless GPU app on fal\", \"host my model on fal\", \"fal.endpoint\", \"machine_type\", or edits code that imports `fal`. This skill is for building and hosting your own apps with the `fal` CLI. It is not for calling existing fal marketplace models (that is the genmedia CLI). For debugging, scaling or operating an app that is already deployed, use fal-serverless-operate.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "b1fdf2a797f571cad863f1db13cb78760728dca9cefceba427e671f75bdfbaa5",
+          "bytes": 14037
+        }
+      ]
+    },
+    {
+      "name": "fal-serverless-operate",
+      "description": "Operate and debug your own apps already deployed on fal Serverless with the `fal` CLI. Covers listing apps and revisions, rollback (`fal apps set-rev`), restarting runners (`fal apps rollout`), scaling (`fal apps scale` for keep_alive, min/max concurrency, machine types), runner states (PENDING, SETUP, CRASH_BACKOFF), logs (`fal runners logs`), shells on runners, the queue, and secrets, keys, environments and /data files. Also diagnoses crash loops, 5xx/503/504 errors, timeouts and cold starts. Use when the user says \"fal logs\", \"fal runners\", \"my fal app is failing\", \"roll back on fal\", \"scale my fal app\", \"cold start\", \"keep_alive\", \"fal apps\", \"fal queue\", \"fal secrets\", or asks why a deployed fal endpoint is slow, erroring or expensive. This skill covers your own deployed apps and the `fal` CLI. It is not for calling fal marketplace models (the genmedia CLI does that). To write or first deploy an app, use fal-serverless.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "ed8cda3806969be5f6b30cfb6b99e639b5a7140f97a86a75803c2796a1e8f6c1",
+          "bytes": 8809
+        }
+      ]
+    },
+    {
       "name": "fal-workflow",
       "description": "Author and execute multi-step media pipelines on fal.ai. Two modes: (A) declarative workflow JSON files for the fal.ai workflow runtime (\"create workflow\", \"chain models\", \"image to video pipeline\"); (B) imperative genmedia CLI orchestration when scripting locally (\"design pipeline\", \"fan-out generation\", \"frame bridging\", \"narrated video\", \"dataset generation\").",
       "files": [
