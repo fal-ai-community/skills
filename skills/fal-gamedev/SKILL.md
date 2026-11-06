@@ -1,15 +1,6 @@
 ---
 name: fal-gamedev
-description: >
- Generate 2D pixel art game assets, characters, sprite sheets, background
- removal, and game backgrounds. Trigger for "pixel art character", "sprite
- sheet", "walk cycle", "game sprites", "isometric sprites", "side-scroller
- assets", "RPG character sprites", "idle animation", "attack animation",
- "jump animation", "game background", "parallax background", "isometric map",
- "2D game art", "pixel art animation". Covers character generation
- (nano-banana-pro / gpt-image-2), sprite sheet animation (nano/edit or
- gpt-image-2/edit), background removal (Bria), and background generation
- (parallax layers or isometric map).
+description: "Generate individual 2D pixel art characters, animation sheets and backgrounds with fal. Use game-asset-production for an engine-ready asset pack and validation."
 metadata:
  author: fal-ai-community
  version: "0.1.0"

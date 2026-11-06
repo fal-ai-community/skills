@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- A scene page: a seek(t) page. render.mjs (Playwright → ffmpeg) seeks it frame by frame into an MP4, and
+     check.mjs takes stills and layout data from it. Everything on screen is a pure function of t.
+     textkit.js gives exact text and chips; GSAP is optional: build one paused timeline and drive it from seek(t).
+     Change: W, H, LOOP (= the scene's wordtimes.py length), the fonts, the build and seek(t). Keep: window.seek, W, H, LOOP,
+     and window.__ready set last. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @font-face { font-family: "Geist"; src: url("fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
+    html, body { margin: 0; overflow: hidden; background: #0B0B0C; -webkit-font-smoothing: antialiased; }
+    #L { position: relative; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div id="L"></div>
+  <script src="textkit.js"></script>
+  <script>
+  (async () => {
+    const W = 1080, H = 1920, LOOP = 5;                                 // the frame, and the scene length in seconds
+    const L = document.getElementById("L");
+    L.style.width = W + "px"; L.style.height = H + "px";
+    const T = TextKit({ W, H, stroke: 3, radius: 18, tracking: -0.025 });
+    const F = { head: T.font(600, 96, "Geist"), chip: T.font(500, 44, "Geist"), num: T.font(600, 220, "Geist") };
+    await T.K.assertFonts(Object.values(F));
+
+    const ground = T.field(L, "#EDEBE6", { x: 0, y: 0, w: W, h: H });
+    const head = T.rline(L, [{ w: "One", s: 0.3 }, { w: "idea", s: 0.5 }, { w: "per", s: 0.7 }, { w: "scene", s: 0.9 }], F.head, "#0B0B0C", 96, 480);
+    const card = T.layer(L);                                             // GSAP moves this group as one piece
+    const box = T.frame(card, { x: 96, y: 620, w: 888, h: 640, color: "#0B0B0C" });
+    const num = T.timer(card, F.num, "#0B0B0C", 150, 620 + 96 + T.fm(F.num).cap, 12.45, (v) => v.toFixed(2) + " s", {});
+    const ok = T.chip(card, "same score", F.chip, { x: 150, y: 1120, bg: "#C8FF4D", fg: "#0B0B0C", icon: "check" });
+    const tl = gsap.timeline({ paused: true }).fromTo(card, { y: 0 }, { y: -120, duration: 0.8, ease: "expo.inOut" }, 4.0);
+    await T.ready();
+
+    function seek(t) {                                                   // a pure function of t: no state kept between calls
+      ground.style.clipPath = T.circle(T.house(T.prog(t, 0, 0.45)), W / 2, H / 2);
+      head(t); box(T.house(T.prog(t, 1.2, 1.95))); num(t, 2.0, 3.4); ok.at(t, 3.6);
+      tl.seek(t, true);                                                  // GSAP sets its values; callbacks are suppressed
+    }
+    seek(0);
+    Object.assign(window, { seek, W, H, LOOP });
+    window.__ready = true;                                               // render.mjs and check.mjs wait for this
+  })().catch((e) => { window.__fontError = String(e); console.error(e); });
+  </script>
+</body>
+</html>

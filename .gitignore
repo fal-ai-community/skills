@@ -2,3 +2,8 @@ node_modules/
 .DS_Store
 *.zip
 .env
+__pycache__/
+*.pyc
+build/
+.venv/
+production-state/

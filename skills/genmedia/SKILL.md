@@ -1,13 +1,6 @@
 ---
 name: genmedia
-description: >
- Use the genmedia CLI to search, inspect, run, and manage 1200+ fal.ai model
- endpoints. Trigger when the user mentions "genmedia", "fal CLI", or asks to
- "search models", "run a model", "fetch schema", "check pricing", "upload to
- fal", "queue async job", "track request", or any direct interaction with the
- fal.ai endpoint catalog. This is the foundational skill. Every other
- fal.ai-related skill in this repo executes its work through genmedia
- commands. Use `--json` whenever the output will be parsed by an agent.
+description: "Run fal models from a terminal with the genmedia CLI. Use for model discovery, schemas, pricing, uploads, execution and request recovery. MCP hosts use fal-media instead."
 ---
 
 # genmedia CLI: fal.ai endpoint runner
@@ -56,7 +49,7 @@ genmedia run "narrate this paragraph in a calm voice" --json
 Override anytime with an explicit endpoint id (positional that contains `/`):
 
 ```bash
-genmedia run fal-ai/flux/pro --prompt "a cat on the moon" --json
+genmedia run fal-ai/flux/dev --prompt "a cat on the moon" --json
 ```
 
 ### Discover when the user names a fuzzy task or wants a specific endpoint

@@ -1,6 +1,6 @@
 ---
 name: fal-regenerate-3d
-description: Build a fully-interactive 3D character-selector experience powered entirely by fal.ai. Generates stylized characters (FLUX.2 / GPT-Image-2), rigged animated GLBs (Meshy v6), themed companion creatures, per-character PATINA floor textures, looped Seedance video backgrounds, and a Three.js scene with palette swaps, breathing reflections, transition effects and a CREATE-YOUR-OWN flow.
+description: "Build a Three.js character selector with fal-generated 3D characters, companions, textures and video backgrounds. Use for an interactive 3D roster experience."
 ---
 
 # fal-regenerate-3d Skill
@@ -33,7 +33,7 @@ All packaged into a single static HTML page with a Three.js scene. ~25–35 MB o
 4. Meshy v6 → image-to-3d, enable_rigging=false → static creature GLB
 5. PATINA → fal-ai/patina/material/extract on the character image,
  returns basecolor + normal + roughness + metalness for the floor
-6. Seedance 2.0 → fal-ai/bytedance/seedance-2.0/fast/image-to-video, 8s loop
+6. Seedance 2.0 → bytedance/seedance-2.0/fast/image-to-video, 8s loop
 7. gltf-transform CLI → resize 1024 → webp q80 → draco
  (typically 95–96% size reduction, ~400–800 KB final)
 8. Three.js scene → MeshStandardMaterial floor with alphaMap circular cutout,
@@ -67,7 +67,7 @@ Cost: ~$2–3 per generation (4 fal calls). Runs in background, modal closes on 
 | Companion image | `fal-ai/gpt-image-2/edit` or `fal-ai/flux-2/klein/9b/edit` |
 | 3D character/companion | `fal-ai/meshy/v6/image-to-3d` |
 | Per-character floor PBR | `fal-ai/patina/material/extract` |
-| Background video | `fal-ai/bytedance/seedance-2.0/fast/image-to-video` |
+| Background video | `bytedance/seedance-2.0/fast/image-to-video` |
 | Logo / icon cleanup | `fal-ai/bria/background/remove` |
 
 ## Meshy animation IDs
@@ -97,7 +97,6 @@ Curated dance / idle action IDs (full list at https://docs.meshy.ai/en/api/anima
 ## Reference implementation
 
 - **Live**: https://fal-roster.vercel.app
-- **Source**: https://github.com/lovisdotio/fal-roster
 - **Skill repo**: https://github.com/lovisdotio/skills-fal-ai
 
 ## Cost reference (curated build)

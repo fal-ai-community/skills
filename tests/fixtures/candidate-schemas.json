@@ -1,0 +1,595 @@
+{
+  "checked_on": "2026-11-05",
+  "source": "Input validation constraints from publicly readable model schemas; annotations and sample assets omitted.",
+  "models": {
+    "openai/gpt-image-2/edit": {
+      "required": [
+        "prompt",
+        "image_urls"
+      ],
+      "properties": {
+        "prompt": {
+          "maxLength": 32000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "output_compression": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "maximum": 100,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mask_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "image_size": {
+          "anyOf": [
+            {
+              "properties": {
+                "height": {
+                  "maximum": 14142,
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                "width": {
+                  "maximum": 14142,
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "type": "object"
+            },
+            {
+              "enum": [
+                "square_hd",
+                "square",
+                "portrait_4_3",
+                "portrait_16_9",
+                "landscape_4_3",
+                "landscape_16_9",
+                "auto"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "sync_mode": {
+          "type": "boolean"
+        },
+        "output_format": {
+          "enum": [
+            "jpeg",
+            "png",
+            "webp"
+          ],
+          "type": "string"
+        },
+        "image_urls": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 16,
+          "type": "array"
+        },
+        "quality": {
+          "enum": [
+            "auto",
+            "low",
+            "medium",
+            "high"
+          ],
+          "type": "string"
+        },
+        "num_images": {
+          "minimum": 1,
+          "maximum": 10,
+          "type": "integer"
+        },
+        "enable_safety_checker": {
+          "type": "boolean"
+        },
+        "background": {
+          "enum": [
+            "auto",
+            "transparent",
+            "opaque"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "google/nano-banana-2.1/edit": {
+      "type": "object",
+      "properties": {
+        "thinking_level": {
+          "anyOf": [
+            {
+              "enum": [
+                "minimal",
+                "medium",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "system_prompt": {
+          "maxLength": 50000,
+          "type": "string"
+        },
+        "resolution": {
+          "enum": [
+            "1K",
+            "2K",
+            "4K"
+          ],
+          "type": "string"
+        },
+        "safety_tolerance": {
+          "enum": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "type": "string"
+        },
+        "output_format": {
+          "enum": [
+            "jpeg",
+            "png",
+            "webp"
+          ],
+          "type": "string"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "video_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enable_web_search": {
+          "type": "boolean"
+        },
+        "prompt": {
+          "minLength": 3,
+          "maxLength": 50000,
+          "type": "string"
+        },
+        "image_urls": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "aspect_ratio": {
+          "anyOf": [
+            {
+              "enum": [
+                "auto",
+                "21:9",
+                "16:9",
+                "3:2",
+                "4:3",
+                "5:4",
+                "1:1",
+                "4:5",
+                "3:4",
+                "2:3",
+                "9:16",
+                "4:1",
+                "1:4",
+                "8:1",
+                "1:8"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sync_mode": {
+          "type": "boolean"
+        },
+        "limit_generations": {
+          "type": "boolean"
+        },
+        "num_images": {
+          "maximum": 4,
+          "type": "integer",
+          "minimum": 1
+        },
+        "pdf_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "prompt"
+      ]
+    },
+    "fal-ai/flux-2/klein/9b": {
+      "required": [
+        "prompt"
+      ],
+      "type": "object",
+      "properties": {
+        "prompt": {
+          "type": "string"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "output_format": {
+          "enum": [
+            "jpeg",
+            "png",
+            "webp"
+          ],
+          "type": "string"
+        },
+        "enable_safety_checker": {
+          "type": "boolean"
+        },
+        "num_inference_steps": {
+          "minimum": 4,
+          "type": "integer",
+          "maximum": 8
+        },
+        "image_size": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "height": {
+                  "maximum": 14142,
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                "width": {
+                  "maximum": 14142,
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                }
+              }
+            },
+            {
+              "enum": [
+                "square_hd",
+                "square",
+                "portrait_4_3",
+                "portrait_16_9",
+                "landscape_4_3",
+                "landscape_16_9"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "num_images": {
+          "minimum": 1,
+          "type": "integer",
+          "maximum": 4
+        },
+        "sync_mode": {
+          "type": "boolean"
+        }
+      }
+    },
+    "minimax/h3-max/image-to-video": {
+      "required": [
+        "prompt",
+        "prompt_expansion_mode"
+      ],
+      "type": "object",
+      "properties": {
+        "end_image_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resolution": {
+          "type": "string",
+          "enum": [
+            "480P",
+            "768P",
+            "1080P"
+          ]
+        },
+        "sync_mode": {
+          "type": "boolean"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_audio_url": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration": {
+          "maximum": 15,
+          "minimum": 0.92,
+          "type": "number"
+        },
+        "prompt_expansion_mode": {
+          "type": "string"
+        },
+        "prompt": {
+          "minLength": 1,
+          "type": "string",
+          "maxLength": 50000
+        },
+        "image_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enable_safety_checker": {
+          "type": "boolean"
+        }
+      }
+    },
+    "fal-ai/bria/background/remove": {
+      "required": [
+        "image_url"
+      ],
+      "type": "object",
+      "properties": {
+        "prompt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "image_url": {
+          "type": "string"
+        },
+        "sync_mode": {
+          "type": "boolean"
+        }
+      }
+    },
+    "fal-ai/elevenlabs/dubbing": {
+      "required": [
+        "target_lang"
+      ],
+      "properties": {
+        "num_speakers": {
+          "anyOf": [
+            {
+              "maximum": 50,
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "highest_resolution": {
+          "type": "boolean"
+        },
+        "source_lang": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "audio_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_lang": {
+          "type": "string"
+        },
+        "video_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "fal-ai/elevenlabs/speech-to-text/scribe-v2": {
+      "required": [
+        "audio_url"
+      ],
+      "properties": {
+        "keyterms": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "maxItems": 100
+        },
+        "audio_url": {
+          "type": "string"
+        },
+        "tag_audio_events": {
+          "type": "boolean"
+        },
+        "diarize": {
+          "type": "boolean"
+        },
+        "language_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "fal-ai/elevenlabs/tts/multilingual-v2": {
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "style": {
+          "maximum": 1,
+          "type": "number",
+          "minimum": 0
+        },
+        "apply_text_normalization": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "on",
+            "off"
+          ]
+        },
+        "next_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stability": {
+          "maximum": 1,
+          "type": "number",
+          "minimum": 0
+        },
+        "voice": {
+          "type": "string"
+        },
+        "language_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timestamps": {
+          "type": "boolean"
+        },
+        "similarity_boost": {
+          "maximum": 1,
+          "type": "number",
+          "minimum": 0
+        },
+        "text": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "speed": {
+          "maximum": 1.2,
+          "type": "number",
+          "minimum": 0.7
+        },
+        "previous_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  }
+}

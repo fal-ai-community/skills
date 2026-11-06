@@ -1,131 +1,65 @@
 #!/usr/bin/env python3
-"""
-Builds skills/claude.ai/index.json by walking skills/claude.ai/<name>/ directories.
-
-Each skill directory must contain a SKILL.md with YAML frontmatter
-(`name` + `description`). All files in the directory are included in
-the manifest with a sha256 hash so the CLI can verify integrity.
-
-Run with --check to fail if the on-disk index is stale.
-"""
-
+"""Build the portable, hash-verified skills registry; --check detects drift."""
 import hashlib
 import json
-import os
+from pathlib import Path
 import re
 import sys
+import yaml
 
-SKILLS_DIR = "skills"
-INDEX_FILE = os.path.join(SKILLS_DIR, "index.json")
-
-
-def sha256(path: str) -> str:
-    with open(path, "rb") as f:
-        return hashlib.sha256(f.read()).hexdigest()
+ROOT = Path(__file__).resolve().parents[1]
+SKILLS_DIR = ROOT / 'skills'
+INDEX_FILE = SKILLS_DIR / 'index.json'
+IGNORED = {'__pycache__', 'node_modules', '.git', '.DS_Store'}
 
 
-def file_bytes(path: str) -> int:
-    return os.path.getsize(path)
+def parse_frontmatter(source):
+    parts = source.split('---', 2)
+    if len(parts) != 3 or parts[0].strip():
+        raise ValueError('Missing YAML frontmatter')
+    data = yaml.safe_load(parts[1])
+    if not isinstance(data, dict):
+        raise ValueError('Frontmatter must be a mapping')
+    return data
 
 
-def walk_files(skill_dir: str) -> list[str]:
-    out = []
-    for root, dirs, files in os.walk(skill_dir):
-        dirs.sort()
-        for f in sorted(files):
-            full = os.path.join(root, f)
-            out.append(os.path.relpath(full, skill_dir))
-    return out
+def walk_files(folder):
+    return sorted(p.relative_to(folder).as_posix() for p in folder.rglob('*')
+                  if p.is_file() and not any(v in IGNORED for v in p.relative_to(folder).parts))
 
 
-def parse_frontmatter(source: str) -> dict:
-    if not source.startswith("---\n"):
-        return {}
-    end = source.find("\n---", 4)
-    if end == -1:
-        return {}
-    block = source[4:end]
-    out = {}
-    current_key = None
-    folded_lines = []
-
-    def flush():
-        nonlocal current_key, folded_lines
-        if current_key is not None:
-            out[current_key] = " ".join(folded_lines).strip()
-            current_key = None
-            folded_lines = []
-
-    for line in block.split("\n"):
-        m = re.match(r'^([A-Za-z_][\w-]*):\s*(.*)$', line)
-        if m and not line.startswith(" "):
-            flush()
-            key, rest = m.group(1), m.group(2).strip()
-            if rest in (">", ">-", "|"):
-                current_key = key
-                folded_lines = []
-            else:
-                out[key] = rest
-        elif current_key is not None:
-            folded_lines.append(line.strip())
-    flush()
-    return out
-
-
-def build_index() -> dict:
-    skills = []
-    for entry in sorted(os.listdir(SKILLS_DIR)):
-        skill_dir = os.path.join(SKILLS_DIR, entry)
-        if not os.path.isdir(skill_dir) or entry.startswith("."):
+def build_index(skills_dir=SKILLS_DIR):
+    entries = []
+    for folder in sorted(skills_dir.iterdir()):
+        if not folder.is_dir() or folder.name.startswith('.'):
             continue
-        skill_file = os.path.join(skill_dir, "SKILL.md")
-        if not os.path.exists(skill_file):
-            raise SystemExit(f"Missing SKILL.md in {skill_dir}")
-        with open(skill_file, "r", encoding="utf-8") as f:
-            source = f.read()
-        fm = parse_frontmatter(source)
-        name = fm.get("name")
-        description = fm.get("description")
-        if not name:
-            raise SystemExit(f"{skill_file}: frontmatter missing 'name'")
-        if not description:
-            raise SystemExit(f"{skill_file}: frontmatter missing 'description'")
-        if name != entry:
-            raise SystemExit(f"{skill_file}: frontmatter name '{name}' does not match directory '{entry}'")
-        files = [
-            {
-                "path": rel,
-                "sha256": sha256(os.path.join(skill_dir, rel)),
-                "bytes": file_bytes(os.path.join(skill_dir, rel)),
-            }
-            for rel in walk_files(skill_dir)
-        ]
-        skills.append({"name": name, "description": description, "files": files})
-    return {"version": 1, "skills": skills}
+        data = parse_frontmatter((folder / 'SKILL.md').read_text(encoding='utf-8'))
+        name, desc = data.get('name'), data.get('description')
+        if name != folder.name or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', name or '') or len(name) > 64:
+            raise ValueError(f'{folder}: invalid or mismatched name')
+        if not isinstance(desc, str) or not 1 <= len(desc) <= 1024:
+            raise ValueError(f'{folder}: description must be 1-1024 characters')
+        files = []
+        for rel in walk_files(folder):
+            path = folder / rel
+            if not path.resolve().is_relative_to(skills_dir.resolve()):
+                raise ValueError(f'External symlink: {path}')
+            content = path.read_bytes()
+            files.append({'path': rel, 'sha256': hashlib.sha256(content).hexdigest(), 'bytes': len(content)})
+        entries.append({'name': name, 'description': desc, 'files': files})
+    return {'version': 1, 'skills': entries}
 
 
 def main():
-    check = "--check" in sys.argv
-    os.chdir(os.path.join(os.path.dirname(__file__), ".."))
-    index = build_index()
-    serialized = json.dumps(index, indent=2) + "\n"
-
-    if check:
-        if not os.path.exists(INDEX_FILE):
-            print(f"{INDEX_FILE} is missing. Run: python3 scripts/build-skills-index.py", file=sys.stderr)
-            sys.exit(1)
-        with open(INDEX_FILE, "r", encoding="utf-8") as f:
-            current = f.read()
-        if current != serialized:
-            print(f"{INDEX_FILE} is stale. Run: python3 scripts/build-skills-index.py", file=sys.stderr)
-            sys.exit(1)
-        print(f"{INDEX_FILE} is up to date.")
-        return
-
-    with open(INDEX_FILE, "w", encoding="utf-8") as f:
-        f.write(serialized)
-    print(f"Wrote {INDEX_FILE} — {len(index['skills'])} skills")
+    serialized = json.dumps(build_index(), indent=2) + '\n'
+    if '--check' in sys.argv:
+        if not INDEX_FILE.exists() or INDEX_FILE.read_text(encoding='utf-8') != serialized:
+            raise SystemExit('skills/index.json is stale; run python3 scripts/build-skills-index.py')
+        print('skills/index.json is up to date')
+    else:
+        INDEX_FILE.write_text(serialized, encoding='utf-8', newline='\n')
+        print(f'Indexed {len(json.loads(serialized)["skills"])} skills')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

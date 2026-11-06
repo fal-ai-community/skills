@@ -1,0 +1,14 @@
+{
+  "name": "fal-community",
+  "owner": {
+    "name": "fal.ai"
+  },
+  "plugins": [
+    {
+      "name": "fal-ai",
+      "source": "./",
+      "description": "fal creative skills with genmedia execution"
+    }
+  ],
+  "description": "Creative production skills for fal.ai, with complete reference assets and genmedia execution."
+}

@@ -2,8 +2,24 @@
   "version": 1,
   "skills": [
     {
+      "name": "branded-graphics",
+      "description": "Create finished static branded images with original logos, exact copy and verified dimensions. Use for banners, covers, ads and brand cards.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "dd0332090f8e2704a244b1eb7ff1f403e764cc7729763c9ea03b2e95fe94c2ca",
+          "bytes": 1330
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "78749f8029b23de257dfc82ab9130d1f8c2bb4c7d679f2c135edea2fe7bf4ef8",
+          "bytes": 2562
+        }
+      ]
+    },
+    {
       "name": "character-design",
-      "description": "Build consistent character designs and character media with genmedia. Use this for original characters, reference sheets, expression sheets, outfit variations, identity-preserving edits, and character-to-video workflows.",
+      "description": "Build consistent character designs and character media with genmedia. Use this for original characters, reference sheets, expression sheets, outfit variations, identity-preserving edits, and character-to-video workflows.\n",
       "files": [
         {
           "path": "SKILL.md",
@@ -28,8 +44,29 @@
       ]
     },
     {
+      "name": "character-sheet",
+      "description": "Create one character turnaround or expression reference sheet in a single image. Use for front, side and back design views; scene storyboards use storytelling.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "a8de5e3aa71ba5a85292870c5eba7aaa4dc79a727c5698f568149b7c3a9b53cf",
+          "bytes": 1347
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "593df2bec724851ff2e3acbbc60ab88db89568ff91363e548042508d72748272",
+          "bytes": 4553
+        },
+        {
+          "path": "references/sheet-patterns.md",
+          "sha256": "67887a6a4f1aca8ae7d636ebf09a1fb1ce8124959ca5529635a16226fd65fb84",
+          "bytes": 5283
+        }
+      ]
+    },
+    {
       "name": "cinematography",
-      "description": "Design cinematic image and video prompts for genmedia. Use this for shot language, camera movement, lighting, lens choices, color grade, film texture, scene blocking, and production-ready visual direction.",
+      "description": "Design cinematic image and video prompts for genmedia. Use this for shot language, camera movement, lighting, lens choices, color grade, film texture, scene blocking, and production-ready visual direction.\n",
       "files": [
         {
           "path": "SKILL.md",
@@ -55,12 +92,12 @@
     },
     {
       "name": "commercial",
-      "description": "Plan and run commercial image or video production with genmedia. Use this for product photography, ads, e-commerce batches, product reveals, lifestyle commercials, background replacement, social formats, and brand-safe prompt work.",
+      "description": "Direct individual commercial product images or clips on fal. Use for product placement, reveal shots and product fidelity; use product-ad-campaign for a complete campaign.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "be01bc3eabf0cd1004b9ce6a1bf9725aa0bb308a3c499483971ce423e392e3b6",
-          "bytes": 6104
+          "sha256": "ce402e00853aad7e1e141d3e10f3c6e0ce684dfd8652a0fea3841fcf65384983",
+          "bytes": 6036
         },
         {
           "path": "references/examples.md",
@@ -80,24 +117,67 @@
       ]
     },
     {
-      "name": "fal-gamedev",
-      "description": "Generate 2D pixel art game assets, characters, sprite sheets, background removal, and game backgrounds. Trigger for \"pixel art character\", \"sprite sheet\", \"walk cycle\", \"game sprites\", \"isometric sprites\", \"side-scroller assets\", \"RPG character sprites\", \"idle animation\", \"attack animation\", \"jump animation\", \"game background\", \"parallax background\", \"isometric map\", \"2D game art\", \"pixel art animation\". Covers character generation (nano-banana-pro / gpt-image-2), sprite sheet animation (nano/edit or gpt-image-2/edit), background removal (Bria), and background generation (parallax layers or isometric map).",
+      "name": "ecommerce-product-photography",
+      "description": "Create a consistent fal e-commerce product photo set from real SKU references. Deliver verified hero, detail and lifestyle images with accurate packaging and channel exports.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "5b78fd483bd46b0783ad1decfd60617c4000cd7b52610455bfd4d4bf396758c2",
-          "bytes": 27534
+          "sha256": "4fe6b52a10adcc68af1e0fbb1a6db61c87425cfa1fe2ba49d2266c54bbddda48",
+          "bytes": 4498
+        },
+        {
+          "path": "assets/plan.json",
+          "sha256": "bc09f9cde0bc8f7dd822e4a34f988d156034c1d81716b9e219728b628527abed",
+          "bytes": 473
+        }
+      ]
+    },
+    {
+      "name": "fal-audio-generation",
+      "description": "Produce fal voiceover, dubbing, speech transcription, sound effects or music. Use for audio deliverables, a pinned project voice and timing checks.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "6e27396a42e288c1b8ccddb92847ac19e77ae599238a76bab366628241e82295",
+          "bytes": 1345
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "625f130e1e3a2d6488c9e68bae46b32e109980fcd4aeec613f699476a64a0dd9",
+          "bytes": 25067
+        }
+      ]
+    },
+    {
+      "name": "fal-gamedev",
+      "description": "Generate individual 2D pixel art characters, animation sheets and backgrounds with fal. Use game-asset-production for an engine-ready asset pack and validation.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "83e5256faad87bd545bf18cff0255b29443a9dfb1b3824cab8a930331bfd9258",
+          "bytes": 27072
+        }
+      ]
+    },
+    {
+      "name": "fal-media",
+      "description": "Generate or process media with connected fal MCP tools. Use for Fal model selection, schemas, pricing, uploads and job recovery; preserve an explicitly chosen provider.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "65deae1320bda555cac2b1a08b8527283464dacd64eac81d2987454678af6210",
+          "bytes": 2050
         }
       ]
     },
     {
       "name": "fal-models-catalog",
-      "description": "Choose the right fal.ai endpoint for a given task. Modality-organized catalog of production endpoint defaults, text-to-image, image-to-image, text-to-video, image-to-video, and more. Use when the user has not named a specific model, or asks \"which model for X\", \"best endpoint for Y\", \"what should I use for Z\".",
+      "description": "Compare fal model families by modality and role. Use for catalog exploration; verify current availability and contracts before execution.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "13582586677b5afff1beaa7a3ac2306c59a3ab7ca6b7b2be0492a9af21b46de1",
-          "bytes": 2866
+          "sha256": "190dc1539d48b4a9c2a04967db8375509cbd5f52d7e90ed180b3fcff0081266f",
+          "bytes": 2688
         },
         {
           "path": "references/audio-to-text.md",
@@ -152,13 +232,29 @@
       ]
     },
     {
-      "name": "fal-prompting",
-      "description": "Model-family-specific prompt craft for fal.ai endpoints. Trigger when the user mentions a specific model family by name and asks how to prompt it (\"how do I prompt Kling\", \"GPT Image 2 prompt structure\", \"Happy Horse tips\"), or when prompts to a routed endpoint keep coming back generic and the family's known nuances should be applied. For endpoint selection (\"which model for X\"), use `fal-models-catalog` instead. This skill is about how to talk to a model once it has been chosen.",
+      "name": "fal-motion-graphics",
+      "description": "Render animated titles, lower thirds, logo cards and captions over video. Use for deterministic text and logo motion with a verified local renderer.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "e9e88c6b5ccac9367353ab9a829ce764c7a253ae3b93f1306bb247eabafde1d7",
-          "bytes": 2758
+          "sha256": "0465e49f66973234b3f0652b745ccfed531c8c044c0958cc15ed5569358548c1",
+          "bytes": 1344
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "189dbd45459b9c321ebb7c22ddeb8317d1c41bd6527033993e54ca4e431936f7",
+          "bytes": 21910
+        }
+      ]
+    },
+    {
+      "name": "fal-prompting",
+      "description": "Write prompts for a selected fal model family. Use for GPT Image, Kling and Happy Horse parameter-specific prompt craft; select an endpoint before use.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "c3537332952b352d899539fab215b51688635388f34988ea092dcde6872d1795",
+          "bytes": 2418
         },
         {
           "path": "references/gpt-image-2.md",
@@ -179,12 +275,12 @@
     },
     {
       "name": "fal-recipes",
-      "description": "Use-case-driven multi-step pipelines on fal.ai. Trigger when the user asks for a specific kind of content production rather than a single endpoint call: \"make a commercial\", \"ad creative\", \"product photography\", \"cinematic shot\", \"film look\", \"character design\", \"consistent character\", \"anchor system\", \"storyboard\", \"multi-shot\", \"narrative video\", \"talking head\", \"lip sync\", \"make this person talk\", \"virtual try-on\", \"garment transfer\", \"restore image\", \"deblur\", \"denoise\", \"fix face\", \"old photo restore\", \"add audio to video\", \"video sound effects\", \"product shot\", \"photoreal\", \"realistic photo\", \"candid photo\", \"editorial portrait\", \"documentary photo\", \"looks like a real photograph\", \"iPhone-style photo\", \"film photo\", \"archival photo\". Each recipe describes inputs, the genmedia call sequence, and quality checks.",
+      "description": "Consult fal pipeline recipes for try-on, restoration, lip sync and production techniques. Use as supporting guidance rather than a second orchestration layer.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "2c6a99b5cf427b89436f65836f00e8ac25d8dabf0871127e5ee196e5faf4c98a",
-          "bytes": 4534
+          "sha256": "8060f88ae8336567d1028443cdedadc09aa0e28b9c60de4aa9d34eb42c590bef",
+          "bytes": 3852
         },
         {
           "path": "references/character-design.md",
@@ -278,6 +374,11 @@
           "bytes": 1989
         },
         {
+          "path": "runtime/bin/fal-site.mjs",
+          "sha256": "d78e7eab390b88aacc4813084dde2d1919091f347318a395ccf0982560cdf463",
+          "bytes": 18612
+        },
+        {
           "path": "runtime/package-lock.json",
           "sha256": "59d58fd3d0f7c241d77f31482be149a7648c00bca5b9ed0a595ad08746fa7216",
           "bytes": 60974
@@ -286,11 +387,6 @@
           "path": "runtime/package.json",
           "sha256": "f050e2024d5f126071fcfe6afb55582acadbac94794d313917a06d20c83d3a4c",
           "bytes": 630
-        },
-        {
-          "path": "runtime/bin/fal-site.mjs",
-          "sha256": "d78e7eab390b88aacc4813084dde2d1919091f347318a395ccf0982560cdf463",
-          "bytes": 18612
         },
         {
           "path": "runtime/src/brief.mjs",
@@ -346,23 +442,87 @@
     },
     {
       "name": "fal-regenerate-3d",
-      "description": "Build a fully-interactive 3D character-selector experience powered entirely by fal.ai. Generates stylized characters (FLUX.2 / GPT-Image-2), rigged animated GLBs (Meshy v6), themed companion creatures, per-character PATINA floor textures, looped Seedance video backgrounds, and a Three.js scene with palette swaps, breathing reflections, transition effects and a CREATE-YOUR-OWN flow.",
+      "description": "Build a Three.js character selector with fal-generated 3D characters, companions, textures and video backgrounds. Use for an interactive 3D roster experience.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "e9716e331cc0d811f3ff44d3d4ccfbb87c20fca61ad08f0b59d567c2c15853df",
-          "bytes": 6282
+          "sha256": "6059b1a872f3eea40ac77856f55e3d1fcab1c6ab41fbd28932acdd4abfa2619d",
+          "bytes": 5989
+        }
+      ]
+    },
+    {
+      "name": "fal-script-writer",
+      "description": "Write timed scripts and shot tables for short films or ads. Use for story beats, voiceover budgets and continuity notes; this skill makes no model calls.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "4106935729914c38c21b235badc62b6363162218f1cef562329c7dadbf94a02d",
+          "bytes": 1345
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "65b2d0a4da5401879fab1ccdf389cd0633ca0c2e805a74b95e83ab6b636f2f0b",
+          "bytes": 28232
+        }
+      ]
+    },
+    {
+      "name": "fal-shot-craft",
+      "description": "Write or improve one fal video shot prompt. Use for physical action, motivated cameras and continuity anchors; do not use for full film assembly.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "79bb1c67c4d5149dd95f3b1a86ab3bcdaa0d80890bea939fa08fab3c7b7ea3ff",
+          "bytes": 1331
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "595bd96d3079b0b141985b4a447b271407a07e2feed366ac13f4ff29e44e3387",
+          "bytes": 16928
+        }
+      ]
+    },
+    {
+      "name": "fal-video-generation",
+      "description": "Generate or transform a fal video clip. Use for image animation, reference video, extension, restyling or upscaling; use storyboard-to-short-film for a complete cut.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "7dfdad1952b2c25c3fa295fb5ec80f674aa8da4e7b5061f3b1ea0a10e26c3a53",
+          "bytes": 1363
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "41c6eac0cdf814b954d570799c6f00ae2f29568a73b847630242299b6aaf806b",
+          "bytes": 48959
+        }
+      ]
+    },
+    {
+      "name": "fal-video-production",
+      "description": "Coordinate fal short-ad production with per-shot picture, voice, music and final quality checks. Use when a finished ad with audio is requested.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "e6ca00f50e99a1480e26277952ffb7206ef54b97824c8e9aade4c2a567ecb6e7",
+          "bytes": 1342
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "f414d79a487beb20ebeccb8381fd4127016a35408e979a1de12110351d47e55a",
+          "bytes": 49021
         }
       ]
     },
     {
       "name": "fal-workflow",
-      "description": "Author and execute multi-step media pipelines on fal.ai. Two modes: (A) declarative workflow JSON files for the fal.ai workflow runtime (\"create workflow\", \"chain models\", \"image to video pipeline\"); (B) imperative genmedia CLI orchestration when scripting locally (\"design pipeline\", \"fan-out generation\", \"frame bridging\", \"narrated video\", \"dataset generation\").",
+      "description": "Author fal workflow JSON or orchestrate multi-step genmedia jobs. Use for reusable model chains, batch pipelines and frame bridging.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "a079894cc2c31b161cb4eca6f9396d84f40e45608607107085a57ac2ea9eb5f4",
-          "bytes": 12951
+          "sha256": "667f202f65f46d26cadc88b401de666c24ada61da72256ef29ffe9fb1587b4dc",
+          "bytes": 12720
         },
         {
           "path": "references/EXAMPLES.md",
@@ -408,7 +568,7 @@
     },
     {
       "name": "fan-cam",
-      "description": "Create personalized live sports broadcast fan-cam videos with genmedia. Use this for realistic spectator cutaways, stadium or arena crowd reactions, broadcast screenshots, sports TV shots, scoreboard overlays, TV channel bugs, and identity-preserving fan reaction videos from a user photo.",
+      "description": "Create personalized live sports broadcast fan-cam videos with genmedia. Use this for realistic spectator cutaways, stadium or arena crowd reactions, broadcast screenshots, sports TV shots, scoreboard overlays, TV channel bugs, and identity-preserving fan reaction videos from a user photo.\n",
       "files": [
         {
           "path": "SKILL.md",
@@ -433,60 +593,133 @@
       ]
     },
     {
-      "name": "genmedia",
-      "description": "Use the genmedia CLI to search, inspect, run, and manage 1200+ fal.ai model endpoints. Trigger when the user mentions \"genmedia\", \"fal CLI\", or asks to \"search models\", \"run a model\", \"fetch schema\", \"check pricing\", \"upload to fal\", \"queue async job\", \"track request\", or any direct interaction with the fal.ai endpoint catalog. This is the foundational skill. Every other fal.ai-related skill in this repo executes its work through genmedia commands. Use `--json` whenever the output will be parsed by an agent.",
+      "name": "game-asset-production",
+      "description": "Produce an engine-ready 2D game asset pack with fal. Deliver transparent sprites, sliced animation frames, backgrounds and an atlas with measured frame geometry.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "2e982b5d6a169761a1b260aacce60cce2a47111591eab14d231fa6351f7d96a9",
-          "bytes": 5762
+          "sha256": "2392b18cd57ea1bab46caea55b0e93691ecab0974c2d9092f1b8dad419dd4a0a",
+          "bytes": 4742
+        },
+        {
+          "path": "assets/plan.json",
+          "sha256": "36f7979f2632587810124aac16905676be8cf3ceabf25e632df17f979e8b0152",
+          "bytes": 653
+        }
+      ]
+    },
+    {
+      "name": "genmedia",
+      "description": "Run fal models from a terminal with the genmedia CLI. Use for model discovery, schemas, pricing, uploads, execution and request recovery. MCP hosts use fal-media instead.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "62cf48ba5e36c5f6eb1eddedc2ade4ceedd00d53ef6d49967da825977fe0b3da",
+          "bytes": 5412
         },
         {
           "path": "references/full-reference.md",
           "sha256": "98ef94144b47d2501066705a32929bf728c7d6d36eb488e8fd16c738d266681a",
           "bytes": 10683
+        },
+        {
+          "path": "scripts/run_plan.py",
+          "sha256": "d25d3b2ca8bed1442164d5b1b344fb715cd5a22215e1d323d31266b5071314a0",
+          "bytes": 5611
         }
       ]
     },
     {
       "name": "genmedia-workflow",
-      "description": "Design and execute multi-step media workflows with genmedia. Use this for pipelines that combine planning, generation, editing, image or video utilities, audio, subtitles, batching, and final delivery manifests.",
+      "description": "Use the legacy genmedia-workflow entry point for local media pipelines. New workflow requests use fal-workflow; existing references remain available.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "450e1d49500917ee199d981b2e8e45cc9a8d7caf408f6c7eed5dfbd065e16195",
-          "bytes": 5392
+          "sha256": "93d8b963b4ccf76eaa7bd4aceb3b905b1751ea2f2940dc7f7e21b8b2b4af9869",
+          "bytes": 5324
         },
         {
           "path": "references/node-rules.md",
-          "sha256": "cf449fe1aa4bf0338ae1cc0a226fcb675eebf9597017e04eb4f52083a3b57fef",
-          "bytes": 2826
+          "sha256": "0cd8778807a5d7409348ba724f4fd080a35868f202dcad590e4e2a56223ac624",
+          "bytes": 141
         },
         {
           "path": "references/pipeline-patterns.md",
-          "sha256": "dcfe4b87b0a3b02883ff98c3437f91145d933e5b669caccab736c1f9e6c40988",
-          "bytes": 3623
+          "sha256": "3a5b5e8e8ab99c0aadee0620852aa7baf2b1e032e6496006e02c6dc1964f2726",
+          "bytes": 148
         },
         {
           "path": "references/recipes.md",
-          "sha256": "c5b332b61fc557595ce2e9e992ec9e9944936008db9ac064b9872d12696a4a7e",
-          "bytes": 3036
+          "sha256": "76c5274c0631a9a30a785623325a4c831a69081d40a89537cc2eb6fd14040fc2",
+          "bytes": 138
         },
         {
           "path": "references/utility-endpoints.md",
-          "sha256": "c1921d500107659236c401451ecc1e9655576b5b35fb5e7bb1f8a308f0287501",
-          "bytes": 3401
+          "sha256": "fd6e7188fc178c86fb16b2b29cbae2ded1ea70026901a777fa862d92baa0f564",
+          "bytes": 148
+        }
+      ]
+    },
+    {
+      "name": "h3-cinematic-prompter",
+      "description": "Write or revise MiniMax H3 cinematic prompt text for fal. Use for prompt-only requests, first-frame direction and prompt repair; do not submit generation.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "74a11c65ff247c7990ce52ff29ec7c5b72e3cbecab6fa9f313366dd93d0f23e3",
+          "bytes": 1354
+        },
+        {
+          "path": "references/breakdown-guidance-deluxe-100.md",
+          "sha256": "d81743a62f39b74d5fca325935de18343c354dec8a3fde717c094577274f05a2",
+          "bytes": 8632
+        },
+        {
+          "path": "references/camera-and-craft.md",
+          "sha256": "d789381f9aeb8bfa8ef9d15ca3b6da51a41fbba21a45b514a742670e69d758c0",
+          "bytes": 6290
+        },
+        {
+          "path": "references/examples.md",
+          "sha256": "47838490c94788e1f3650e2b132810e148b1e76c315e066a597b079413af6957",
+          "bytes": 7322
+        },
+        {
+          "path": "references/format-spec.md",
+          "sha256": "3b4844a84c96d4bf75f0b7c2b5dabe1f6d981dbe27cee59fcbb62ff36b0915e7",
+          "bytes": 5590
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "4283bb8ee84c637b2ff3a5440f188332b8223e59f783079a7a5fd2850342d352",
+          "bytes": 8378
+        }
+      ]
+    },
+    {
+      "name": "localize-and-repurpose",
+      "description": "Localize and repurpose existing creative content with fal. Deliver translated speech, accurate subtitles and channel cuts while preserving meaning, brand assets and source provenance.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "eabe010b05caebfa6bdff47d78d80e9355ce362fe4dd9ec0fc7bd78c01098352",
+          "bytes": 4854
+        },
+        {
+          "path": "assets/plan.json",
+          "sha256": "55efef9c13d93f316a3a1c51f85e323f2b49c9ac7d99267dd6dac850e21f9682",
+          "bytes": 525
         }
       ]
     },
     {
       "name": "marketing",
-      "description": "Plan and run campaign-level marketing asset production with genmedia. Use this for launch kits, campaign matrices, paid social variants, landing-page visuals, email and banner imagery, hook/proof/conversion assets, creator ad packages, and channel-specific marketing deliverables.",
+      "description": "Plan fal marketing asset matrices, hooks and channel variants. Use for campaign strategy; use product-ad-campaign when the deliverable is the produced asset package.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "18d5f0e69cdef6e4e1e6b60d9d96e21770c98cd9f4d1341deef56ccb3b60b2e9",
-          "bytes": 6447
+          "sha256": "24f4850af63c5f5f2373e203785b2d6020743bf130c60e9b741119e9f8f8f53d",
+          "bytes": 6324
         },
         {
           "path": "references/campaign-patterns.md",
@@ -507,23 +740,187 @@
     },
     {
       "name": "model-routing",
-      "description": "Choose default fal.ai endpoint IDs for genmedia production skills. Use this with commercial, marketing, ugc, character-design, cinematography, storytelling, and workflow when the user has not named a specific model.",
+      "description": "Select fal models by production role when no model is named. Verify current published routing first; static endpoint lists are fallback candidates.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "6d3f6b555d37e758aec32ab66e7ce549aadfb8613cf030baee968705f277fbe0",
-          "bytes": 5840
+          "sha256": "905f916138d76bb776835f84761ff9db261f20b2e4f8756be0edf26236f63d8a",
+          "bytes": 5923
+        }
+      ]
+    },
+    {
+      "name": "photo-editing",
+      "description": "Apply deterministic image corrections, crops, resizing and composition in Python. Use for pixel edits; semantic scene changes use fal edit models.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "131b3596821fe27b6efdc5799e1b098e0e5bcf2b21923f645b5109095764a292",
+          "bytes": 1330
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "03e99a4586bffc70bd1de024adc945b5ec99d5ffd739e5e3770b084dc345c867",
+          "bytes": 8823
+        }
+      ]
+    },
+    {
+      "name": "product-ad-campaign",
+      "description": "Produce a complete fal product ad campaign from a brief and product references. Deliver reviewed hero art, channel variants, short motion ads and a reusable asset manifest.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "bf52e546a4ccb42803cda0165c86e15bc6b7ab32733b8cd5765cd853d84bb2a3",
+          "bytes": 4371
+        },
+        {
+          "path": "assets/plan.json",
+          "sha256": "acb7ee4c463914bd097ab9045a20c9dc605dae4e0f9f98cdd002ee77f54bb511",
+          "bytes": 573
+        }
+      ]
+    },
+    {
+      "name": "reels-creator",
+      "description": "Produce presenter-led Reels, Shorts or TikToks with fal media and timed graphics. Requires local rendering dependencies described in the production guide.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "be4356a105b39abae59f11ee3a13b6e5ab26a711f5c15b0680557e0ee730a506",
+          "bytes": 1338
+        },
+        {
+          "path": "references/animation-craft.md",
+          "sha256": "d5717dde493b5438c99087b32271553be00ce0842ff83bc92be0949941f13230",
+          "bytes": 6766
+        },
+        {
+          "path": "references/assembly.md",
+          "sha256": "afca629c32005bd4fac7c2be36d43702552b1b6171318497747ab9c9f765cb62",
+          "bytes": 8345
+        },
+        {
+          "path": "references/code/check.mjs",
+          "sha256": "91084c3e24bdb4930160226599e04741dbd23163fcd83f180195e801d3239143",
+          "bytes": 4782
+        },
+        {
+          "path": "references/code/check.py",
+          "sha256": "76a0e291598626a8b0188cd386c838886e1832bf8fe20ad5146a95dce57dc176",
+          "bytes": 6179
+        },
+        {
+          "path": "references/code/host_check.py",
+          "sha256": "db62a28c636c036c657ae2c7c65ad64ecdb754c32e2da563e9ab51ec5c23a190",
+          "bytes": 4751
+        },
+        {
+          "path": "references/code/host_lipsync.py",
+          "sha256": "9b66e66bf09ec05efbe8963a3e15f7d5f3076d5b55e6fb2584c0edc14dce1d94",
+          "bytes": 4618
+        },
+        {
+          "path": "references/code/host_reel.py",
+          "sha256": "62b9dc90aee08ac3cc3a917404f51fc62c48f0cc7536180aa2609b05cf519762",
+          "bytes": 42784
+        },
+        {
+          "path": "references/code/mix_check.py",
+          "sha256": "4efb97fe07f496412470bd906552721343f4f86d00552296e15b1bddaed45182",
+          "bytes": 1764
+        },
+        {
+          "path": "references/code/preview_mux.py",
+          "sha256": "8ece191bc90a9af29e305b686d005e30196d21f3dd54f7c380ebfa0cd1b60a5e",
+          "bytes": 1858
+        },
+        {
+          "path": "references/code/render.mjs",
+          "sha256": "bf1ec1a8fcd860e74c0adb22a4dde694b780c336f1a2b2c68d595732556369fe",
+          "bytes": 4289
+        },
+        {
+          "path": "references/code/review_sheet.py",
+          "sha256": "b3eb0d7b60fe849504ca8c99afceed73f81d71615c0d7a5a7917ccefe7a5ab63",
+          "bytes": 1985
+        },
+        {
+          "path": "references/code/scene.html",
+          "sha256": "c16642fd36af218d06d8ab81edd1a3e2e059eb889f45ba203502d2b7d05a063b",
+          "bytes": 2991
+        },
+        {
+          "path": "references/code/sheet.py",
+          "sha256": "07cc3d41bb305dd47478153a61e237ac9b26df4741c8f3ca227bf8c32d42cb6e",
+          "bytes": 1322
+        },
+        {
+          "path": "references/code/textkit.js",
+          "sha256": "4266bb5c37cf0e15564a3b506d6cfb8ca8e99210e07c55c85a8c4244a0545bca",
+          "bytes": 20523
+        },
+        {
+          "path": "references/code/wordtimes.py",
+          "sha256": "307ef9922b3d7143b7f464bfcfd6b89d675fe46b66af42d7b38a2ce2f49eb6b0",
+          "bytes": 1242
+        },
+        {
+          "path": "references/design.md",
+          "sha256": "5959084cb3779d20d51638fec9b3fc9d7e4563da1b32e884adfb7e99add45649",
+          "bytes": 7392
+        },
+        {
+          "path": "references/models.md",
+          "sha256": "a1f70de89e9fbacd0951713b8f895fa0c5416b8533cb1aaf73c535a85828cdbd",
+          "bytes": 11537
+        },
+        {
+          "path": "references/pitfalls.md",
+          "sha256": "8c61cd1f64dcadac72332343552206b9f5ff2671d667cb06aaae6b779e6e5c83",
+          "bytes": 8514
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "bf31bdebc345e5c0d07c91b1d4ef6524369a6888c7a8dc9f6edd26baddb2f00e",
+          "bytes": 10812
+        },
+        {
+          "path": "references/sound.md",
+          "sha256": "9c36e4306979254cfde318eb2ae2f57808348a0c31eeff92604ae33598ad0e63",
+          "bytes": 5234
+        },
+        {
+          "path": "references/voice-and-host.md",
+          "sha256": "c30f4036680e79c16cf3bdde330f7d2483fa50107bd88631b8cb0d96e1ca07ca",
+          "bytes": 13608
+        }
+      ]
+    },
+    {
+      "name": "storyboard-to-short-film",
+      "description": "Turn a storyboard or shot list into a finished fal short film. Preserve character and scene continuity, render each shot, assemble picture and sound, and verify the final cut.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "3358d99963f4c38ea1297b3b44e0b210eb0512b4c3373bff2b988f032487e325",
+          "bytes": 4799
+        },
+        {
+          "path": "assets/plan.json",
+          "sha256": "05fa95eb596d8ce1c3af0a004f39f2fbb8913ce0f007c06bb4072affefb42da7",
+          "bytes": 586
         }
       ]
     },
     {
       "name": "storytelling",
-      "description": "Build multi-shot narrative image, video, and audio workflows with genmedia. Use this for storyboards, shot lists, multi-prompt video, first-frame to last-frame pipelines, social stories, brand films, and sequence continuity.",
+      "description": "Plan narrative scenes and continuity for fal images and videos. Use for story development and shot design; use storyboard-to-short-film for a rendered film.",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "84db6699346718074e2c3c9e6ac1f9cd650e97f588023d9050ba8cf04d11b0f6",
-          "bytes": 5658
+          "sha256": "73da39e2d72c64e761d2fb80d2553d55af2d3e2aa534fabe8de31f5e010c62f6",
+          "bytes": 5584
         },
         {
           "path": "references/examples.md",
@@ -544,7 +941,7 @@
     },
     {
       "name": "ugc",
-      "description": "Plan and run UGC-style creator ads and social proof videos with genmedia. Use this for direct-to-camera creator scripts, talking-head ads, product demos, testimonials, founder clips, unboxing, reaction, before-after, faceless voiceover, and short vertical social videos.",
+      "description": "Plan and run UGC-style creator ads and social proof videos with genmedia. Use this for direct-to-camera creator scripts, talking-head ads, product demos, testimonials, founder clips, unboxing, reaction, before-after, faceless voiceover, and short vertical social videos.\n",
       "files": [
         {
           "path": "SKILL.md",
@@ -562,9 +959,46 @@
           "bytes": 2315
         },
         {
+          "path": "references/product-intake.md",
+          "sha256": "eafd9e3d89f8cb512a1c3c0f8d6c6b5779fab6548e44831eb8d98da7358eceb4",
+          "bytes": 3285
+        },
+        {
           "path": "references/workflows.md",
           "sha256": "e0831dd6ea3d1eccafa35d09e73103c10f3af0f867fc0b725300d3eff935e3b7",
           "bytes": 1831
+        }
+      ]
+    },
+    {
+      "name": "video-compositing",
+      "description": "Assemble footage, captions, graphics and audio into a rendered video. Use when the required renderer is available; check host prerequisites before execution.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "49e543d1c1e2ec771d6ecea1b5f8d5fc39a68f07264a5a14090274782438a71e",
+          "bytes": 1349
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "24f1b7af8d02767104f4ae9bd5549086cef6368ff832be5230786141e1f3baa3",
+          "bytes": 2294
+        }
+      ]
+    },
+    {
+      "name": "wrap-it-up",
+      "description": "Export the current creative project as an organized ZIP and progress handoff. Use only when the user asks to package or hand off the session.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "7ab0642e5c388a41cb2b61fbf12e4dd92bc752c976c5e3987591985f236a0614",
+          "bytes": 1319
+        },
+        {
+          "path": "references/production-guide.md",
+          "sha256": "a8db871c03b976b458d8a474c350e6948d7ee1678f000810ac04cb0d3d8c926a",
+          "bytes": 3528
         }
       ]
     }

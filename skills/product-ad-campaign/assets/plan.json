@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "stages": [
+    {
+      "id": "hero",
+      "endpoint": "openai/gpt-image-2/edit",
+      "inputs": {
+        "prompt": "REPLACE_APPROVED_PRODUCT_HERO_PROMPT",
+        "image_urls": [
+          "REPLACE_PRODUCT_URL"
+        ]
+      },
+      "async": true
+    },
+    {
+      "id": "motion",
+      "endpoint": "minimax/h3-max/image-to-video",
+      "inputs": {
+        "prompt": "REPLACE_SINGLE_PRODUCT_ACTION",
+        "image_url": "REPLACE_APPROVED_HERO_URL",
+        "prompt_expansion_mode": "REPLACE_LIVE_ENUM"
+      },
+      "async": true
+    }
+  ]
+}
