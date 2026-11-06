@@ -80,13 +80,25 @@ user's settings. Merge only the `mcp.servers.fal` entry into the chosen profile.
 Alternatively, use the current native CLI:
 
 ```sh
-openclaw mcp add fal --url https://mcp.fal.ai/mcp-relay --transport streamable-http
+openclaw mcp add fal --url https://mcp.fal.ai/mcp-relay --transport streamable-http --auth oauth
+```
+
+This command changes the selected OpenClaw profile. The explicit `auth: "oauth"`
+field enables native OAuth; the URL alone does not enable it. For a running
+Gateway, use **Settings → MCP → Sign in** to authorize the shared connection.
+
+For CLI authorization, first stop the Gateway for the selected installation.
+The CLI login command runs offline and refuses a server without `auth: "oauth"`.
+Complete sign-in, then restart the Gateway if it was running:
+
+```sh
 openclaw mcp login fal
 openclaw mcp doctor fal --probe
 ```
 
-These commands change the selected OpenClaw profile and start browser OAuth.
-Run them only for a requested installation. Do not put tokens in the fragment.
+Run these steps only for a requested installation. Do not put tokens in the
+fragment. See [OAuth transport requirements](https://docs.openclaw.ai/cli/mcp/transports)
+for the current CLI workflow.
 Copy the generated `openclaw/skills/` folders into an empty workspace `skills/`
 directory when the complete library is wanted. Review collisions first. Keep
 the source lock beside the installed library. See [native MCP setup](https://docs.openclaw.ai/tools/mcp)

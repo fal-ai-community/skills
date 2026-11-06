@@ -65,7 +65,8 @@ class MCPDistribution(unittest.TestCase):
     def test_openclaw_fragment_has_no_credentials_or_approval_overrides(self):
         config = json.loads((ROOT / 'distribution/openclaw/mcp.config.json').read_text())
         self.assertEqual(config, {'mcp': {'servers': {'fal': {
-            'url': 'https://mcp.fal.ai/mcp-relay', 'transport': 'streamable-http', 'enabled': True}}}})
+            'url': 'https://mcp.fal.ai/mcp-relay', 'transport': 'streamable-http',
+            'auth': 'oauth', 'enabled': True}}}})
 
     def test_outputs_cannot_overwrite_checkout_or_existing_files(self):
         for output in [ROOT, ROOT / 'skills', ROOT / 'scripts', ROOT.parent]:
