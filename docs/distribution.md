@@ -6,11 +6,21 @@ Keep the release steps below pending until the maintainer approves publication.
 
 ## Build a review bundle
 
-Use a reviewed checkout and Python 3.10+:
+Use Python 3.10+ and a checkout with a reviewed commit:
 
 ```sh
 python3 scripts/build-distribution.py --output /tmp/fal-distribution-review
 ```
+
+The builder defaults to `HEAD`. To select another local commit, pass its full
+SHA with `--source-ref`. Uncommitted edits, ignored files and untracked files
+never enter the export. Commit intended changes before rebuilding.
+
+The builder reads Git blobs from that commit. It includes only the four named
+client/Registry templates, the canonical tracked `skills/` tree, the license,
+and the two package/index helpers. It rejects symlinks and submodules in these
+inputs before materialization. Other tracked files in `distribution/` are not
+automatically exported; update the template allowlist for an intended addition.
 
 The destination must be absent or empty and outside the checkout. The output
 contains Registry metadata, a root-level Gemini extension, and an OpenClaw
@@ -19,7 +29,7 @@ library, including references, scripts and assets. The builder reuses the existi
 MCP package adapter; it does not maintain another skill library.
 
 `distribution.lock.json` records the full source commit and each file's SHA-256.
-Inspect it before installation. Rebuild from a clean reviewed commit for release.
+Inspect it before installation. Rebuild from the reviewed commit for release.
 Generation uses the connected fal account's credits. Local composition still
 requires the tools specified by each skill.
 
