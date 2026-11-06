@@ -1,0 +1,12 @@
+{
+  "mcp": {
+    "servers": {
+      "fal": {
+        "url": "https://mcp.fal.ai/mcp-relay",
+        "transport": "streamable-http",
+        "auth": "oauth",
+        "enabled": true
+      }
+    }
+  }
+}
