@@ -27,7 +27,8 @@ class MCPDistribution(unittest.TestCase):
             ['git', '-C', str(ROOT), 'rev-parse', '--git-path', 'objects'], text=True).strip())
         if not objects.is_absolute():
             objects = ROOT / objects
-        (fixture / '.git/objects/info/alternates').write_text(objects.resolve().as_posix() + '\n')
+        (fixture / '.git/objects/info/alternates').write_text(
+            objects.resolve().as_posix() + '\n', encoding='utf-8', newline='\n')
         subprocess.run(['git', '-C', str(fixture), 'update-ref', 'refs/heads/main', SOURCE_REF], check=True)
         return fixture
 
