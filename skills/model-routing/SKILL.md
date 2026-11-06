@@ -1,21 +1,19 @@
 ---
 name: model-routing
-description: >
-  Choose default fal.ai endpoint IDs for genmedia production skills. Use this
-  with commercial, marketing, ugc, character-design, cinematography,
-  storytelling, and workflow when the user has not named a specific model.
+description: "Select fal models by production role when no model is named. Verify current published routing first; static endpoint lists are fallback candidates."
 ---
 
 # Genmedia model routing
 
-Use these endpoint defaults when a domain skill needs a model. These choices
-come from project-specific guidance. Still run `genmedia schema <endpoint_id>
+Read current published task routing when available. Use the lists below as fallback
+candidates when a domain skill needs a model. Preserve an explicit user choice. These choices
+come from dated project-specific guidance. Still run `genmedia schema <endpoint_id>
 --json` before execution and `genmedia pricing <endpoint_id> --json` when cost
 matters.
 
 Endpoint-first rule:
 
-1. Pick the endpoint ID from this skill.
+1. Use current published routing when available; otherwise pick a candidate below.
 2. Verify it with `genmedia models --endpoint_id <endpoint_id> --json`.
 3. Inspect it with `genmedia schema <endpoint_id> --json`.
 4. Check `genmedia pricing <endpoint_id> --json` when cost matters.
@@ -161,8 +159,8 @@ social content.
 
 ## Utility endpoints
 
-Workflow utility endpoint IDs live in the `workflow` skill reference:
-`workflow/references/utility-endpoints.md`.
+Workflow utility endpoint IDs live in the `fal-workflow` skill reference:
+`fal-workflow/references/utility-endpoints.md`.
 
 Utility endpoints are allowed to be explicit because they are deterministic
 tools, not creative model choices. Always inspect schema before use.

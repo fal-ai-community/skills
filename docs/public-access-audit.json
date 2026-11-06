@@ -1,0 +1,523 @@
+{
+  "checked_on": "2026-11-06",
+  "method": "Anonymous HTTP GET with no Authorization header or account cookies. Valid OpenAPI paths required; no inference calls.",
+  "scope": "Model routes found in PR changed files, including retained examples. Two stale aliases were replaced with verified routes.",
+  "public_schema_count": 102,
+  "models": [
+    {
+      "endpoint": "alibaba/happy-horse/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=alibaba%2Fhappy-horse%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "alibaba/happy-horse/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=alibaba%2Fhappy-horse%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "alibaba/wan-3.0-prime/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=alibaba%2Fwan-3.0-prime%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.0/fast/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.0%2Ffast%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.0/fast/reference-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.0%2Ffast%2Freference-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.0/fast/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.0%2Ffast%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.0/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.0%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.0/reference-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.0%2Freference-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.0/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.0%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.5/us/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.5%2Fus%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.5/us/reference-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.5%2Fus%2Freference-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "bytedance/seedance-2.5/us/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance%2Fseedance-2.5%2Fus%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/bria/background/remove",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fbria%2Fbackground%2Fremove",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fbytedance%2Fseedream%2Fv5%2Flite%2Fedit",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fbytedance%2Fseedream%2Fv5%2Flite%2Ftext-to-image",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/cohere-transcribe",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fcohere-transcribe",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/creatify/aurora",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fcreatify%2Faurora",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/audio-isolation",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Faudio-isolation",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/dubbing",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Fdubbing",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/music",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Fmusic",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/sound-effects/v2",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Fsound-effects%2Fv2",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/speech-to-text",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Fspeech-to-text",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/speech-to-text/scribe-v2",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Fspeech-to-text%2Fscribe-v2",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/text-to-dialogue/eleven-v3",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Ftext-to-dialogue%2Feleven-v3",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/tts/eleven-v3",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Ftts%2Feleven-v3",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/tts/eleven-v4",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Ftts%2Feleven-v4",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/tts/multilingual-v2",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Ftts%2Fmultilingual-v2",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/tts/turbo-v2.5",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Ftts%2Fturbo-v2.5",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/elevenlabs/voice-changer",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Felevenlabs%2Fvoice-changer",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/flux-2/klein/9b",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fflux-2%2Fklein%2F9b",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/flux-2/klein/9b/edit",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fflux-2%2Fklein%2F9b%2Fedit",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/flux/dev",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fflux%2Fdev",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/gpt-image-2/edit",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fgpt-image-2%2Fedit",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/kling-video/ai-avatar/v2/pro",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fkling-video%2Fai-avatar%2Fv2%2Fpro",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/kling-video/create-voice",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fkling-video%2Fcreate-voice",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/kling-video/lipsync/audio-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fkling-video%2Flipsync%2Faudio-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/kling-video/v3/pro/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fkling-video%2Fv3%2Fpro%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/kling-video/v3/pro/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fkling-video%2Fv3%2Fpro%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/kling-video/video-to-audio",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fkling-video%2Fvideo-to-audio",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/ltx-2.3/extend-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fltx-2.3%2Fextend-video",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/ltx-2.3/reframe",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fltx-2.3%2Freframe",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/luma-dream-machine/ray-2/modify",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fluma-dream-machine%2Fray-2%2Fmodify",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/lyria3/pro",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Flyria3%2Fpro",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/meshy/v6/image-to-3d",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fmeshy%2Fv6%2Fimage-to-3d",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/minimax-music/v2.6",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fminimax-music%2Fv2.6",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/minimax/speech-2.8-hd",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fminimax%2Fspeech-2.8-hd",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/minimax/voice-clone",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fminimax%2Fvoice-clone",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/nano-banana-2",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fnano-banana-2",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/nano-banana-2/edit",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fnano-banana-2%2Fedit",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/nano-banana-pro",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fnano-banana-pro",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/nano-banana-pro/edit",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fnano-banana-pro%2Fedit",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/patina/material/extract",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fpatina%2Fmaterial%2Fextract",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/qwen-3-tts/clone-voice/1.7b",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fqwen-3-tts%2Fclone-voice%2F1.7b",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/qwen-image-edit-2511-multiple-angles",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fqwen-image-edit-2511-multiple-angles",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/sa2va/8b/video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fsa2va%2F8b%2Fvideo",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/seedvr/upscale/video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fseedvr%2Fupscale%2Fvideo",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/sync-lipsync/v2",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fsync-lipsync%2Fv2",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/sync-lipsync/v3",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fsync-lipsync%2Fv3",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/text-concat",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Ftext-concat",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/topaz/upscale/video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Ftopaz%2Fupscale%2Fvideo",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/veo3.1",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fveo3.1",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/veo3.1/fast",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fveo3.1%2Ffast",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/veo3.1/fast/extend-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fveo3.1%2Ffast%2Fextend-video",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/veo3.1/fast/reference-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fveo3.1%2Ffast%2Freference-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/veo3.1/lite",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fveo3.1%2Flite",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/veo3.1/reference-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fveo3.1%2Freference-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/video-understanding",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fvideo-understanding",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/wizper",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fwizper",
+      "status": 200
+    },
+    {
+      "endpoint": "fal-ai/workflow-utilities/merge-text",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai%2Fworkflow-utilities%2Fmerge-text",
+      "status": 200
+    },
+    {
+      "endpoint": "google/gemini-omni-flash",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=google%2Fgemini-omni-flash",
+      "status": 200
+    },
+    {
+      "endpoint": "google/nano-banana-2.1",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=google%2Fnano-banana-2.1",
+      "status": 200
+    },
+    {
+      "endpoint": "google/nano-banana-2.1/edit",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=google%2Fnano-banana-2.1%2Fedit",
+      "status": 200
+    },
+    {
+      "endpoint": "minimax/h3-max/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=minimax%2Fh3-max%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "minimax/h3-max/lip-sync/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=minimax%2Fh3-max%2Flip-sync%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "minimax/h3-max/reference-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=minimax%2Fh3-max%2Freference-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "minimax/h3-max/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=minimax%2Fh3-max%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "minimax/h3/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=minimax%2Fh3%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "minimax/h3/reference-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=minimax%2Fh3%2Freference-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "minimax/h3/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=minimax%2Fh3%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "nvidia/nemotron-asr-multilingual/asr",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=nvidia%2Fnemotron-asr-multilingual%2Fasr",
+      "status": 200
+    },
+    {
+      "endpoint": "openai/gpt-image-2",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=openai%2Fgpt-image-2",
+      "status": 200
+    },
+    {
+      "endpoint": "openai/gpt-image-2/edit",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=openai%2Fgpt-image-2%2Fedit",
+      "status": 200
+    },
+    {
+      "endpoint": "sonilo/v1.1/text-to-sound-effects",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=sonilo%2Fv1.1%2Ftext-to-sound-effects",
+      "status": 200
+    },
+    {
+      "endpoint": "sonilo/v1.1/video-to-video-sound-effects",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=sonilo%2Fv1.1%2Fvideo-to-video-sound-effects",
+      "status": 200
+    },
+    {
+      "endpoint": "veed/fabric-1.0",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=veed%2Ffabric-1.0",
+      "status": 200
+    },
+    {
+      "endpoint": "veed/fabric-1.0/text",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=veed%2Ffabric-1.0%2Ftext",
+      "status": 200
+    },
+    {
+      "endpoint": "xai/grok-imagine-video/edit-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=xai%2Fgrok-imagine-video%2Fedit-video",
+      "status": 200
+    },
+    {
+      "endpoint": "xai/grok-imagine-video/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=xai%2Fgrok-imagine-video%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "xai/grok-imagine-video/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=xai%2Fgrok-imagine-video%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "blackforestlabs/flux-3/first-last-frame-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=blackforestlabs%2Fflux-3%2Ffirst-last-frame-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "decart/lucy-edit/pro",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=decart%2Flucy-edit%2Fpro",
+      "status": 200
+    },
+    {
+      "endpoint": "luma/agent/ray/v3.2/reframe",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=luma%2Fagent%2Fray%2Fv3.2%2Freframe",
+      "status": 200
+    },
+    {
+      "endpoint": "elevenlabs/tts/eleven-v4",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=elevenlabs%2Ftts%2Feleven-v4",
+      "status": 200
+    },
+    {
+      "endpoint": "blackforestlabs/flux-3-max/text-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=blackforestlabs%2Fflux-3-max%2Ftext-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "blackforestlabs/flux-3-max/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=blackforestlabs%2Fflux-3-max%2Fimage-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "blackforestlabs/flux-3-max/keyframes-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=blackforestlabs%2Fflux-3-max%2Fkeyframes-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "mirelo-ai/sfx2.0/video-to-audio",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=mirelo-ai%2Fsfx2.0%2Fvideo-to-audio",
+      "status": 200
+    },
+    {
+      "endpoint": "mirelo-ai/sfx2.0/video-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=mirelo-ai%2Fsfx2.0%2Fvideo-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "mirelo-ai/sfx2.0/text-to-audio",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=mirelo-ai%2Fsfx2.0%2Ftext-to-audio",
+      "status": 200
+    },
+    {
+      "endpoint": "elevenlabs/music/v2.5",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=elevenlabs%2Fmusic%2Fv2.5",
+      "status": 200
+    },
+    {
+      "endpoint": "kling/v4/reference-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=kling%2Fv4%2Freference-to-video",
+      "status": 200
+    },
+    {
+      "endpoint": "kling/v4/image-to-video",
+      "schema_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=kling%2Fv4%2Fimage-to-video",
+      "status": 200
+    }
+  ],
+  "limits": [
+    "Public schema visibility is not an account entitlement or free-inference claim.",
+    "Runs require a fal account, credentials, credits and applicable model/region permissions.",
+    "Schemas and availability can change; check current contracts and account access before execution."
+  ]
+}

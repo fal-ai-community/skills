@@ -1,10 +1,6 @@
 ---
 name: commercial
-description: >
-  Plan and run commercial image or video production with genmedia. Use this
-  for product photography, ads, e-commerce batches, product reveals, lifestyle
-  commercials, background replacement, social formats, and brand-safe prompt
-  work.
+description: "Direct individual commercial product images or clips on fal. Use for product placement, reveal shots and product fidelity; use product-ad-campaign for a complete campaign."
 ---
 
 # Commercial production with genmedia

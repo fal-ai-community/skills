@@ -1,9 +1,6 @@
 ---
 name: storytelling
-description: >
-  Build multi-shot narrative image, video, and audio workflows with genmedia.
-  Use this for storyboards, shot lists, multi-prompt video, first-frame to
-  last-frame pipelines, social stories, brand films, and sequence continuity.
+description: "Plan narrative scenes and continuity for fal images and videos. Use for story development and shot design; use storyboard-to-short-film for a rendered film."
 ---
 
 # Storytelling with genmedia

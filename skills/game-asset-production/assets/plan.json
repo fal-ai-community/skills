@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "stages": [
+    {
+      "id": "hero",
+      "endpoint": "fal-ai/flux-2/klein/9b",
+      "inputs": {
+        "prompt": "REPLACE_CHARACTER_ANCHOR_AND_STYLE"
+      },
+      "async": true
+    },
+    {
+      "id": "walk",
+      "endpoint": "openai/gpt-image-2/edit",
+      "inputs": {
+        "prompt": "REPLACE_EXACT_GRID_WALK_PROMPT",
+        "image_urls": [
+          "REPLACE_APPROVED_CHARACTER_URL"
+        ]
+      },
+      "async": true
+    },
+    {
+      "id": "alpha",
+      "endpoint": "fal-ai/bria/background/remove",
+      "inputs": {
+        "image_url": "REPLACE_APPROVED_SHEET_URL"
+      },
+      "async": false
+    }
+  ]
+}

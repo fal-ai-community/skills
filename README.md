@@ -58,27 +58,38 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 | **[fal-regenerate-3d](skills/fal-regenerate-3d)** | Interactive 3D character-selector experience with Three.js, Meshy, and Seedance. |
 | **[genmedia-workflow](skills/genmedia-workflow)** | Genmedia-oriented workflow planning, node rules, pipeline patterns, and reusable recipes. |
 
-## Setup
+## Install
 
-### 1. Get an API key
+Use the [one-command installation guide](docs/install.md) for Codex, Claude Code
+and Cursor. It also documents complete native MCP package builds for Codex,
+Claude Code, Cursor and supported Grok hosts, including current limitations.
 
-[fal.ai/dashboard/keys](https://fal.ai/dashboard/keys)
+## Complete creative outcomes
 
-### 2. Install genmedia
+| Skill | Deliverable |
+| --- | --- |
+| [product-ad-campaign](skills/product-ad-campaign) | Hero art, channel variants, motion ads and campaign manifest |
+| [game-asset-production](skills/game-asset-production) | Transparent frames, atlas, animation preview and engine import metadata |
+| [storyboard-to-short-film](skills/storyboard-to-short-film) | Rendered film, clean cut, shot table and audio stems |
+| [ecommerce-product-photography](skills/ecommerce-product-photography) | Consistent hero, detail and lifestyle images by SKU |
+| [localize-and-repurpose](skills/localize-and-repurpose) | Localized speech, timed captions and channel cuts |
 
-Install genmedia from [fal-ai-community/genmedia-cli](https://github.com/fal-ai-community/genmedia-cli), then run `genmedia setup`.
+Each includes a stage plan for the shared resumable runner in `genmedia/scripts/`.
+Production guidance imported from the fal agent lives with its version-pinned
+references. See the [source and compatibility inventory](docs/consolidation.md).
+The [generated registry](skills/index.json) is the full skill list.
 
-### 3. Install skills
+## Development checks
 
-**Claude.ai:** upload skill `.zip` files to your project from `skills/`.
-
-**Any project with `genmedia` installed:**
-
-```text
-genmedia init
+```sh
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-dev.txt
+.venv/bin/python scripts/build-skills-index.py --check
+.venv/bin/python -m unittest discover -s tests -v
 ```
 
-Installs the default skill bundle into `.agents/skills/` or `.claude/skills/`.
+CI validates metadata, hashes, packaging, isolated installation, candidate schema
+fixtures and submission recovery. It publishes no release and runs no paid jobs.
 
 ## Skill format
 

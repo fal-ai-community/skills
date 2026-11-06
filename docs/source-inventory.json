@@ -1,0 +1,189 @@
+{
+  "retrieved_at": "2026-11-06T02:46:06Z",
+  "community_base": "9ca850412943251fc9a466c4c29fdaf7a303a3d8",
+  "production_skills": [
+    {
+      "name": "character-design",
+      "published_at": "2026-10-29T06:26:44.303Z",
+      "body_sha256": "c374b5d60c86c3c695fc6e619a732a521d240ddebfa0c34ffd67f426d6d3e747",
+      "disposition": "existing-community-body-preserved",
+      "references_added": [],
+      "divergent_references_preserved": [
+        "references/anchor-system.md"
+      ]
+    },
+    {
+      "name": "character-sheet",
+      "published_at": "2026-10-29T06:26:20.686Z",
+      "body_sha256": "74cb3c730e4989d7819156eba956aa941730b3bfec33e91ec7c868bbec2e7191",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [
+        "references/sheet-patterns.md"
+      ],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "cinematography",
+      "published_at": "2026-10-29T06:25:55.169Z",
+      "body_sha256": "bc8c8aca80ac300ba7a80d65b13488d66849c657f9bbc6ea5d217198d2c219cb",
+      "disposition": "existing-community-body-preserved",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "fal-audio-generation",
+      "published_at": "2026-10-29T06:25:30.461Z",
+      "body_sha256": "458298c9b8f9141ab25c2314dbf0196346b4b15409d04c24ede7107308a297e7",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "fal-motion-graphics",
+      "published_at": "2026-10-29T06:25:05.649Z",
+      "body_sha256": "189dbd45459b9c321ebb7c22ddeb8317d1c41bd6527033993e54ca4e431936f7",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "fal-script-writer",
+      "published_at": "2026-10-29T06:24:40.060Z",
+      "body_sha256": "4e91367b515ea8a2d50a3b594cc3560ac1211fade0b2060e9f99c99ee920c75b",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "fal-shot-craft",
+      "published_at": "2026-10-29T06:24:16.430Z",
+      "body_sha256": "595bd96d3079b0b141985b4a447b271407a07e2feed366ac13f4ff29e44e3387",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "fal-video-generation",
+      "published_at": "2026-10-29T06:23:51.487Z",
+      "body_sha256": "ea69c612321ae18db45a071a404abc00fc4d8ec3ce0cd0720f26f5880543f0a5",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "fal-video-production",
+      "published_at": "2026-10-29T06:23:26.392Z",
+      "body_sha256": "f414d79a487beb20ebeccb8381fd4127016a35408e979a1de12110351d47e55a",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "ugc",
+      "published_at": "2026-10-29T06:23:00.519Z",
+      "body_sha256": "82ee910b1ccca136d953fdb5b747d54bac4d949935a08055e24e7b3f45122fc6",
+      "disposition": "existing-community-body-preserved",
+      "references_added": [
+        "references/product-intake.md"
+      ],
+      "divergent_references_preserved": [
+        "references/examples.md",
+        "references/formats.md",
+        "references/workflows.md"
+      ]
+    },
+    {
+      "name": "video-compositing",
+      "published_at": "2026-10-29T06:22:20.262Z",
+      "body_sha256": "6540965bc602f6869708b6e511bf19477a054b6806a602f469b009fefca61a2a",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "reels-creator",
+      "published_at": "2026-10-28T15:54:37.572Z",
+      "body_sha256": "dd12a2e1b9e0b3a4139cac1a5bfe33883ad17edfb85ac40543ec5a1c79ed464e",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [
+        "references/animation-craft.md",
+        "references/assembly.md",
+        "references/code/check.mjs",
+        "references/code/check.py",
+        "references/code/host_check.py",
+        "references/code/host_lipsync.py",
+        "references/code/host_reel.py",
+        "references/code/mix_check.py",
+        "references/code/preview_mux.py",
+        "references/code/render.mjs",
+        "references/code/review_sheet.py",
+        "references/code/scene.html",
+        "references/code/sheet.py",
+        "references/code/textkit.js",
+        "references/code/wordtimes.py",
+        "references/design.md",
+        "references/models.md",
+        "references/pitfalls.md",
+        "references/sound.md",
+        "references/voice-and-host.md"
+      ],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "branded-graphics",
+      "published_at": "2026-10-15T22:24:18.992Z",
+      "body_sha256": "dfd91e8161774d39834a702d9bc0163d0f6e0c6270b8a8767a21955c66f31a37",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "h3-cinematic-prompter",
+      "published_at": "2026-08-20T22:34:04.914Z",
+      "body_sha256": "fc4817da08e4d62dc3b570ae334f48e6412a13d5a1d8178f606606fc9db7f936",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [
+        "references/breakdown-guidance-deluxe-100.md",
+        "references/camera-and-craft.md",
+        "references/examples.md",
+        "references/format-spec.md"
+      ],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "wrap-it-up",
+      "published_at": "2026-08-13T16:57:30.695Z",
+      "body_sha256": "3489ea9597b5a043b1207ffac2102ec0f76936a6b251084e0ebf210d4f91cc47",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "photo-editing",
+      "published_at": "2026-07-11T21:50:14.656Z",
+      "body_sha256": "7f4acd4e3b5613412d6e857516e6ed9aa3cb6406e7f5b57aee0556ad5a96744a",
+      "disposition": "imported-with-runtime-adapter",
+      "references_added": [],
+      "divergent_references_preserved": []
+    },
+    {
+      "name": "fal-gamedev",
+      "published_at": "2026-07-02T20:17:59.283Z",
+      "body_sha256": "9e6e77ff0f34da6268041e1ba4c422026f9f34f52cde4a409e4948086b91986d",
+      "disposition": "existing-community-body-preserved",
+      "references_added": [],
+      "divergent_references_preserved": []
+    }
+  ],
+  "excluded": [
+    {
+      "name": "premiere-actions",
+      "reason": "Requires a native Adobe panel command bridge, unavailable in coding-agent packages."
+    },
+    {
+      "name": "photoshop-actions",
+      "reason": "Requires a native Adobe panel command bridge, unavailable in coding-agent packages."
+    }
+  ],
+  "provenance_note": "Adapted official guidance. Source body hashes identify content; production record handles are intentionally omitted."
+}

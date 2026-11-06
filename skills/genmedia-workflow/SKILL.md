@@ -1,9 +1,6 @@
 ---
 name: genmedia-workflow
-description: >
-  Design and execute multi-step media workflows with genmedia. Use this for
-  pipelines that combine planning, generation, editing, image or video
-  utilities, audio, subtitles, batching, and final delivery manifests.
+description: "Use the legacy genmedia-workflow entry point for local media pipelines. New workflow requests use fal-workflow; existing references remain available."
 ---
 
 # Genmedia workflow production

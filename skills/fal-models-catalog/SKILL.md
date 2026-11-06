@@ -1,10 +1,6 @@
 ---
 name: fal-models-catalog
-description: >
- Choose the right fal.ai endpoint for a given task. Modality-organized catalog
- of production endpoint defaults, text-to-image, image-to-image, text-to-video,
- image-to-video, and more. Use when the user has not named a specific model,
- or asks "which model for X", "best endpoint for Y", "what should I use for Z".
+description: "Compare fal model families by modality and role. Use for catalog exploration; verify current availability and contracts before execution."
 ---
 
 # fal.ai Models Catalog

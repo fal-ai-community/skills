@@ -1,10 +1,6 @@
 ---
 name: marketing
-description: >
-  Plan and run campaign-level marketing asset production with genmedia. Use
-  this for launch kits, campaign matrices, paid social variants, landing-page
-  visuals, email and banner imagery, hook/proof/conversion assets, creator ad
-  packages, and channel-specific marketing deliverables.
+description: "Plan fal marketing asset matrices, hooks and channel variants. Use for campaign strategy; use product-ad-campaign when the deliverable is the produced asset package."
 ---
 
 # Marketing production with genmedia

@@ -1,0 +1,9 @@
+{
+  "name": "fal-ai",
+  "version": "0.1.0",
+  "description": "Produce creative media with fal's genmedia CLI and reusable production skills.",
+  "author": {"name": "fal.ai", "url": "https://fal.ai"},
+  "repository": "https://github.com/fal-ai-community/skills",
+  "license": "MIT",
+  "skills": "./skills/"
+}
