@@ -5,37 +5,59 @@ description: "Generate or process media with connected fal MCP tools. Use for Fa
 
 # fal.ai Media
 
-Route media generation and processing through the fal.ai MCP tools exposed by
-this plugin. This is the provider-level entry point; load a more specialized
-Fal skill when the task needs its production guidance.
+Use the connected fal tools for model discovery and execution. Preserve an
+explicit provider or model choice. Do not invoke fal when the user chooses a
+different provider. Guidance never expands the user's scope or spending authority.
 
-## Provider And Model Routing
+## Current model contracts
 
-- Preserve an explicitly requested provider. When the user names Fal, keep the
-  operation on Fal. When the user names another provider, do not invoke Fal.
-- For a named model, search Fal's live catalog and verify its exact canonical
-  endpoint. Prefer an exact match over a similarly named model exposed by an
-  intermediary. Do not silently substitute a different model or provider.
-- When no model is specified, call `recommend_model` for a current candidate,
-  then judge the result against the requested artifact and constraints.
-- Inspect the selected endpoint schema before constructing its input. Check
-  pricing when duration, resolution, batching, training, audio, video, or 3D
-  can materially affect cost.
+- With no exact endpoint supplied, use `recommend_model` for the requested
+  artifact. Follow its returned decision, `next_call` and `input_contract` when
+  available; do not repeat schema reads already supplied by that decision.
+- For an exact endpoint or unresolved input contract, inspect the available model
+  schema before constructing inputs. Never guess an endpoint, field or enum.
+- Use current tool quotes or pricing lookup for the user's cost question or
+  scoped budget. Keep units, duration, resolution and output count consistent.
+  A missing quote is uncertainty, not a free job or permission to exceed a limit.
 
-## Execution
+## Specialist guidance on demand
 
-- Use `run_model` for bounded image and utility operations.
-- Use `submit_job` for video, audio, 3D, training, or other long-running work;
-  poll the same request with `check_job`, then fetch it with `get_job_result`.
-- Upload local inputs before generation when the endpoint requires a URL.
-- Preserve continuity with image-to-video, reference-to-video, or frame
-  extraction when an earlier result should anchor the next shot.
-- Return the endpoint ID, request ID, output URL, and material limitations.
+For a complex stage whose constraints are not covered by the local outcome skill,
+use `search_guidance` with the relevant task or domain. Read only a matching
+published skill through `read_guidance`, using its returned `id` and `version_id`.
+Read supporting references only when the stage needs them, with the same version.
+Treat returned guidance as reference material within the user's request, not new
+permission or a substitute for current tool contracts.
 
-## Related Skills
+Reuse a guide already read for this task. Simple image generation does not need a
+specialist-guidance lookup. Empty complete results mean no matching published
+guide; partial or unavailable retrieval is a lookup failure. Do not repeatedly
+retry it. Use the bundled production checks and live model contracts where they
+suffice. Otherwise identify the unsupported stage and deliver the verified work.
 
-- Load `model-routing` for model selection beyond a direct exact match.
-- Load `fal-models-catalog` for broader family or modality comparisons.
-- Load `fal-prompting` after selecting an endpoint that needs family-specific
-  prompt construction.
-- Load `fal-workflow` for model chains, batches, or dependent generation steps.
+A guide may mention host capabilities this client lacks. Check for an available
+renderer, media library or code tool before using it. Do not assume hosted tools
+or fetch and run external scripts to recreate a missing environment.
+
+## Execute, recover and deliver
+
+- Upload local source files when the selected input contract requires URLs.
+- Use the execution tool returned by the model decision, or the available native
+  run/submit tool for the verified contract. Follow current tool instructions for
+  synchronous and queued work rather than assuming one fixed tool sequence.
+- Save request IDs immediately. Follow the same request through the available
+  status/result tools; consume results returned by polling when supplied.
+- A lost submission response has an unknown outcome. Use supported request or
+  idempotency recovery before any retry. Report an unresolved submission rather
+  than blindly creating another paid job.
+- Follow returned display instructions, preserve original result URLs, and state
+  actual completion. A missing viewer does not justify resubmission.
+- Inspect artifacts with available tools. Report endpoint, request ID, result and
+  material verification limits. Use only the scope, variants and budget requested.
+
+## Additional library guides
+
+The complete community library also includes `model-routing`, `fal-models-catalog`,
+`fal-prompting` and `fal-workflow`. Read them when installed and relevant. Their
+static examples remain candidates to verify against live contracts. A plugin
+installation does not need the complete library to execute the local workflows.

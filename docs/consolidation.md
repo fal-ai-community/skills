@@ -55,9 +55,13 @@ Names preserve installed entry points. Descriptions separate complete outcomes
 from individual shots, creative direction, catalog lookup and workflow authoring.
 `genmedia-workflow` remains a compatibility entry for `fal-workflow`.
 
-CLI skills use genmedia. MCP bundles prepend an explicit native-tool adapter to
-each skill; they preserve endpoint/data-flow examples and all reference assets.
-They do not require a CLI to execute model calls. Codex builds contain no connector registration by default. Distributors may
+CLI skills use genmedia. MCP bundles use native-tool entry points. Codex, Cursor and Grok ship a hybrid
+selection by default: the fal router plus five outcome workflows. The builder
+derives their stable production checks from the canonical skill files and omits
+optional terminal sections. Model contracts and specialist advice are retrieved
+through live tools on demand. This avoids separate workflow authoring in plugin
+repositories. The complete library remains available through `--bundle full`.
+MCP bundles do not require a CLI to execute model calls. Codex builds contain no connector registration by default. Distributors may
 supply their own registration explicitly. OAuth profiles use the public fal relay. Schemas, prices and routing are checked
 live; static model defaults are candidates, not current authority.
 

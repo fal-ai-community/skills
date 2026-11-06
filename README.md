@@ -61,8 +61,10 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 ## Install
 
 Use the [one-command installation guide](docs/install.md) for Codex, Claude Code
-and Cursor. It also documents complete native MCP package builds for Codex,
-Claude Code, Cursor and supported Grok hosts, including current limitations.
+and Cursor. It also documents hybrid MCP packages for Codex, Cursor and supported
+Grok hosts: the fal router, five outcome workflows and live guidance on demand.
+The complete 36-skill library remains available for project installation and full
+package builds. Claude MCP packages retain a full bundle by default.
 
 The [distribution preparation guide](docs/distribution.md) covers the official
 MCP Registry, generated Gemini extensions, and OpenClaw/ClawHub review bundles.
