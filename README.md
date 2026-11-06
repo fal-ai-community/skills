@@ -64,6 +64,11 @@ Use the [one-command installation guide](docs/install.md) for Codex, Claude Code
 and Cursor. It also documents complete native MCP package builds for Codex,
 Claude Code, Cursor and supported Grok hosts, including current limitations.
 
+The [distribution preparation guide](docs/distribution.md) covers the official
+MCP Registry, generated Gemini extensions, and OpenClaw/ClawHub review bundles.
+The [Cline guide](docs/cline.md) covers its remote connection and submission review.
+These changes prepare files for review; they publish no listings or releases.
+
 ## Complete creative outcomes
 
 | Skill | Deliverable |
