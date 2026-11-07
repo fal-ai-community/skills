@@ -3,6 +3,7 @@
 import hashlib
 import importlib.util
 import json
+import re
 from pathlib import Path
 import tempfile
 import subprocess
@@ -105,6 +106,50 @@ class MCPDistribution(unittest.TestCase):
         self.assertEqual(config, {'mcp': {'servers': {'fal': {
             'url': 'https://mcp.fal.ai/mcp-relay', 'transport': 'streamable-http',
             'auth': 'oauth', 'enabled': True}}}})
+
+    def test_openclaw_bundle_keeps_companions_and_local_assets(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / 'export'
+            distribution.build(output, SOURCE_REF)
+            bundle = output / 'openclaw'
+            canonical = {p.parent.name for p in (ROOT / 'skills').glob('*/SKILL.md')}
+            installed = {p.parent.name for p in (bundle / 'skills').glob('*/SKILL.md')}
+            self.assertEqual(installed, canonical)
+            outcomes = {'product-ad-campaign', 'game-asset-production',
+                        'storyboard-to-short-film', 'ecommerce-product-photography',
+                        'localize-and-repurpose'}
+            for name in outcomes:
+                entry = bundle / 'skills' / name / 'SKILL.md'
+                text = entry.read_text()
+                companions = set(re.findall(r'`([a-z][a-z0-9-]*)`', text)) & canonical
+                self.assertTrue({'fal-media', 'genmedia'} <= companions)
+                for companion in companions:
+                    self.assertTrue((bundle / 'skills' / companion / 'SKILL.md').is_file())
+                for target in re.findall(r'\[[^\]]+\]\(([^)]+)\)', text):
+                    if '://' in target or target.startswith('#'):
+                        continue
+                    linked = (entry.parent / target.split('#', 1)[0]).resolve()
+                    self.assertTrue(linked.is_relative_to(bundle.resolve()))
+                    self.assertTrue(linked.exists(), target)
+
+    def test_openclaw_bundle_is_declarative_and_keeps_license(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / 'export'
+            distribution.build(output, SOURCE_REF)
+            bundle = output / 'openclaw'
+            package = json.loads((bundle / 'package.json').read_text())
+            self.assertEqual(package['license'], 'MIT')
+            self.assertNotIn('scripts', package)
+            self.assertNotIn('dependencies', package)
+            self.assertNotIn('openclaw', package)
+            self.assertEqual((bundle / 'LICENSE').read_bytes(), (ROOT / 'LICENSE').read_bytes())
+            manifest = json.loads((bundle / '.claude-plugin/plugin.json').read_text())
+            self.assertTrue((bundle / manifest['skills']).is_dir())
+            mcp = json.loads((bundle / manifest['mcpServers']).read_text())
+            self.assertEqual(mcp['mcpServers']['fal'], {
+                'type': 'http', 'transport': 'streamable-http',
+                'url': 'https://mcp.fal.ai/mcp-relay', 'auth': 'oauth'})
+            self.assertFalse((bundle / 'hooks').exists())
 
     def test_outputs_cannot_overwrite_checkout_or_existing_files(self):
         for output in [ROOT, ROOT / 'skills', ROOT / 'scripts', ROOT.parent]:

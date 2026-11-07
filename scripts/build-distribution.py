@@ -17,6 +17,10 @@ TEMPLATES = (
     'distribution/gemini/gemini-extension.json',
     'distribution/gemini/GEMINI.md',
     'distribution/openclaw/mcp.config.json',
+    'distribution/openclaw/.claude-plugin/plugin.json',
+    'distribution/openclaw/.mcp.json',
+    'distribution/openclaw/package.json',
+    'distribution/openclaw/README.md',
 )
 REQUIRED_INPUTS = (*TEMPLATES, 'LICENSE', 'scripts/build-packages.py',
                    'scripts/build-skills-index.py')

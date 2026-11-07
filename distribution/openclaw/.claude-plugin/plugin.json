@@ -1,0 +1,14 @@
+{
+  "name": "fal-ai",
+  "version": "0.1.0",
+  "description": "Create images, videos, audio, 3D and complete creative workflows with fal.",
+  "author": {
+    "name": "fal.ai",
+    "url": "https://fal.ai"
+  },
+  "homepage": "https://fal.ai/mcp",
+  "repository": "https://github.com/fal-ai-community/skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}
