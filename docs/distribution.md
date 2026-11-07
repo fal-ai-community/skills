@@ -1,8 +1,29 @@
-# Registry, Gemini CLI and OpenClaw preparation
+# Registry, Gemini CLI and OpenClaw distribution
 
 These adapters prepare review files. The builder does not install clients, change
 agent settings, contact a registry or publish anything. Validation CI runs local
 checks only. The separate Registry publisher runs only through a manual dispatch.
+
+## Published packages and catalog status
+
+The [v0.1.0 library release](https://github.com/fal-ai-community/skills/releases/tag/v0.1.0)
+provides complete packages from source commit `dc48d7d7329b8fe3bb5fa696486d07e687905488`:
+
+- [Claude MCP archive](https://github.com/fal-ai-community/skills/releases/download/v0.1.0/fal-claude-v0.1.0.zip)
+- [CLI skill archive](https://github.com/fal-ai-community/skills/releases/download/v0.1.0/fal-cli-v0.1.0.zip)
+- [Gemini extension archive](https://github.com/fal-ai-community/skills/releases/download/v0.1.0/fal-gemini-v0.1.0.zip)
+- [OpenClaw bundle archive](https://github.com/fal-ai-community/skills/releases/download/v0.1.0/fal-openclaw-v0.1.0.zip)
+- [SHA-256 checksums](https://github.com/fal-ai-community/skills/releases/download/v0.1.0/fal-library-v0.1.0.sha256)
+
+Verify checksums before installation. The archives include the complete skill
+library and its source locks. The [Grok/Cursor v0.2.0 release](https://github.com/fal-ai-community/fal-grok-plugin/releases/tag/v0.2.0)
+contains the compact plugin. Its marketplace synchronization or review remains
+pending; the release alone does not prove marketplace visibility.
+
+The [Cline submission](https://github.com/cline/mcp-marketplace/issues/3593) is open
+for marketplace review. Users can connect the hosted MCP now with the
+[Cline setup guide](cline.md). ClawHub publication still requires publisher sign-in
+and ownership confirmation. The prepared ClawHub package is not published.
 
 ## Build a review bundle
 
@@ -39,6 +60,8 @@ The official identity is `io.github.fal-ai-community/mcp`. Publication uses GitH
 Actions OIDC from this organization-owned repository. It needs no stored token,
 private key or DNS change. The public remote endpoint uses Streamable HTTP and
 browser OAuth. This entry requests no API key or static authorization header.
+Version `0.1.0` is active in the
+[official Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.fal-ai-community%2Fmcp/versions/latest).
 
 `distribution/registry/server.json` follows the official `2025-12-11` schema.
 The complete schema fixture in `tests/fixtures/mcp-registry-server.schema.json`
@@ -65,6 +88,16 @@ Publishing to the upstream Registry does not guarantee a curated client listing.
 
 ## Gemini CLI
 
+Install the [published fal extension](https://github.com/fal-ai-community/fal-gemini-extension):
+
+```sh
+gemini extensions install https://github.com/fal-ai-community/fal-gemini-extension
+```
+
+The adapter repository has a root manifest and the required
+`gemini-cli-extension` topic. Direct repository installation works now. Google
+gallery indexing remains pending; its documentation describes a daily crawl.
+
 The generated `gemini/` folder is a complete extension. Its manifest uses
 `httpUrl` for Streamable HTTP. Gemini discovers its `skills/` folders on demand.
 It requests no installation scripts, hooks or automatic tool approvals.
@@ -86,9 +119,9 @@ builder. Keep the profile path if a later review session must reuse it.
 
 The repository root deliberately has no Gemini manifest. Therefore this checkout
 is not directly installable through `gemini extensions install <repo-url>`.
-Build the local folder first. After approval, place the generated extension at the
-root of its public adapter repository. Add the `gemini-cli-extension` GitHub topic
-only when gallery indexing is approved. No topic or release is added by this PR.
+Use the published adapter repository above, a release archive, or a locally built
+folder. Maintain the adapter through canonical exports rather than independent
+skill edits.
 See [extension installation](https://geminicli.com/docs/extensions/reference/)
 and [gallery indexing](https://geminicli.com/docs/extensions/releasing/).
 
@@ -124,6 +157,8 @@ the source lock beside the installed library. See [native MCP setup](https://doc
 and [skill discovery](https://docs.openclaw.ai/tools/skills).
 
 ## ClawHub bundle
+
+Status: not published. Publisher sign-in and ownership confirmation remain pending.
 
 Publish the generated `openclaw/` folder as one `bundle-plugin`. It uses the
 supported Claude bundle format and contains all canonical skills and companions.

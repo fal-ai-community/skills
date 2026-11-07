@@ -66,10 +66,26 @@ Grok hosts: the fal router, five outcome workflows and live guidance on demand.
 The complete 36-skill library remains available for project installation and full
 package builds. Claude MCP packages retain a full bundle by default.
 
-The [distribution preparation guide](docs/distribution.md) covers the official
-MCP Registry, generated Gemini extensions, and OpenClaw/ClawHub review bundles.
-The [Cline guide](docs/cline.md) covers its remote connection and submission review.
-These changes prepare files for review; they publish no listings or releases.
+Install the published Gemini CLI extension:
+
+```sh
+gemini extensions install https://github.com/fal-ai-community/fal-gemini-extension
+```
+
+The [v0.1.0 release](https://github.com/fal-ai-community/skills/releases/tag/v0.1.0)
+provides complete Claude, CLI, Gemini and OpenClaw archives with checksums.
+The [Grok/Cursor v0.2.0 release](https://github.com/fal-ai-community/fal-grok-plugin/releases/tag/v0.2.0)
+provides the compact plugin; marketplace synchronization or review remains pending.
+
+The official Registry entry, [`io.github.fal-ai-community/mcp`](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.fal-ai-community%2Fmcp/versions/latest),
+is active at version `0.1.0`. Gemini gallery indexing remains pending.
+The [Cline submission](https://github.com/cline/mcp-marketplace/issues/3593)
+awaits marketplace review. ClawHub publication awaits publisher sign-in and
+ownership confirmation; no ClawHub package is published yet.
+
+See the [distribution guide](docs/distribution.md) for installation, publication
+status and local bundle builds. The [Cline guide](docs/cline.md) covers its remote
+connection. Builders only export files; publication uses separate manual steps.
 
 ## Complete creative outcomes
 
@@ -95,8 +111,9 @@ python3 -m venv .venv
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-CI validates metadata, hashes, packaging, isolated installation, candidate schema
-fixtures and submission recovery. It publishes no release and runs no paid jobs.
+Validation CI checks metadata, hashes, packaging, isolated installation, candidate
+schema fixtures and submission recovery. It publishes no release and runs no paid
+jobs. Registry publication uses a separate manual workflow.
 
 ## Skill format
 
