@@ -10,25 +10,24 @@ Convert supplied boards or a shot list into a rendered short film and editable s
 ## Lock and produce
 
 Record the runtime, aspect ratio, boards, shot order, character/product references,
-dialogue, audio treatment and budget. Read `storytelling` for continuity,
-`fal-script-writer` for timing and `fal-shot-craft` for one-shot action.
+dialogue, audio treatment and budget. Define continuity anchors, shot timing and
+physical action before choosing models.
 
 1. Create a timed shot table: shot ID, source board, duration, action, camera,
    continuity anchor, sound and exact overlay copy. Sum durations against runtime.
 2. Establish approved character and location anchors. Prefer image/reference inputs
    over unrelated text rerolls. A storyboard contact sheet is not a clean motion input;
    extract each shot into its own image and inspect it.
-3. Resolve a live image-to-video or reference-to-video model for each shot. A candidate
-   is `minimax/h3-max/image-to-video`, with `prompt_expansion_mode` explicitly set
-   from its live schema. Check supported duration and resolution before submitting.
+3. Resolve a live image-to-video or reference-to-video model for each shot. Use its
+   actual input contract, including required prompt controls. Check supported
+   duration and resolution before submitting.
 4. Queue one shot at a time for the initial look test. Record IDs and review actual
    motion, continuity and scene content before continuing the authorized shot list.
    Keep failed shots isolated. Do not add shots to fill a timing mistake.
 5. Trim and assemble the approved clips with a consistent timeline. Use a verified
    local editor/renderer, or an available compositing tool. If neither exists, report
    that final assembly is blocked and deliver the reviewed shot package.
-6. Add dialogue, music and effects only as requested. Read `fal-audio-generation`.
-   Keep voices pinned. Measure speech length; do not fit speech by cutting words.
+6. Add dialogue, music and effects only as requested. Keep voices pinned. Measure speech length; do not fit speech by cutting words.
    Keep picture, voice, music and effects stems for a later remix.
 7. Compose exact titles and logos deterministically. Use measured speech timestamps
    for captions. Render the final cut, then inspect the actual exported file.
@@ -40,40 +39,25 @@ frame rate, audio peaks and speech placement. Verify shot count and order, legib
 copy, continuity and correct final-frame hold. Deliver the film, clean cut, stems,
 shot table, sources and manifest. Flag any review that the host cannot perform.
 
-## Execute and recover
+## Execution and specialist guidance
 
-Read the `genmedia` skill for terminal execution, or `fal-media` for connected MCP
-execution. Read only the named production references needed by this brief.
-Use current published routing or discover a candidate. Verify exact endpoints,
-input schemas, output shape and price units before constructing inputs. Preserve
-an explicitly named model. Candidate IDs below were schema-checked on 2026-11-05;
-availability and price can change.
+Use the installed `fal-media` skill for current model discovery, input contracts,
+prices, native MCP execution and request recovery. Preserve the user's selected
+provider, model, inputs, output count and spending limits.
 
-For terminal agents, copy [the example plan](assets/plan.json) into the project.
-Replace every `REPLACE_` value with the actual prompt, URL or locale. Inspect each
-stage's live schema and price, then run the shared helper from the installed
-`genmedia` skill (locate its installation path; do not assume the current directory):
+The production checks above work without another domain skill. If a specialist
+stage needs more guidance, follow `fal-media` to retrieve the relevant published
+guide and only its needed version-pinned references. Reuse guidance already read.
+If retrieval is unavailable, retain these local checks and current tool contracts;
+report any stage that cannot be completed or verified. Do not invent a model,
+privileged host tool or unavailable renderer to fill the gap.
 
-```sh
-python3 /path/to/genmedia/scripts/run_plan.py plan.json --stage hero
-python3 /path/to/genmedia/scripts/run_plan.py plan.json --stage hero --execute --state ./production-state
-python3 /path/to/genmedia/scripts/run_plan.py plan.json --stage hero --poll --state ./production-state
-```
+Keep a manifest of sources, endpoint, actual inputs, request ID, result URL, local
+file and QA findings. Inspect delivered artifacts and report unverified checks.
 
-The first command prints a dry run. Use the actual stage ID from the plan.
-`--execute` spends on that stage only. The helper records schema, pricing and the
-submission response. It refuses a second submission for the same stage. `--poll`
-checks the saved request and downloads its output. A failed or uncertain submit
-needs manual reconciliation, not a blind retry. Copy verified output URLs into
-later stage inputs after visual review. Never use a local path where a URL is required.
+## Terminal execution
 
-For MCP hosts, perform the same stages with current tool contracts: use
-`recommend_model` unless the user names an endpoint; use its returned input contract
-and `next_call` when provided. Otherwise inspect the schema. Use `run_model` for
-bounded operations, or `submit_job`, `check_job` and `get_job_result` for queued work.
-Record the request ID immediately. Do not install genmedia merely to follow a CLI example.
-
-Keep a project manifest with source assets, endpoint, inputs, request ID, output URL,
-local file, dimensions/duration, cost estimate, and QA findings for every stage.
-Produce only the requested variants within the existing budget. Return observed
-failures and missing capabilities; do not substitute a plan for a requested artifact.
+For a terminal-only workflow, read the [genmedia production-plan guide](../genmedia/references/production-plans.md)
+and copy this skill's [example stage plan](assets/plan.json). The guide describes
+explicit submission, state files and recovery. These examples are optional CLI
+resources; connected MCP hosts use native fal tools.

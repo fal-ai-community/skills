@@ -42,7 +42,7 @@ class Distribution(unittest.TestCase):
         for profile in ['cli', 'claude', 'codex', 'cursor', 'grok']:
             with self.subTest(profile=profile), tempfile.TemporaryDirectory() as tmp:
                 out = Path(tmp) / 'bundle'
-                built = packages.build(out, profile, 'a' * 40)
+                built = packages.build(out, profile, 'a' * 40, bundle='full')
                 for source in (ROOT / 'skills').rglob('*'):
                     if not source.is_file() or any(x in registry.IGNORED for x in source.parts): continue
                     rel = source.relative_to(ROOT)
@@ -247,3 +247,63 @@ class PublicDistribution(unittest.TestCase):
         for model in data['models']:
             self.assertEqual(model['status'], 200)
             self.assertTrue(model['schema_url'].startswith('https://fal.ai/'))
+
+class HybridBundles(unittest.TestCase):
+    def test_native_plugin_defaults_are_six_self_contained_entries(self):
+        import re
+        for profile in ['codex', 'cursor', 'grok']:
+            with self.subTest(profile=profile), tempfile.TemporaryDirectory() as tmp:
+                out = Path(tmp) / 'bundle'
+                index = packages.build(out, profile)
+                self.assertEqual({s['name'] for s in index['skills']}, set(packages.HYBRID_SKILLS))
+                self.assertEqual(sum(len(s['files']) for s in index['skills']), 6)
+                self.assertEqual(index, registry.build_index(out / 'skills'))
+                for skill in index['skills']:
+                    self.assertEqual([f['path'] for f in skill['files']], ['SKILL.md'])
+                    name = skill['name']
+                    text = (out / 'skills' / name / 'SKILL.md').read_text(encoding='utf-8')
+                    self.assertNotRegex(text, r'\b(?:fal-ai|openai|google|minimax|bytedance)/[a-z0-9]')
+                    # Every local Markdown resource must resolve inside this isolated bundle.
+                    for href in re.findall(r'\]\(([^)]+)\)', text):
+                        if '://' in href: continue
+                        self.assertTrue((out / 'skills' / name / href).exists(), href)
+                    if name != 'fal-media':
+                        original = (ROOT / 'skills' / name / 'SKILL.md').read_text(encoding='utf-8')
+                        # QA/delivery remains verbatim, independent of the live guidance service.
+                        qa = original.split('## Acceptance and delivery', 1)[1].split('## Terminal execution', 1)[0]
+                        self.assertIn(qa.strip(), text)
+                lock = json.loads((out / 'skills-source.lock.json').read_text(encoding='utf-8'))
+                self.assertEqual(lock['bundle'], 'hybrid')
+                self.assertEqual(set(lock['entrypoints']), set(packages.HYBRID_SKILLS))
+
+    def test_full_library_remains_available_for_cli_and_explicit_full_builds(self):
+        full_names = {p.parent.name for p in (ROOT / 'skills').glob('*/SKILL.md')}
+        self.assertEqual(len(full_names), 36)
+        for profile, bundle in [('cli', None), ('codex', 'full'), ('grok', 'full')]:
+            with tempfile.TemporaryDirectory() as tmp:
+                out = Path(tmp) / 'bundle'
+                index = packages.build(out, profile, bundle=bundle)
+                self.assertEqual({s['name'] for s in index['skills']}, full_names)
+                self.assertTrue((out / 'skills/genmedia/scripts/run_plan.py').is_file())
+                self.assertTrue((out / 'skills/reels-creator/references/code/host_reel.py').is_file())
+
+    def test_hybrid_has_no_executable_helpers_or_example_stage_payloads(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / 'bundle'
+            packages.build(out, 'grok')
+            files = [p for p in (out / 'skills').rglob('*') if p.is_file()]
+            self.assertEqual({p.suffix for p in files}, {'.md', '.json'})
+            self.assertEqual(len(files), 7)  # six entrypoints and the hash registry
+
+    def test_cli_cannot_silently_emit_mcp_only_hybrid_workflows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / 'bundle'
+            with self.assertRaises(ValueError): packages.build(out, 'cli', bundle='hybrid')
+            self.assertFalse(out.exists())
+
+    def test_failed_build_does_not_mutate_canonical_library(self):
+        before = registry.build_index()
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / 'bundle'; packages.build(out, 'codex')
+            with self.assertRaises(ValueError): packages.build(out, 'codex')
+        self.assertEqual(before, registry.build_index())

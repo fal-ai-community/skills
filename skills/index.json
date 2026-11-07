@@ -122,8 +122,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "4fe6b52a10adcc68af1e0fbb1a6db61c87425cfa1fe2ba49d2266c54bbddda48",
-          "bytes": 4498
+          "sha256": "8f88bd17619fe50812fd16fc80296a811864cdcc4a6e59fb90131987b68b02b8",
+          "bytes": 3330
         },
         {
           "path": "assets/plan.json",
@@ -165,8 +165,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "65deae1320bda555cac2b1a08b8527283464dacd64eac81d2987454678af6210",
-          "bytes": 2050
+          "sha256": "ccf94afe1396364d2c99f72c0d144fc575b54d6d8c643de0e2c1eded7aef8fbc",
+          "bytes": 3611
         }
       ]
     },
@@ -598,8 +598,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "2392b18cd57ea1bab46caea55b0e93691ecab0974c2d9092f1b8dad419dd4a0a",
-          "bytes": 4742
+          "sha256": "1a9564ebd4642b3ce114917708590619b7d7647faa4124f7fbef822aa1494c31",
+          "bytes": 3625
         },
         {
           "path": "assets/plan.json",
@@ -621,6 +621,11 @@
           "path": "references/full-reference.md",
           "sha256": "98ef94144b47d2501066705a32929bf728c7d6d36eb488e8fd16c738d266681a",
           "bytes": 10683
+        },
+        {
+          "path": "references/production-plans.md",
+          "sha256": "ff964407d29a38455e105c30ca7702f94fe21f28d1307c4eed2f783b115f54d9",
+          "bytes": 1904
         },
         {
           "path": "scripts/run_plan.py",
@@ -702,8 +707,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "eabe010b05caebfa6bdff47d78d80e9355ce362fe4dd9ec0fc7bd78c01098352",
-          "bytes": 4854
+          "sha256": "554cb8796d7059364df388b100720ef5d6ffbadc0c30b1728f89fb2879a16853",
+          "bytes": 3824
         },
         {
           "path": "assets/plan.json",
@@ -771,8 +776,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "bf52e546a4ccb42803cda0165c86e15bc6b7ab32733b8cd5765cd853d84bb2a3",
-          "bytes": 4371
+          "sha256": "2b36c744c0ff7d510b181585efd557e562abacb96e74ecae9f0b8a3dcdfd372f",
+          "bytes": 3274
         },
         {
           "path": "assets/plan.json",
@@ -903,8 +908,8 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "3358d99963f4c38ea1297b3b44e0b210eb0512b4c3373bff2b988f032487e325",
-          "bytes": 4799
+          "sha256": "9994cb942a22266f8ff24d440c05114d777e9f51045c2f0666466251db4ea9cd",
+          "bytes": 3624
         },
         {
           "path": "assets/plan.json",

@@ -53,7 +53,7 @@ For review without installation: `claude plugin validate /path/to/skills --stric
 For local loading: `claude --plugin-dir /path/to/skills`. These paths use genmedia;
 the MCP profile below is an alternative for hosts with OAuth support.
 
-## Complete MCP plugin bundles
+## MCP plugin bundles
 
 From a reviewed checkout:
 
@@ -66,10 +66,24 @@ python3 -m venv .venv
 .venv/bin/python scripts/build-packages.py --profile grok --output /tmp/fal-grok-review
 ```
 
-Each output must be empty or absent. Bundles contain complete skill folders,
-all references, native manifests and a source lock. Do not maintain
+Each output must be empty or absent. Codex, Cursor and Grok default to a hybrid
+bundle with six entry points: `fal-media` plus the five outcome workflows. Local
+files contain stable production checks. The router fetches current model contracts,
+prices and specialist guidance through the connected fal tools only when needed.
+It reuses guidance for the current task and preserves its returned version for
+reference reads. If guidance is unavailable, local checks remain available; an
+unsupported stage is reported instead of replaced with guessed tools or models.
+
+CLI and Claude builds retain the full library by default. To build all 36 skills
+for another MCP host, add `--bundle full`. `--bundle hybrid` also works for Claude.
+Terminal-only builds require the full library. All 36 source skills, terminal
+plans, references and helper code stay in the community repository.
+
+Hybrid bundles include the six `SKILL.md` files, native manifests, a hash registry
+and a source lock. They do not install local runtime dependencies. Do not maintain
 copies manually. For the existing Codex/Grok repositories, copy only `skills/`
-and `skills-source.lock.json` from the matching profile. Preserve their existing
+and `skills-source.lock.json` from the matching profile. The lock records the
+source commit, bundle type and exact entry points. Preserve their existing
 manifests, connector mapping, logos and evals. Their sync scripts enforce this rule.
 
 Claude: validate the generated bundle, then load with
