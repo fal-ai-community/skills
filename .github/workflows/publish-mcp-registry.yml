@@ -1,0 +1,72 @@
+name: Publish MCP Registry
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type io.github.fal-ai-community/mcp to publish the reviewed main metadata
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: mcp-registry-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      github.repository == 'fal-ai-community/skills' &&
+      github.ref == 'refs/heads/main' &&
+      inputs.confirm == 'io.github.fal-ai-community/mcp'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      MCP_PUBLISHER_VERSION: v1.8.8
+    steps:
+      - name: Check out reviewed metadata
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Install signature verifier
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+        with:
+          cosign-release: v3.0.6
+
+      - name: Download and verify publisher
+        shell: bash
+        run: |
+          set -euo pipefail
+          MCP_PUBLISHER_DIR="$RUNNER_TEMP/mcp-publisher"
+          mkdir -p "$MCP_PUBLISHER_DIR"
+          cd "$MCP_PUBLISHER_DIR"
+          archive=mcp-publisher_linux_amd64.tar.gz
+          base_url="https://github.com/modelcontextprotocol/registry/releases/download/${MCP_PUBLISHER_VERSION}"
+          curl --fail --location --silent --show-error --output "$archive" "$base_url/$archive"
+          curl --fail --location --silent --show-error --output "$archive.sigstore.json" "$base_url/$archive.sigstore.json"
+          cosign verify-blob \
+            --bundle "$archive.sigstore.json" \
+            --certificate-identity "https://github.com/modelcontextprotocol/registry/.github/workflows/release.yml@refs/tags/${MCP_PUBLISHER_VERSION}" \
+            --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+            "$archive"
+          tar xzf "$archive" mcp-publisher
+
+      - name: Validate public remote metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          jq --exit-status \
+            '.name == "io.github.fal-ai-community/mcp" and .remotes == [{"type":"streamable-http","url":"https://mcp.fal.ai/mcp-relay"}] and (has("packages") | not)' \
+            distribution/registry/server.json > /dev/null
+          "$RUNNER_TEMP/mcp-publisher/mcp-publisher" validate distribution/registry/server.json
+
+      - name: Authenticate with GitHub OIDC
+        run: '"$RUNNER_TEMP/mcp-publisher/mcp-publisher" login github-oidc'
+
+      - name: Publish reviewed metadata
+        run: '"$RUNNER_TEMP/mcp-publisher/mcp-publisher" publish distribution/registry/server.json'

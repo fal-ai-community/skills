@@ -1,8 +1,8 @@
 # Registry, Gemini CLI and OpenClaw preparation
 
 These adapters prepare review files. The builder does not install clients, change
-agent settings, contact a registry or publish anything. CI runs local checks only.
-Keep the release steps below pending until the maintainer approves publication.
+agent settings, contact a registry or publish anything. Validation CI runs local
+checks only. The separate Registry publisher runs only through a manual dispatch.
 
 ## Build a review bundle
 
@@ -35,8 +35,9 @@ requires the tools specified by each skill.
 
 ## Official MCP Registry
 
-The proposed identity is `ai.fal/mcp`. The maintainer must prove control of
-`fal.ai` before publication. The public remote endpoint uses Streamable HTTP and
+The official identity is `io.github.fal-ai-community/mcp`. Publication uses GitHub
+Actions OIDC from this organization-owned repository. It needs no stored token,
+private key or DNS change. The public remote endpoint uses Streamable HTTP and
 browser OAuth. This entry requests no API key or static authorization header.
 
 `distribution/registry/server.json` follows the official `2025-12-11` schema.
@@ -45,13 +46,21 @@ comes from the [official schema URL](https://static.modelcontextprotocol.io/sche
 Tests validate the file offline. No server source repository is declared because
 this repository contains skills and adapters, rather than the hosted server.
 
-After approval, use the current publisher's domain verification process and
-publish the reviewed metadata. See the [remote-only quickstart](https://github.com/modelcontextprotocol/registry/blob/main/docs/modelcontextprotocol-io/quickstart.mdx)
-and [authentication guide](https://github.com/modelcontextprotocol/registry/blob/main/docs/modelcontextprotocol-io/authentication.mdx).
-Confirm that the namespace is available before the first publication. Namespace
-availability and ownership are not proved by JSON Schema validation.
+To publish a reviewed version from `main`, run the **Publish MCP Registry**
+workflow. Enter `io.github.fal-ai-community/mcp` as the confirmation value. The
+workflow verifies the pinned publisher's Sigstore bundle and validates the
+metadata before authentication and publication. Pushes, pull requests and tags
+do not trigger it. Forks and other branches cannot run the publishing job.
 
-Do not add a publisher workflow, credentials or a DNS challenge to this PR.
+```sh
+gh workflow run publish-mcp-registry.yml --repo fal-ai-community/skills --ref main -f confirm=io.github.fal-ai-community/mcp
+```
+
+Check the [latest Registry entry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.fal-ai-community%2Fmcp/versions/latest)
+after the workflow succeeds. Registry versions are immutable; update the
+metadata version before publishing a changed entry. See the
+[remote-only quickstart](https://github.com/modelcontextprotocol/registry/blob/main/docs/modelcontextprotocol-io/quickstart.mdx)
+and [OIDC publishing guide](https://github.com/modelcontextprotocol/registry/blob/main/docs/modelcontextprotocol-io/github-actions.mdx).
 Publishing to the upstream Registry does not guarantee a curated client listing.
 
 ## Gemini CLI
