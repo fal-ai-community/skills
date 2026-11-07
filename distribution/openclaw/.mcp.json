@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "fal": {
+      "type": "http",
+      "transport": "streamable-http",
+      "url": "https://mcp.fal.ai/mcp-relay",
+      "auth": "oauth"
+    }
+  }
+}

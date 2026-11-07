@@ -16,7 +16,7 @@ The builder defaults to `HEAD`. To select another local commit, pass its full
 SHA with `--source-ref`. Uncommitted edits, ignored files and untracked files
 never enter the export. Commit intended changes before rebuilding.
 
-The builder reads Git blobs from that commit. It includes only the four named
+The builder reads Git blobs from that commit. It includes only the explicitly allowlisted
 client/Registry templates, the canonical tracked `skills/` tree, the license,
 and the two package/index helpers. It rejects symlinks and submodules in these
 inputs before materialization. Other tracked files in `distribution/` are not
@@ -123,23 +123,39 @@ directory when the complete library is wanted. Review collisions first. Keep
 the source lock beside the installed library. See [native MCP setup](https://docs.openclaw.ai/tools/mcp)
 and [skill discovery](https://docs.openclaw.ai/tools/skills).
 
-## ClawHub review
+## ClawHub bundle
 
-The generated OpenClaw skill folders can serve as ClawHub publication inputs.
-Preview a selected skill without publication:
+Publish the generated `openclaw/` folder as one `bundle-plugin`. It uses the
+supported Claude bundle format and contains all canonical skills and companions.
+The included MIT license remains with the package. Do not publish the five
+outcome folders alone: they reference companion skills and shared helpers.
+
+Preview the complete artifact with a pinned CLI before publication:
 
 ```sh
-clawhub skill publish /tmp/fal-distribution-review/openclaw/skills/product-ad-campaign --slug fal-product-ad-campaign --name "fal Product Ad Campaign" --changelog "Initial release" --dry-run
+npx --yes clawhub@0.25.1 package publish /tmp/fal-distribution-review/openclaw --family bundle-plugin --bundle-format claude --name @fal-ai-community/creative-suite --owner fal-ai-community --version 0.1.0 --source-repo fal-ai-community/skills --source-commit REVIEWED_FULL_COMMIT_SHA --source-path distribution/openclaw --changelog "Initial complete creative workflow bundle" --dry-run
 ```
 
-Use a reviewed, pinned CLI version that supports this documented command. Keep
-`--dry-run`. No ClawHub login or publication workflow is included. A maintainer
-must confirm the fal publisher identity, slug availability and companion-skill
-installation before publication. Individual skills can reference other skills;
-install the complete library for dependency coverage during local review.
-The MCP connection needs browser OAuth; it requires no environment-variable key.
-Terminal fallback paths require their documented local dependencies.
-See the [ClawHub quickstart](https://docs.openclaw.ai/clawhub/quickstart).
+Replace `REVIEWED_FULL_COMMIT_SHA` with the commit recorded in the generated
+source lock. The source repository and exporter are canonical; publication uploads
+the reviewed generated bundle, including the complete `skills/` tree. The source
+path names the adapter templates, not a separately maintained skill library.
+
+Confirm the authenticated publisher can manage `@fal-ai-community` before
+removing `--dry-run`. Do not publish under an unrelated personal owner or claim a
+third-party listing. After approval and successful publication checks, users can
+install the complete package:
+
+```sh
+openclaw plugins install clawhub:@fal-ai-community/creative-suite
+```
+
+Then authorize the fal MCP connection using the OpenClaw setup above. Installation
+does not grant automatic approval for paid generations. No publisher workflow or
+credential is added to this repository.
+
+See [bundle mapping](https://docs.openclaw.ai/plugins/bundles) and
+[ClawHub publishing](https://docs.openclaw.ai/clawhub/publishing).
 
 ## Required runtime checks before publication
 
