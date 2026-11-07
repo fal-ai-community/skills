@@ -61,8 +61,8 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 ## Install
 
 Use the [one-command installation guide](docs/install.md) for Codex, Claude Code
-and Cursor. It also documents hybrid MCP packages for Codex, Cursor and supported
-Grok hosts: the fal router, five outcome workflows and live guidance on demand.
+and Cursor. Hybrid MCP packages for Codex, Cursor, supported Grok hosts and
+Gemini include the fal router, five outcome workflows and live guidance on demand.
 The complete 36-skill library remains available for project installation and full
 package builds. Claude MCP packages retain a full bundle by default.
 

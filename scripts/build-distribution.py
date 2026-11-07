@@ -77,8 +77,10 @@ def load_packages(source):
     return packages
 
 
-def build(output, source_ref=None):
-    """Export complete canonical skills once per client, with source/file hashes."""
+def build(output, source_ref=None, gemini_bundle="hybrid"):
+    """Export pinned client bundles; Gemini is hybrid unless full is requested."""
+    if gemini_bundle not in {"full", "hybrid"}:
+        raise ValueError("Unknown Gemini bundle")
     output = Path(output).resolve()
     if output == ROOT or output.is_relative_to(ROOT) or output in ROOT.parents:
         raise ValueError('Distribution output must be outside the source checkout')
@@ -91,11 +93,13 @@ def build(output, source_ref=None):
     with tempfile.TemporaryDirectory(prefix='fal-distribution-') as tmp:
         source = Path(tmp) / 'source'
         snapshot_inputs(ref, source)
-        staging = Path(tmp) / 'staging'
-        load_packages(source).build(staging, 'claude', ref)
+        packages = load_packages(source)
         prepared = Path(tmp) / 'prepared'
         shutil.copytree(source / 'distribution', prepared)
         for client in ['gemini', 'openclaw']:
+            staging = Path(tmp) / f'{client}-staging'
+            packages.build(staging, 'claude', ref,
+                           bundle=gemini_bundle if client == 'gemini' else 'full')
             destination = prepared / client
             shutil.copytree(staging / 'skills', destination / 'skills')
             shutil.copy2(source / 'LICENSE', destination / 'LICENSE')
@@ -124,8 +128,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--source-ref', help='Full local commit SHA (defaults to HEAD)')
+    parser.add_argument('--gemini-bundle', choices=['hybrid', 'full'], default='hybrid',
+                        help='Gemini skill bundle (default: hybrid; full exports the complete library)')
     args = parser.parse_args()
-    lock = build(args.output, args.source_ref)
+    lock = build(args.output, args.source_ref, args.gemini_bundle)
     print(f'Prepared {len(lock["files"])} files at {args.output.resolve()}; nothing published')
 
 

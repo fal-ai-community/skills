@@ -45,9 +45,16 @@ automatically exported; update the template allowlist for an intended addition.
 
 The destination must be absent or empty and outside the checkout. The output
 contains Registry metadata, a root-level Gemini extension, and an OpenClaw
-configuration example. Each client skill tree contains the complete canonical
-library, including references, scripts and assets. The builder reuses the existing
-MCP package adapter; it does not maintain another skill library.
+configuration example. Gemini defaults to the six-skill hybrid bundle: the fal
+router and five outcome guides, with specialist guidance retrieved through MCP.
+OpenClaw retains the complete library, including references, scripts and assets.
+The builder reuses the existing MCP package adapter.
+
+To export the complete Gemini library explicitly:
+
+```sh
+python3 scripts/build-distribution.py --gemini-bundle full --output /tmp/fal-distribution-full
+```
 
 `distribution.lock.json` records the full source commit and each file's SHA-256.
 Inspect it before installation. Rebuild from the reviewed commit for release.
@@ -98,8 +105,12 @@ The adapter repository has a root manifest and the required
 `gemini-cli-extension` topic. Direct repository installation works now. Google
 gallery indexing remains pending; its documentation describes a daily crawl.
 
-The generated `gemini/` folder is a complete extension. Its manifest uses
-`httpUrl` for Streamable HTTP. Gemini discovers its `skills/` folders on demand.
+The generated `gemini/` folder is an installable extension. By default, it carries
+`fal-media` and the five creative outcome guides. The full library remains in the
+community repository; model catalogs and specialist guidance load through live
+MCP tools when needed. No local runtime scripts or optional CLI installers are
+included in the hybrid bundle. Its manifest uses `httpUrl` for Streamable HTTP.
+Gemini discovers its `skills/` folders on demand.
 It requests no installation scripts, hooks or automatic tool approvals.
 
 For a local review installation, use an isolated Gemini profile:
