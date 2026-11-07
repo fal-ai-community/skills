@@ -68,8 +68,8 @@ class MCPDistribution(unittest.TestCase):
     def test_complete_exports_are_reproducible_and_hash_verified(self):
         with tempfile.TemporaryDirectory() as tmp:
             first, second = Path(tmp) / 'first', Path(tmp) / 'second'
-            lock = distribution.build(first, SOURCE_REF)
-            self.assertEqual(lock, distribution.build(second, SOURCE_REF))
+            lock = distribution.build(first, SOURCE_REF, gemini_bundle="full")
+            self.assertEqual(lock, distribution.build(second, SOURCE_REF, gemini_bundle="full"))
             for relative, digest in lock['files'].items():
                 self.assertEqual(hashlib.sha256((first / relative).read_bytes()).hexdigest(), digest)
                 self.assertEqual((first / relative).read_bytes(), (second / relative).read_bytes())
@@ -88,6 +88,31 @@ class MCPDistribution(unittest.TestCase):
                 self.assertEqual(skill_lock['registry_sha256'],
                                  hashlib.sha256(json.dumps(index, sort_keys=True).encode()).hexdigest())
                 self.assertFalse(any(p.is_symlink() for p in (first / client).rglob('*')))
+
+    def test_gemini_defaults_to_hybrid_without_optional_runtimes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / 'export'
+            distribution.build(output, SOURCE_REF)
+            gemini = output / 'gemini'
+            expected = {'fal-media', 'product-ad-campaign', 'game-asset-production',
+                        'storyboard-to-short-film', 'ecommerce-product-photography',
+                        'localize-and-repurpose'}
+            self.assertEqual({p.parent.name for p in (gemini / 'skills').glob('*/SKILL.md')}, expected)
+            self.assertEqual({p.name for p in (gemini / 'skills').rglob('*') if p.is_file()},
+                             {'SKILL.md', 'index.json'})
+            lock = json.loads((gemini / 'skills-source.lock.json').read_text())
+            self.assertEqual(lock['bundle'], 'hybrid')
+            self.assertEqual(set(lock['entrypoints']), expected)
+            self.assertEqual(lock['profile'], 'gemini')
+            # The complete library remains available in the OpenClaw export.
+            self.assertTrue((output / 'openclaw/skills/fal-redesign/runtime/package.json').is_file())
+
+    def test_invalid_gemini_bundle_fails_before_output_writes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / 'unused'
+            with self.assertRaises(ValueError):
+                distribution.build(output, SOURCE_REF, gemini_bundle='unknown')
+            self.assertFalse(output.exists())
 
     def test_gemini_uses_remote_http_without_install_hooks_or_trust(self):
         with tempfile.TemporaryDirectory() as tmp:
