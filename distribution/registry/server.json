@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "ai.fal/mcp",
+  "name": "io.github.fal-ai-community/mcp",
   "title": "fal.ai",
   "description": "Generate and edit images, video, audio and 3D with fal. Discover models and check prices.",
   "version": "0.1.0",
@@ -9,6 +9,15 @@
     {
       "type": "streamable-http",
       "url": "https://mcp.fal.ai/mcp-relay"
+    }
+  ],
+  "icons": [
+    {
+      "src": "https://avatars.githubusercontent.com/u/74778219?s=400&v=4",
+      "mimeType": "image/png",
+      "sizes": [
+        "400x400"
+      ]
     }
   ]
 }
