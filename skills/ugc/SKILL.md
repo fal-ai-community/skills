@@ -44,7 +44,7 @@ Only ask when the answer changes execution.
    genmedia models --endpoint_id veed/fabric-1.0 --json
    genmedia models --endpoint_id veed/fabric-1.0/text --json
    genmedia models --endpoint_id fal-ai/creatify/aurora --json
-   genmedia models --endpoint_id fal-ai/sync-lipsync/v2 --json
+   genmedia models --endpoint_id fal-ai/sync-lipsync/v3 --json
    genmedia models --endpoint_id bytedance/seedance-2.0/image-to-video --json
    genmedia models --endpoint_id openai/gpt-image-2 --json
    ```
@@ -78,7 +78,7 @@ Only ask when the answer changes execution.
    - Portrait plus audio: `veed/fabric-1.0`.
    - Portrait plus text: `veed/fabric-1.0/text` when schema supports it.
    - Avatar with stronger visual direction: `fal-ai/creatify/aurora`.
-   - Existing video with new speech: `fal-ai/sync-lipsync/v2`.
+   - Existing video with new speech: `fal-ai/sync-lipsync/v3`.
    - Product b-roll: `bytedance/seedance-2.0/image-to-video` from an approved
      still or product reference.
    - Hook frames and thumbnails: `openai/gpt-image-2`, especially when text or
@@ -132,7 +132,7 @@ For each UGC clip or shot, write:
 - Talking head from portrait and audio: `veed/fabric-1.0`.
 - Talking head from portrait and text: `veed/fabric-1.0/text`.
 - Avatar with visual direction: `fal-ai/creatify/aurora`.
-- Lip-sync existing footage: `fal-ai/sync-lipsync/v2`.
+- Lip-sync existing footage: `fal-ai/sync-lipsync/v3`.
 - Product b-roll or demo motion: `bytedance/seedance-2.0/image-to-video`.
 - Fast draft b-roll: `xai/grok-imagine-video/image-to-video`.
 - Creator keyframes, thumbnails, and product-faithful stills:

@@ -289,8 +289,8 @@
         },
         {
           "path": "references/character-lipsync.md",
-          "sha256": "7cd5e02b5df35ed6989672848c6789ff24e5e40f914af4205ade68dc2c030e4b",
-          "bytes": 4376
+          "sha256": "f15ac3dfed6c48a6665ee0959ac1f1e3bfe630f7b890763c4eaf85d1a65d1e4c",
+          "bytes": 4859
         },
         {
           "path": "references/cinematography.md",
@@ -749,7 +749,7 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "905f916138d76bb776835f84761ff9db261f20b2e4f8756be0edf26236f63d8a",
+          "sha256": "44aee128d058a32e7d85bc6aee86930527a98e49c77817e068fbf9bc59d39f9c",
           "bytes": 5923
         }
       ]
@@ -950,7 +950,7 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "a70d5de3b17aebad5c9175039729f6935745a2e7600c512300176731c2fbc2e9",
+          "sha256": "b77dabad69b25e0c357606aeac904671271ecab61d6f6239887731cc58549813",
           "bytes": 6196
         },
         {
@@ -970,7 +970,7 @@
         },
         {
           "path": "references/workflows.md",
-          "sha256": "e0831dd6ea3d1eccafa35d09e73103c10f3af0f867fc0b725300d3eff935e3b7",
+          "sha256": "868395b030390c86fef7f270f89a529901ddc013d82a33b9d2eebeb92cd82ac2",
           "bytes": 1831
         }
       ]

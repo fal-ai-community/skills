@@ -86,14 +86,17 @@ Replace the mouth area in an existing video to match new audio.
 URL_VIDEO=$(genmedia upload ./original-video.mp4 --json | jq -r '.url')
 URL_AUDIO=$(genmedia upload ./new-speech.mp3 --json | jq -r '.url')
 
-genmedia run fal-ai/sync-lipsync/v2 \
+genmedia run fal-ai/sync-lipsync/v3 \
  --video_url "$URL_VIDEO" \
  --audio_url "$URL_AUDIO" \
+ --sync_mode cut_off \
  --async \
  --json
 ```
 
-Use this when the rest of the performance (head movement, expression, gestures) should stay intact and only the mouth needs to match new dialogue.
+Use this when the rest of the performance (head movement, expression, gestures) should stay intact and only the mouth needs to match new dialogue. `fal-ai/sync-lipsync/v3` (sync-3) edits the full frame and holds up on close-ups, profile angles and hands or mics in front of the mouth. `fal-ai/sync-lipsync/v2` costs less and suits clean, front-facing footage.
+
+`sync_mode` decides what happens when the audio and video lengths differ: `cut_off`, `loop`, `bounce`, `silence` or `remap`.
 
 ## Endpoint reference
 
@@ -102,7 +105,8 @@ Use this when the rest of the performance (head movement, expression, gestures) 
 | `veed/fabric-1.0` | image + audio → video | Default talking head from a still portrait |
 | `veed/fabric-1.0/text` | image + text → video | Skip explicit TTS step |
 | `fal-ai/creatify/aurora` | image + audio (+ direction) → video | Avatar with visual direction controls |
-| `fal-ai/sync-lipsync/v2` | video + audio → synced video | Replace mouth in existing footage |
+| `fal-ai/sync-lipsync/v3` | video + audio → synced video | Replace mouth in existing footage (default) |
+| `fal-ai/sync-lipsync/v2` | video + audio → synced video | Cheaper option for clean, front-facing footage |
 
 For TTS endpoint selection, see [fal-models-catalog/text-to-audio.md](../../fal-models-catalog/references/text-to-audio.md).
 
@@ -122,7 +126,7 @@ Always inspect schema before running:
 
 ```bash
 genmedia schema veed/fabric-1.0 --json
-genmedia schema fal-ai/sync-lipsync/v2 --json
+genmedia schema fal-ai/sync-lipsync/v3 --json
 ```
 
 Frequently exposed:

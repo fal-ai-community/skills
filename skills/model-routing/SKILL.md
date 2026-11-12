@@ -153,7 +153,7 @@ social content.
 - Portrait plus audio talking head: `veed/fabric-1.0`.
 - Portrait plus text talking head: `veed/fabric-1.0/text`.
 - Avatar with visual direction: `fal-ai/creatify/aurora`.
-- Existing footage with new speech: `fal-ai/sync-lipsync/v2`.
+- Existing footage with new speech: `fal-ai/sync-lipsync/v3`.
 - Product b-roll: `bytedance/seedance-2.0/image-to-video`.
 - Fast b-roll draft: `xai/grok-imagine-video/image-to-video`.
 
