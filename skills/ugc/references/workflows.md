@@ -16,7 +16,7 @@ Use when the user supplies or approves a face image and script.
 Use when the user has a real creator clip and wants new speech.
 
 1. Upload the source video and clean audio.
-2. Inspect `fal-ai/sync-lipsync/v2`.
+2. Inspect `fal-ai/sync-lipsync/v3`.
 3. Run async with `video_url` and `audio_url` or matching schema fields.
 4. Compare the result to the source video. The body, background, and timing
    should stay stable.
