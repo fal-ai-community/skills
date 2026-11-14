@@ -7,10 +7,12 @@ current session before using them.
 
 ```bash
 genmedia models --endpoint_id openai/gpt-image-2/edit --json
+genmedia models --endpoint_id openai/gpt-image-2 --json
 genmedia models --endpoint_id fal-ai/kling-video/v3/standard/image-to-video --json
 genmedia models --endpoint_id fal-ai/kling-video/v3/pro/image-to-video --json
 genmedia models --endpoint_id fal-ai/kling-video/v3/4k/image-to-video --json
 genmedia schema openai/gpt-image-2/edit --json
+genmedia schema openai/gpt-image-2 --json
 genmedia schema fal-ai/kling-video/v3/pro/image-to-video --format openapi --json
 ```
 
@@ -77,6 +79,50 @@ Use `FRAME_URL`, not `PHOTO_URL`, as Kling `start_image_url`.
 
 Use `GPT_IMAGE_QUALITY=high` by default. Override with
 `GPT_IMAGE_QUALITY=low` only for explicitly requested economy or preview runs.
+
+## Two-pass plate workflow
+
+Use this workflow when direct photo-to-scene editing fails quality gates or
+when the brief needs reliable broadcast composition, scoreboard text, and a
+real broadcaster bug.
+
+First generate an identity-free broadcast plate:
+
+```bash
+PLATE=$(genmedia run openai/gpt-image-2 \
+  --prompt "$PLATE_PROMPT" \
+  --image_size '{"width":3840,"height":2160}' \
+  --quality high \
+  --output_format jpeg \
+  --num_images 1 \
+  --download "./outputs/fan-cam/plate_{request_id}_{index}.{ext}" \
+  --json)
+
+PLATE_URL=$(echo "$PLATE" | jq -r '.result.images[0].url')
+PLATE_FILE=$(echo "$PLATE" | jq -r '.downloaded_files[0] // empty')
+```
+
+Then edit only the placeholder spectator with the user photo. Keep image URL
+order stable: plate first, person photo second.
+
+```bash
+FRAME=$(genmedia run openai/gpt-image-2/edit \
+  --image_urls "$(jq -nc --arg plate "$PLATE_URL" --arg photo "$PHOTO_URL" '[$plate, $photo]')" \
+  --prompt "$IDENTITY_EDIT_PROMPT" \
+  --image_size '{"width":3840,"height":2160}' \
+  --quality high \
+  --output_format jpeg \
+  --num_images 1 \
+  --download "./outputs/fan-cam/frame_{request_id}_{index}.{ext}" \
+  --json)
+
+FRAME_URL=$(echo "$FRAME" | jq -r '.result.images[0].url')
+FRAME_FILE=$(echo "$FRAME" | jq -r '.downloaded_files[0] // empty')
+```
+
+For GPT Image 2 prompt stability, prefer short positive prompts. Avoid long
+negative lists, exhaustive face-anatomy wording, and repeated "no X" clauses in
+image prompts. Keep detailed negatives in the Kling `negative_prompt`.
 
 ## Optional frame compression
 

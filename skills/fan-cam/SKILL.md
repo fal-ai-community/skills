@@ -68,6 +68,20 @@ The GPT Image 2 edit frame is mandatory when the input is an ordinary person
 photo. Only bypass this step if the user explicitly provides an already
 approved 16:9 broadcast fan-cam frame and asks to animate that frame.
 
+For high-fidelity personalized broadcast shots, prefer a two-pass frame build:
+
+```text
+event brief -> GPT Image 2 broadcast plate -> GPT Image 2 edit with user photo -> quality gate -> Kling v3 Pro
+```
+
+Use the plate pass when the scene needs a reliable scoreboard, broadcaster bug,
+crowd layout, or central safe-area composition. The plate is a realistic
+identity-free sports broadcast frame with an ordinary placeholder spectator.
+The second pass uses `openai/gpt-image-2/edit` with `[plate_url, photo_url]` to
+adapt that placeholder to the user's appearance. This keeps the user photo from
+being treated as the whole composition and reduces edge-cropped or pasted-face
+results.
+
 The planning step is performed by the agent using this skill. Do not call a
 separate LLM endpoint just to write prompts unless the user explicitly asks for
 a hosted planner. Write the image prompt and Kling multi prompts directly.
@@ -78,6 +92,7 @@ Always verify endpoints before use:
 
 ```bash
 genmedia models --endpoint_id openai/gpt-image-2/edit --json
+genmedia models --endpoint_id openai/gpt-image-2 --json
 genmedia models --endpoint_id fal-ai/kling-video/v3/standard/image-to-video --json
 genmedia models --endpoint_id fal-ai/kling-video/v3/pro/image-to-video --json
 genmedia models --endpoint_id fal-ai/kling-video/v3/4k/image-to-video --json
@@ -87,6 +102,7 @@ Inspect schemas before running:
 
 ```bash
 genmedia schema openai/gpt-image-2/edit --json
+genmedia schema openai/gpt-image-2 --json
 genmedia schema fal-ai/kling-video/v3/pro/image-to-video --format openapi --json
 ```
 
@@ -99,6 +115,7 @@ Check pricing when cost matters:
 
 ```bash
 genmedia pricing openai/gpt-image-2/edit --json
+genmedia pricing openai/gpt-image-2 --json
 genmedia pricing fal-ai/kling-video/v3/standard/image-to-video --json
 genmedia pricing fal-ai/kling-video/v3/pro/image-to-video --json
 genmedia pricing fal-ai/kling-video/v3/4k/image-to-video --json
@@ -200,10 +217,11 @@ large UI graphics, unstable text, and logos that dominate the frame.
 
 The GPT Image 2 edit prompt must:
 
-- Use the uploaded photo as the identity reference.
-- Preserve the real face, age impression, skin tone, hair, facial hair,
-  glasses, face structure, asymmetry, pores, wrinkles, blemishes, and ordinary
-  imperfections.
+- Use the uploaded photo as a visual reference for the featured spectator's
+  overall appearance.
+- Keep the person consistent through stable visible cues such as age range,
+  hairstyle, glasses if present, facial hair if present, clothing color, and
+  general face shape. Avoid overloading the prompt with anatomical face terms.
 - Create a horizontal 16:9 live TV broadcast screenshot.
 - Place the person naturally in the spectator area.
 - Make the selected reaction or situation visible but not theatrical.
@@ -216,12 +234,33 @@ The GPT Image 2 edit prompt must:
 
 The image prompt must avoid:
 
-- Beauty retouching, AI influencer face, changed face anatomy, enlarged eyes,
-  jawline sharpening, face slimming, porcelain skin, waxy skin.
-- Studio portrait, passport photo, selfie framing, isolated subject, pasted
-  face, face cutout, empty background.
+- Long negative lists in GPT Image 2 prompts. Keep GPT prompts mostly positive
+  and concise; put detailed negatives in the Kling negative prompt instead.
+- Beauty retouching, influencer styling, studio portrait, passport photo,
+  selfie framing, isolated subject, empty background, oversized graphics, and
+  warped scoreboard text.
 - Fake sponsor marks, oversized logos, warped scoreboard text, random props
   not requested by the user, CGI crowd, cloned faces, anime, cartoon.
+
+## GPT Image 2 prompt stability
+
+If a direct photo-to-scene edit is rejected or produces a poor composition, do
+not solve it by stripping away the broadcast requirements. Switch to the
+two-pass plate workflow:
+
+1. Generate a short, positive broadcast plate prompt with `openai/gpt-image-2`.
+   Include the sport, venue, safe-area placeholder, compact scoreboard, small
+   broadcaster bug, and 4K 16:9 broadcast texture. Avoid identity language and
+   long negative lists in this pass.
+2. Edit the approved plate with `openai/gpt-image-2/edit` using image URLs in
+   this order: `[plate_url, photo_url]`.
+3. In the identity edit prompt, lock the scene and ask to adapt only the
+   placeholder spectator using the photo as a visual reference. Mention stable
+   visible cues, not exhaustive face anatomy.
+4. Run a quality gate before Kling. Retry the frame if the person is at an
+   image edge, the scoreboard omits teams, text is warped, the face looks
+   pasted, the shot feels like a portrait, or large readable apparel/sponsor
+   marks dominate the frame.
 
 ## Kling prompt requirements
 

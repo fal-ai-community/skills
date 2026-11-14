@@ -19,6 +19,7 @@ Outputs to produce before running models:
 
 ```json
 {
+  "plate_prompt": "...",
   "image_prompt": "...",
   "image_quality": "high",
   "image_size": { "width": 3840, "height": 2160 },
@@ -60,23 +61,32 @@ Do not treat the identity photo as a `start_image_url` for Kling. The image
 prompt must turn that photo into a realistic 16:9 spectator broadcast frame.
 The approved generated frame becomes the Kling `start_image_url`.
 
-Template:
+For difficult or high-fidelity shots, use a plate prompt first:
 
 ```text
-Use the uploaded photo as the identity reference for the featured spectator.
-Preserve the real face, age impression, skin tone, hair, facial hair, glasses,
-face structure, asymmetry, pores, wrinkles, blemishes, and ordinary
-imperfections. Create a horizontal 16:9 realistic live TV broadcast screenshot
-from [event]. The person is [seated/standing] naturally among [sport-specific
-crowd], [reaction or situation with concrete face, posture, hands, and eye
-direction]. Use [sport-specific venue and broadcast camera language]. Add a
-compact [score/timing] overlay if appropriate and a small top-right generic
-[sport] channel bug reading "[BUG TEXT]". Use mild broadcast compression noise,
-subtle motion blur, off-center crop, foreground occlusion, imperfect background
-faces, natural venue lighting, focus falloff, and ordinary skin texture. No AI
-beauty retouching, no face anatomy changes, no portrait orientation, no studio
-portrait, no passport photo, no influencer look, no fake sponsor marks, no
-oversized logos, no warped text, no anime, no cartoon.
+Create a horizontal 16:9 4K realistic live [sport] broadcast crowd cutaway.
+[Venue and crowd context]. Put one ordinary [gender-neutral/adult] spectator
+placeholder in the [center/center-left/center-right] safe area, full head and
+upper torso visible, same scale and softness as nearby fans, watching the
+[court/pitch/track/ring] rather than posing. Add compact lower-corner
+scoreboard text: [EXACT SCORE]. Add a small top-right [BROADCASTER] bug. Use
+long-lens TV compression, foreground occlusion, natural venue lighting, and
+imperfect background faces. No portrait framing, no oversized graphic, no
+warped scoreboard text, no large readable apparel or sponsor marks.
+```
+
+Then use an identity edit prompt:
+
+```text
+Use the first image as the locked broadcast scene. Use the second uploaded
+image as reference for the [position/wardrobe] spectator only. Adapt that
+seated spectator to match the reference through overall appearance, age range,
+hairstyle, glasses if present, facial hair if present, and clothing color. Keep
+the same seat position, body scale, long-lens softness, venue lighting, crowd
+layout, foreground occlusion, broadcaster bug, and exact scoreboard. Output one
+horizontal 16:9 4K realistic live TV crowd screenshot. Avoid portrait framing,
+edge crop, pasted cutout look, glamour retouching, oversized graphics, and
+warped scoreboard text.
 ```
 
 ## Reaction mapping
@@ -240,3 +250,7 @@ The frame should have:
 - Ordinary posture.
 - Sport-specific crowd behavior.
 - Scoreboard and channel bug small enough to feel like TV, not a poster.
+- Person fully inside the frame, not at an edge.
+- Scoreboard includes actual teams or names from the brief.
+- No large readable apparel or sponsor marks dominating the shot unless the
+  user explicitly supplied or requested them.
