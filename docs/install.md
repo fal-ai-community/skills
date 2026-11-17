@@ -74,9 +74,9 @@ It reuses guidance for the current task and preserves its returned version for
 reference reads. If guidance is unavailable, local checks remain available; an
 unsupported stage is reported instead of replaced with guessed tools or models.
 
-CLI and Claude builds retain the full library by default. To build all 36 skills
+CLI and Claude builds retain the full library by default. To build all 37 skills
 for another MCP host, add `--bundle full`. `--bundle hybrid` also works for Claude.
-Terminal-only builds require the full library. All 36 source skills, terminal
+Terminal-only builds require the full library. All 37 source skills, terminal
 plans, references and helper code stay in the community repository.
 
 Hybrid bundles include the six `SKILL.md` files, native manifests, a hash registry
