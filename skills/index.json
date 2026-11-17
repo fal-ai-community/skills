@@ -609,6 +609,17 @@
       ]
     },
     {
+      "name": "game-multiplayer",
+      "description": "Make a browser game built with fal assets online multiplayer: keep rules server-ready, keep generated assets in the page, add matchmaking and one server per match. Use when a fal game should get Find Match or online play.",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "83e0c6b88062a35ed307f7917a696b59866ba340c392314d564483a45395c3d2",
+          "bytes": 4948
+        }
+      ]
+    },
+    {
       "name": "genmedia",
       "description": "Run fal models from a terminal with the genmedia CLI. Use for model discovery, schemas, pricing, uploads, execution and request recovery. MCP hosts use fal-media instead.",
       "files": [

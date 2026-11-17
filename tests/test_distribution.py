@@ -278,7 +278,7 @@ class HybridBundles(unittest.TestCase):
 
     def test_full_library_remains_available_for_cli_and_explicit_full_builds(self):
         full_names = {p.parent.name for p in (ROOT / 'skills').glob('*/SKILL.md')}
-        self.assertEqual(len(full_names), 36)
+        self.assertEqual(len(full_names), 37)
         for profile, bundle in [('cli', None), ('codex', 'full'), ('grok', 'full')]:
             with tempfile.TemporaryDirectory() as tmp:
                 out = Path(tmp) / 'bundle'

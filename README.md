@@ -54,6 +54,7 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 | **[fal-workflow](skills/fal-workflow)** | Multi-step pipelines. Mode A authors fal.ai workflow JSON; Mode B drives genmedia CLI orchestration. |
 | **[fan-cam](skills/fan-cam)** | Personalized live sports broadcast fan-cam videos from a user photo with GPT Image 2 and Kling v3. |
 | **[fal-gamedev](skills/fal-gamedev)** | 2D pixel-art game assets: characters, sprite sheets, parallax and isometric backgrounds. |
+| **[game-multiplayer](skills/game-multiplayer)** | Make a browser game built with fal assets online multiplayer: server-ready rules, assets kept in the page, matchmaking and one server per match. |
 | **[fal-redesign](skills/fal-redesign)** | Website redesign: screenshot review, vision-driven reference image, build spec, and implementation guidance. |
 | **[fal-regenerate-3d](skills/fal-regenerate-3d)** | Interactive 3D character-selector experience with Three.js, Meshy, and Seedance. |
 | **[genmedia-workflow](skills/genmedia-workflow)** | Genmedia-oriented workflow planning, node rules, pipeline patterns, and reusable recipes. |
@@ -63,7 +64,7 @@ Compatible with [Claude.ai Projects](https://claude.ai), [Claude Code](https://c
 Use the [one-command installation guide](docs/install.md) for Codex, Claude Code
 and Cursor. Hybrid MCP packages for Codex, Cursor, supported Grok hosts and
 Gemini include the fal router, five outcome workflows and live guidance on demand.
-The complete 36-skill library remains available for project installation and full
+The complete 37-skill library remains available for project installation and full
 package builds. Claude MCP packages retain a full bundle by default.
 
 Install the published Gemini CLI extension:
